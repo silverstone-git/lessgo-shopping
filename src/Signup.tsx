@@ -12,6 +12,8 @@ function Signup() {
                 <form action="" className='flex flex-col gap-4'>
                     <label htmlFor="username-input">Enter Username</label>
                     <input type="text" />
+                    <label htmlFor="username-input">Enter E-mail</label>
+                    <input type="email" />
                     <label htmlFor="password-input">Enter Password</label>
                     <input type="password" />
                     <button className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md p-3 text-lg text-slate-100 dark:text-slate-700  '>Submit</button>

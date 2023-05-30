@@ -1,10 +1,5 @@
-import { useState } from 'react';
 import React from 'react';
 import './dist/index.css';
-
-
-
-
 
 function App() {
 
@@ -16,9 +11,13 @@ function App() {
   className="inline-block pl-[0.15rem] hover:cursor-pointer"
   htmlFor="flexSwitchCheckDefault"></label> */}
 
-    <div className='flex justify-center items-center bg-slate-100 dark:bg-slate-800
-    h-screen w-full'><div className='font-bold text-3xl text-green-600 dark:text-green-300'>
-      Hemlo WOrld
+    <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
+    h-screen w-full'>
+      <div className='font-bold text-3xl text-green-600 dark:text-green-300'>
+      Welcome to Less Go
+      </div>
+      <div className='text-md text-slate-600 dark:text-slate-200'>
+      Sign In to enjoy seamless shopping
       </div>
       </div>
     {/* <div className='flex justify-center items-center bg-slate-100 dark:bg-slate-800 h-screen w-full'><div className='font-bold text-3xl text-green-600 dark:text-green-300'>Hemlo WOrld</div></div> */}
