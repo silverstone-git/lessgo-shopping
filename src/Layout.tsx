@@ -1,9 +1,9 @@
 import {Link, Outlet} from "react-router-dom";
 import React from 'react';
-import './dist/index.css';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
+import './output_style/output.css';
 
 function Layout() {
   // On page load or when changing themes, best to add inline in `head` to avoid FOUC
