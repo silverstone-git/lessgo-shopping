@@ -9,9 +9,15 @@ type Item = {
     image: string,
 };
 
-async function getItems() {
+async function getItems(jwtToken: String) {
     var itemList: Array<Item> = [];
-    const res = await fetch(`http://localhost:8000/api/items/`);
+    const res = await fetch(`http://localhost:8000/api/items/`, {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${jwtToken}`
+        },
+    });
     const resJ = await res.json();
     const data = resJ.itemList;
 
@@ -23,12 +29,12 @@ async function getItems() {
     return itemList;
 }
 
-function ItemMaster() {
+function ItemMaster(props: any) {
     
     var initList: Array<Item> = [];
     const [listOfItems, setListOfItems] = useState(initList);
     var intervalId = setInterval(function() {
-        getItems().then((val) => {setListOfItems(val)});
+        getItems(props.jwtToken).then((val) => {setListOfItems(val)});
     }, 10000);
     const listOfComponents = listOfItems.map(el =>
         // map each object into component
@@ -44,7 +50,7 @@ function ItemMaster() {
 
 	useEffect(() => {
 	// run a command only once
-        getItems().then((val) => {setListOfItems(val)});
+        getItems(props.jwtToken).then((val) => {setListOfItems(val)});
 }, [])
     
     return (

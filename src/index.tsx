@@ -2,20 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from "./Layout";
-import Login from './Login';
-import Signup from './Signup';
-import ItemMaster from './ItemMaster';
 import App from './App';
 
 import './output_style/output.css';
+import ItemMaster from './ItemMaster';
+import Login from './Login';
+import Signup from './Signup';
+import Dashboard from './Dashboard';
+import LogOut from './Logout';
 
-
-// Whenever the user explicitly chooses to respect the OS preference
-localStorage.removeItem('theme')
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
@@ -25,6 +26,9 @@ root.render(
         <Route path="item-master" element={<ItemMaster />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="dashboard" element={<Dashboard />} />
+      </Route>
+      <Route path='/logout' element={<LogOut />}>
       </Route>
     </Routes>
     </BrowserRouter>
