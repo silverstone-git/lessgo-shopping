@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 function ItemMasterRoute(props: any) {
 	// route to the items-master page if logged in
-	console.log(`props received by item master conditional renderer are: ${props.jwtToken} and ${props.loggedIn}`)
 	if(props.loggedIn) {
 		return(
 			<li className="routeli">

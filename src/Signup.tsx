@@ -7,10 +7,24 @@ function Signup() {
     const [password, setPassword ] = useState("");
     async function createMyAccount() {
         // POST the form creds to the api for account creation
-        const res = await fetch("http://localhost:8000/api/auth/signup");
+        const res = await fetch("http://localhost:8000/api/auth/create", {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json",
+            },
+            "body": JSON.stringify({
+                "username": username,
+                "email": email,
+                "password": password,
+                "Authorization": localStorage.getItem('jwtToken'),
+            })
+        });
         const resJ = await res.json();
         if(resJ.succ) {
+            // showSnackBar(resJ.message);
             window.location.href = "http://localhost:3005/login";
+        } else {
+            // showSnackBar(resJ.fail);
         }
     }
     return (

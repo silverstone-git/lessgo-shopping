@@ -9,7 +9,7 @@ function Login() {
     const [password, setPassword] = useState("");
 
     async function logMeIn() {
-        console.log("bro login ho raha h")
+        // console.log("bro login ho raha h")
 
         // TODO: A progess bar starts here
 
@@ -24,12 +24,14 @@ function Login() {
             })
         });
         const resJ = await res.json();
-        console.log("bro login hogya h")
-        console.log(`rceived result from server after login was: ${JSON.stringify(resJ)}`)
+        // console.log("bro login hogya h")
         localStorage.setItem("jwtToken", resJ.Authorization);
         localStorage.setItem("loggedIn", 'true');
         if(resJ.succ) {
             window.location.href = "http://localhost:3005/dashboard";
+        } else {
+            // showSnackbar(resJ.message);
+            console.log("Login Failure");
         }
 
         // TODO: a progress bar ends here

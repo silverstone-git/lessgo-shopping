@@ -44,7 +44,6 @@ function Layout() {
       setLoggedIN(false);
       setJwtToken("");
       localStorage.setItem('loggedIn', 'false');
-      console.log("token was falseEEEEEEEEEEEEEEEEEEEEE so im deleting this shiz");
       localStorage.setItem('jwtToken', "");
     } else {
       // if such a token exists, update the authorization status
@@ -62,19 +61,15 @@ function Layout() {
 		{
 			method: "POST",
 			headers: {"Content-Type": "application/json"},
-			body: JSON.stringify({"Authorization": `Bearer ${jwtToken}`}),
+			body: JSON.stringify({"Authorization": `${jwtToken}`}),
 		},
 		)
 		.then((val) => val.json()).then((val) => {
-      console.log("GGGGGGGGGGGGGG lessgooo authorizatio is being checked!!");
-      console.log(`is logged in received from server is: ${val.isLoggedIn}`)
-      console.log(`document received from server after stuff is: ${val} ${JSON.stringify(val)}`)
 			setLoggedIN(val.isLoggedIn);
 		});
 	};
 
     // checkJWTFromStorage();
-    console.log("jwt right before passing to check logged in is: ", jwtToken)
     checkLoggedIn(localStorage.jwtToken);
 
 
