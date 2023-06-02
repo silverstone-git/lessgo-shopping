@@ -6,9 +6,18 @@ function Signup() {
     const [username, setUserName ] = useState("");
     const [email, setEmail ] = useState("");
     const [password, setPassword ] = useState("");
+    const [vendorReq, setVendor ] = useState("user");
     const [snackBarMessage, setSnackBarMessage] = useState("");
 
-    async function showSnackBar(message: string) {
+    function toggleVendor(vendorReq: string) {
+        if(vendorReq === "vendor") {
+            setVendor("user");
+        } else {
+            setVendor("vendor");
+        }
+    }
+
+    function showSnackBar(message: string) {
         setSnackBarMessage(message);
         setTimeout(() => {
             setSnackBarMessage("");
@@ -26,17 +35,18 @@ function Signup() {
                 "username": username,
                 "email": email,
                 "password": password,
+                "vendorReq": vendorReq,
                 "Authorization": localStorage.getItem('jwtToken'),
             })
         });
         const resJ = await res.json();
         if(resJ.succ) {
-            await showSnackBar(resJ.message);
-            window.location.href = "http://localhost:3005/login";
+            showSnackBar(resJ.message);
         } else {
             showSnackBar(resJ.fail);
         }
     }
+
     return (
         <div className='flex justify-center items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
             <div className=' mr-24 flex flex-col items-center'>
@@ -51,6 +61,8 @@ function Signup() {
                     <input onChange={(e) => setEmail(e.target.value)} id="email-input" type="email" />
                     <label htmlFor="password-input">Enter Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} id="password-input" type="password" />
+                    <label htmlFor="vendor-input">Check this if you are a seller!</label>
+                    <input onClick={(e) => toggleVendor(vendorReq)} id="vendor-input" type="checkbox" />
                     <button onClick={createMyAccount} className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700  '>
                         Submit
                     </button>
