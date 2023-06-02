@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
+import Snacc from './Snacc';
 
 
 function Signup() {
     const [username, setUserName ] = useState("");
     const [email, setEmail ] = useState("");
     const [password, setPassword ] = useState("");
+    const [snackBarMessage, setSnackBarMessage] = useState("");
+
+    async function showSnackBar(message: string) {
+        setSnackBarMessage(message);
+        setTimeout(() => {
+            setSnackBarMessage("");
+        }, 3000)
+    }
+
     async function createMyAccount() {
         // POST the form creds to the api for account creation
         const res = await fetch("http://localhost:8000/api/auth/create", {
@@ -21,10 +31,10 @@ function Signup() {
         });
         const resJ = await res.json();
         if(resJ.succ) {
-            // showSnackBar(resJ.message);
+            await showSnackBar(resJ.message);
             window.location.href = "http://localhost:3005/login";
         } else {
-            // showSnackBar(resJ.fail);
+            showSnackBar(resJ.fail);
         }
     }
     return (
@@ -34,7 +44,7 @@ function Signup() {
                 <div className='text-slate-600 dark:text-slate-200'>Keep your head strong and your password stronger</div>
             </div>
             <div>
-                <form className='flex flex-col gap-4'>
+                <div className='flex flex-col gap-4'>
                     <label htmlFor="username-input">Enter Username</label>
                     <input onChange={(e) => setUserName(e.target.value)} id="username-input" type="text" />
                     <label htmlFor="email-input">Enter E-mail</label>
@@ -44,8 +54,9 @@ function Signup() {
                     <button onClick={createMyAccount} className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700  '>
                         Submit
                     </button>
-                </form>
+                </div>
             </div>
+            <Snacc {...{"message": snackBarMessage}} />
         </div>
     )
 }
