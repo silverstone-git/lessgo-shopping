@@ -37,11 +37,14 @@ function Layout() {
 
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+	const [username, setUsername] = useState("");
+	const [isVendor, setIsVendor] = useState(false);
 
   const checkJWTFromStorage = () => {
     const token = localStorage.getItem('jwtToken');
     if(token === '' || token === null || token === undefined) {
       setLoggedIN(false);
+      setUsername("");
       setJwtToken("");
       localStorage.setItem('loggedIn', 'false');
       localStorage.setItem('jwtToken', "");
@@ -52,7 +55,14 @@ function Layout() {
     }
   };
 
-	useEffect(checkJWTFromStorage, []);
+  const fetchUser = (username: string) => {
+    // Run this if user is logged in
+    if(loggedIn) {
+      //
+      console.log(`current username after authorizing is: ${username} `);
+    }
+  }
+
 
 
   const checkLoggedIn = (jwtToken: String) => {
@@ -66,18 +76,24 @@ function Layout() {
 		)
 		.then((val) => val.json()).then((val) => {
 			setLoggedIN(val.isLoggedIn);
+      setUsername(val.username);
 		});
 	};
 
-    // checkJWTFromStorage();
-    checkLoggedIn(localStorage.jwtToken);
+  // checkJWTFromStorage();
+	useEffect(() => {
+    checkJWTFromStorage();
+    // fetchUser(username);
+  }, []);
+  checkLoggedIn(localStorage.jwtToken);
+  fetchUser(username)
 
 
-    return (
+  return (
         <>
         <nav className="routenav top-8 left-8 list-none flex flex-row gap-8 absolute text-slate-800 dark:text-slate-100">
             <AppRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
-            <ItemMasterRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
+            <ItemMasterRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, "isVendor": isVendor}} />
             <LogOutRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
         </nav>
     <div className=' absolute right-8 top-8 '>

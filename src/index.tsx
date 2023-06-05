@@ -5,11 +5,12 @@ import Layout from "./Layout";
 import App from './App';
 
 import './output_style/output.css';
-import ItemMaster from './ItemMaster';
 import Login from './Login';
 import Signup from './Signup';
 import Dashboard from './Dashboard';
 import LogOut from './Logout';
+import Items from './Items';
+import ItemMaster from './ItemMaster';
 
 
 const root = ReactDOM.createRoot(
@@ -23,6 +24,7 @@ root.render(
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<App />} />
+        <Route path="items" element={<Items />} />
         <Route path="item-master" element={<ItemMaster />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
