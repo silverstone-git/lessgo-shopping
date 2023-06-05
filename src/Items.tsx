@@ -18,6 +18,7 @@ async function getItems(jwtToken: String) {
     const data = resJ.itemList;
 
     itemList = data.map((el: Object) => {
+        console.log(el);
         return el as Item;
     });
     return itemList;
@@ -34,6 +35,40 @@ function Items(props: any) {
 
     const newItemCount: Map<string, number> = new Map();
     const [noOfItems, setNoOfItems] = useState(newItemCount);
+
+
+    const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
+	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+
+
+  const checkJWTFromStorage = () => {
+    const token = localStorage.getItem('jwtToken');
+    if(token === '' || token === null || token === undefined) {
+      setLoggedIN(false);
+      setJwtToken("");
+      localStorage.setItem('loggedIn', 'false');
+      localStorage.setItem('jwtToken', "");
+    } else {
+      // if such a token exists, update the authorization status
+      setLoggedIN(true);
+      localStorage.setItem('loggedIn', 'true');
+    }
+  };
+
+
+  const checkLoggedIn = (jwtToken: String) => {
+		// to check if logged in at every render
+		fetch("http://localhost:8000/api/auth/isLoggedIn/",
+		{
+			method: "POST",
+			headers: {"Content-Type": "application/json"},
+			body: JSON.stringify({"Authorization": `${jwtToken}`}),
+		},
+		)
+		.then((val) => val.json()).then((val: any) => {
+			setLoggedIN(val.isLoggedIn);
+		});
+	};
 
     // setInterval(function() {
     //     getItems(props.jwtToken).then((val) => {setListOfItems(val)});
@@ -54,9 +89,9 @@ function Items(props: any) {
         if(e.currentTarget.classList.contains('addButton')) {
             breh.set(thisID, thisCount ? thisCount + 1 : 1)
         } else if(e.currentTarget.classList.contains('subtractButton')) {
-            if(thisCount == 0 || thisCount == undefined) {
+            if(thisCount === 0 || thisCount === undefined) {
                 // pass
-            } else if(thisCount == 1) {
+            } else if(thisCount === 1) {
                 breh.delete(thisID);
             } else {
                 breh.set(thisID, thisCount - 1);
@@ -71,7 +106,7 @@ function Items(props: any) {
         return (
         <div id={props.thisId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col justify-center'>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Kawasaki_ZX-RR_2007TMS.jpg"></img>
+                <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Kawasaki_ZX-RR_2007TMS.jpg"></img>
                 <div className="flex justify-between h-12 items-center gap-2">
                     <div className='ml-5 py-3'>{props.itemName} {props.priceRs}</div>
                     <div className=' flex items-center'>
@@ -90,34 +125,48 @@ function Items(props: any) {
         )
     }
 
-    function Items(props: any) {
+    function ItemCards(props: any) {
         const listOfItems: Array<Item> = props.listOfItems;
         const countMap: Map<string, number> = props.noOfItems;
         return (
             <>
+        <div id='items' className='flex items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
+            <div className='mt-[20vh] flex w-full flex-wrap items-center justify-center bg-slate-100 dark:bg-slate-800'>
             {listOfItems.map(el => {
                 // map each object into component
                 const thisId = el.itemName + el.dateAdded;
                 var thisCount = countMap.get(thisId)
-                thisCount = thisCount != undefined ? thisCount : 0;
+                thisCount = thisCount !== undefined ? thisCount : 0;
                 return <ItemCard {...{"itemName": el.itemName, "priceRs": el.priceRs, "thisId": thisId, "thisCount": thisCount, "key": thisId}} />
             })}
+            </div>
+        </div>
             </>
         )
     }
 
 	useEffect(() => {
 	// run a command only once
-        getItems(props.jwtToken).then((val) => {setListOfItems(val)});
-}, [])
+        checkJWTFromStorage();
+        checkLoggedIn(jwtToken);
+
+        getItems(jwtToken).then((val) => {
+            console.log("result of get items is: ");
+            console.log(val);
+            setListOfItems(val)
+        });
+}, [jwtToken]
+)
+
     
-    return (
-        <div className='flex items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
-            <div className='mt-[20vh] flex w-full flex-wrap items-center justify-center bg-slate-100 dark:bg-slate-800'>
-                <Items {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
-            </div>
-            </div>
-    );
+    if(loggedIn) {
+        //
+        return (
+            <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
+        );
+    } else {
+        return null;
+    }
 }
 
 export default Items;

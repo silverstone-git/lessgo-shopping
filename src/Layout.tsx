@@ -1,4 +1,4 @@
-import {Link, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -37,14 +37,14 @@ function Layout() {
 
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
-	const [username, setUsername] = useState("");
-	const [isVendor, setIsVendor] = useState(false);
+  const [isVendor, setIsVendor] = useState(false);
+  // const [username, setUsername] = useState("");
+	// const [user, setUser] = useState(new User('', '', '', false));
 
   const checkJWTFromStorage = () => {
     const token = localStorage.getItem('jwtToken');
     if(token === '' || token === null || token === undefined) {
       setLoggedIN(false);
-      setUsername("");
       setJwtToken("");
       localStorage.setItem('loggedIn', 'false');
       localStorage.setItem('jwtToken', "");
@@ -54,14 +54,6 @@ function Layout() {
       localStorage.setItem('loggedIn', 'true');
     }
   };
-
-  const fetchUser = (username: string) => {
-    // Run this if user is logged in
-    if(loggedIn) {
-      //
-      console.log(`current username after authorizing is: ${username} `);
-    }
-  }
 
 
 
@@ -74,20 +66,25 @@ function Layout() {
 			body: JSON.stringify({"Authorization": `${jwtToken}`}),
 		},
 		)
-		.then((val) => val.json()).then((val) => {
+		.then((val) => val.json()).then((val: any) => {
 			setLoggedIN(val.isLoggedIn);
-      setUsername(val.username);
+      setIsVendor(val.isVendor);
+      // setUsername(val.username);
 		});
 	};
 
   // checkJWTFromStorage();
 	useEffect(() => {
     checkJWTFromStorage();
+    checkLoggedIn(localStorage.jwtToken);
     // fetchUser(username);
   }, []);
-  checkLoggedIn(localStorage.jwtToken);
-  fetchUser(username)
 
+  setInterval(function() {
+    checkLoggedIn(localStorage.jwtToken);
+  }, 10000);
+
+  console.log(`isVendor is: ${isVendor}`);
 
   return (
         <>

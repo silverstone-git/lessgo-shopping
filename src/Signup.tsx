@@ -61,8 +61,10 @@ function Signup() {
                     <input onChange={(e) => setEmail(e.target.value)} id="email-input" type="email" />
                     <label htmlFor="password-input">Enter Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} id="password-input" type="password" />
-                    <label htmlFor="vendor-input">Check this if you are a seller!</label>
-                    <input onClick={(e) => toggleVendor(vendorReq)} id="vendor-input" type="checkbox" />
+                    <div className='flex gap-4'>
+                        <label htmlFor="vendor-input">Check this if you are a seller!</label>
+                        <input className='inline' onClick={(e) => toggleVendor(vendorReq)} id="vendor-input" type="checkbox" />
+                    </div>
                     <button onClick={createMyAccount} className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700  '>
                         Submit
                     </button>
