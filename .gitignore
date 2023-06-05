@@ -27,5 +27,4 @@ message.txt
 *.swp
 *.swo
 .env
-message.txt
 tdl
