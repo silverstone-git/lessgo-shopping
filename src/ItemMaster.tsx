@@ -164,11 +164,11 @@ function ItemMaster(props: any) {
       <Snacc {...{"message": snackBarMessage}} />
     </div>
     )
-  } else if(loggedIn) {
+  } else if((typeof loggedIn === 'string' && loggedIn === 'true') || loggedIn) {
     return(
 
       <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
-      h-screen w-full'>
+      h-screen w-full text-slate-600 dark:text-slate-200'>
         <div>
           <h1>You have to create a new vendor account to complete this action :)</h1>
         </div>

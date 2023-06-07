@@ -43,8 +43,16 @@ function Dashboard() {
   useEffect(() => {
     checkJWTFromStorage();
     checkLoggedIn(jwtToken);
+    // setTimeout(() => {
+    //   console.log("checking logged in after the delay...")
+    //   checkLoggedIn(jwtToken);
+    // }, 3000);
 
   }, [jwtToken])
+
+  console.log("logged in and typeof in this render is: ");
+  console.log(loggedIn);
+  console.log(typeof loggedIn);
 
   if(isVendor) {
     // rendering the vendor dashboard if the user is a vendor
@@ -67,7 +75,7 @@ function Dashboard() {
     </div>
     )
   }
-  else if(loggedIn) {
+  else if((typeof loggedIn === 'string' && loggedIn === 'true') || loggedIn) {
 
     return(
     <div id='dashboard'>

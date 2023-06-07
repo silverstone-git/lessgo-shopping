@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import './output_style/output.css';
 
 function App() {
 
+  const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+  useEffect(
+    () => {
+      if(loggedIn === 'true') {
+        window.location.href = "http://localhost:3005/dashboard/"
+      }
+    }
+  )
 
   return (
     <div id='app'>

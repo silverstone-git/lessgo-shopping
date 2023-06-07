@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Snacc from './Snacc';
 
 
@@ -8,6 +8,8 @@ function Signup() {
     const [password, setPassword ] = useState("");
     const [vendorReq, setVendor ] = useState("user");
     const [snackBarMessage, setSnackBarMessage] = useState("");
+
+    const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
 
     function toggleVendor(vendorReq: string) {
         if(vendorReq === "vendor") {
@@ -23,6 +25,12 @@ function Signup() {
             setSnackBarMessage("");
         }, 3000)
     }
+
+    useEffect(() => {
+        if(loggedIn === "true") {
+            window.location.href = "http://localhost:3005/dashboard/"
+        }
+    })
 
     async function createMyAccount() {
         // POST the form creds to the api for account creation

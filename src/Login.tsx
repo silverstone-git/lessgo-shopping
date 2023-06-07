@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Snacc from './Snacc';
 
 
@@ -8,6 +8,13 @@ function Login() {
     const [password, setPassword] = useState("");
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [submitButtonDark, setSubmitButtonDark] = useState(0);
+    const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+
+    useEffect(() => {
+        if(loggedIn === "true") {
+            window.location.href = "http://localhost:3005/dashboard"
+        }
+    })
 
     function showSnackBar(message: string) {
         setSnackBarMessage(message)
