@@ -12,8 +12,10 @@ async function getItems(jwtToken: String) {
         "method": "POST",
         "headers": {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${jwtToken}`
         },
+        "body": JSON.stringify({
+            "Authorization": jwtToken,
+        })
     });
     const resJ = await res.json();
     const data = resJ.itemList;

@@ -17,7 +17,7 @@ export class User {
 
     public static fromMap(map: any) {
         // returns a user instance
-        return new User(map.username, map.email, map.password, map.lastLogin, map.joinedDt, map.isVendor);
+        return new User(map.username, map.email, map.password, map.is_vendor === 1 ? true : false, map.last_login, map.joined_dt);
     }
 }
 
@@ -69,7 +69,7 @@ export class Item {
 
     public static fromMap(map: any) {
         // returns an item instance from map
-        return new Item(map.itemName, map.description, map.category, map.inStock, map.priceRs, map.dateAdded, map.image, map.video);
+        return new Item(map.item_name, map.description, map.category, map.in_stock == 1 ? true : false, map.price_rs, map.date_added, map.image, map.video);
     }
 
 
