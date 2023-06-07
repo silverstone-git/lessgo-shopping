@@ -28,6 +28,7 @@ export enum Category {
     veh = "Vehicles",
     mat = "Material Components",
     fmcg = "FMCG Products",
+    other = "Other",
 }
 
 
@@ -51,4 +52,19 @@ export class Item {
         this.image = image;
         this.video = video;
     }
+
+    public static toMap(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: Blob, video: Blob) {
+        // returns a user instance
+        return {
+        "itemName" : itemName,
+        "description" : description,
+        "category" : category,
+        "inStock" : inStock,
+        "priceRs" : priceRs,
+        "dateAdded" : dateAdded,
+        "image" : image,
+        "video" : video,
+        }
+    }
+
 }
