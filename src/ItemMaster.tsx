@@ -3,7 +3,7 @@ import { Category, Item } from "./models/models";
 
 
 function ItemMaster(props: any) {
-    const [item, setItem] = useState( Item.toMap('', '', Category.elec, true, 0, new Date(), new Blob(), new Blob()));
+    const [item, setItem] = useState( Item.toMap('', '', Category.other, true, 0, new Date(), new Blob(), new Blob()));
 
 
   function CategoryOptions() {
@@ -12,16 +12,13 @@ function ItemMaster(props: any) {
     let optionsList: Array<React.JSX.Element> = [];
 
     for(category in categories) {
-      // console.log("current category and its categories[category] are: ")
-      // console.log(category);
-      // console.log(categories[category]);
-      optionsList.push(<option value={category}>{categories[category]}</option>)
+      optionsList.push(<option value={categories[category]}>{categories[category]}</option>)
     }
 
     function categoryStringToCategory(catString: string) {
       
       for(category in categories) {
-        if(catString === category) {
+        if(catString === categories[category]) {
           return categories[category];
         }
       }
@@ -32,8 +29,6 @@ function ItemMaster(props: any) {
     return (
       <select onChange={(e) => {
         setItem({ ...item, "category": categoryStringToCategory(e.target.value) });
-        console.log("value of select is: ");
-        console.log(e.target.value);
         }}
         value={item.category}
          name="itemCategory" id="itemCategorySelection" className="item-master-input p-3 rounded">
