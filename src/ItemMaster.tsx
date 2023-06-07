@@ -1,13 +1,66 @@
+import { Category } from "./models/models";
+
+function CategoryOptions() {
+  let categories = Category;
+  let category: keyof typeof categories;
+  let optionsList: Array<React.JSX.Element> = [];
+  console.log("categories enum is:");
+  console.log(categories);
+  for(category in categories) {
+    // console.log("current category and its categories[category] are: ")
+    // console.log(category);
+    // console.log(categories[category]);
+    optionsList.push(<option value={category}>{categories[category]}</option>)
+  }
+
+  return (
+    <select name="itemCategory" id="itemCategorySelection" className="item-master-input">
+      {optionsList}
+    </select>
+  )
+}
+
+
 function ItemMaster(props: any) {
     return(
     <div id='item-master'>
-    {/* <input type='checkbox' role='switch' className=' absolute right-8 top-8 mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-neutral-300 before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-100 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]' /> */}
-{/* <label
-  className="inline-block pl-[0.15rem] hover:cursor-pointer"
-  htmlFor="flexSwitchCheckDefault"></label> */}
 
-    <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
-    h-screen w-full'>
+      <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
+      h-screen w-full'>
+        <div className="flex-col text-slate-800 dark:text-slate-300 h-[70vh] w-full">
+          <div className="w-full flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800">
+              <div className=" text-lg text-green-600 dark:text-green-300">
+                Add your Item to list on Lessgo
+              </div>
+              <div className=" flex flex-col gap-8 mt-6 w-1/2">
+                <div>
+                  <label htmlFor="itemName">Enter Item Name to be displayed</label>
+                  <input name="itemName" type="text" className="w-full item-master-input" maxLength={100} minLength={3} />
+                </div>
+                <div className="">
+                  <label htmlFor="itemDesc">Describe the item in short</label>
+                  <textarea name="itemDesc" id="description" className="w-full h-24 item-master-input" maxLength={3000} minLength={10}></textarea>
+                </div>
+                <div>
+                  <label htmlFor="itemPrice">Price (INR)</label>
+                  <input name="itemPrice" type="number" className="w-full item-master-input" max={1000000000} min={0.1} step="any" />
+                </div>
+                <div className=" flex">
+                  <label htmlFor="itemCategory" className="mr-12">Category</label>
+                  <CategoryOptions />
+                </div>
+                <div>
+                  <label htmlFor="itemImage">Display Image of the product</label>
+                  <input name="itemImage" type="file" className=" w-full item-master-input" />
+                </div>
+                <div>
+                  <label htmlFor="itemVideo">Video demonstrating the product</label>
+                  <input name="itemVideo" type="file" className="w-full item-master-input" />
+                </div>
+                <button className="bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700 mb-12 ">Submit</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     )

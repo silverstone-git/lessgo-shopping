@@ -7,3 +7,13 @@ input:not(.dont-pad-this-input) {
     padding: 4px;
     background-color: rgba(0, 0, 0, 0.144);
 }
+
+:is(.dark .item-master-input) {
+    --tw-bg-opacity: 1;
+    background-color: rgba(255, 255, 255, 0.11);
+    color: whitesmoke;
+}
+
+.item-master-input {
+    background-color: rgba(0, 0, 0, 0.247);
+}
