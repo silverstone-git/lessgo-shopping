@@ -75,7 +75,7 @@ function Dashboard() {
     </div>
     )
   }
-  else if((typeof loggedIn === 'string' && loggedIn === 'true') || loggedIn) {
+  else if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {
 
     return(
     <div id='dashboard'>

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function AppRoute(props: any) {
-    if((typeof props.loggedIn === 'string' && props.loggedIn === 'true') || props.loggedIn) {
+    if((typeof props.loggedIn === 'string' && props.loggedIn === 'true') || (typeof props.loggedIn === 'boolean' && props.loggedIn)) {
         return(
                 <li className="routeli">
                     <Link to="/dashboard">Dashboard</Link>

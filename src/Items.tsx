@@ -159,7 +159,7 @@ function Items(props: any) {
     }, [jwtToken]);
 
     
-    if((typeof loggedIn === 'string' && loggedIn === 'true') || loggedIn) {
+    if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {
         //
         return (
             <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />

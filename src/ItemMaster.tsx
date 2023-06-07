@@ -164,7 +164,7 @@ function ItemMaster(props: any) {
       <Snacc {...{"message": snackBarMessage}} />
     </div>
     )
-  } else if((typeof loggedIn === 'string' && loggedIn === 'true') || loggedIn) {
+  } else if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {
     return(
 
       <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800

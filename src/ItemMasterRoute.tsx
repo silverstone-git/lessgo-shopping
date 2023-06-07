@@ -13,7 +13,7 @@ function ItemMasterRoute(props: any) {
                 <Link to="/item-master">Add Item</Link>
             </li>
 		);
-	} else if((typeof props.loggedIn === 'string' && props.loggedIn === 'true') || props.loggedIn) {
+	} else if((typeof props.loggedIn === 'string' && props.loggedIn === 'true') || (typeof props.loggedIn === 'boolean' && props.loggedIn)) {
 		return(
 			<li className="routeli">
                 <Link to="/items">Items</Link>
