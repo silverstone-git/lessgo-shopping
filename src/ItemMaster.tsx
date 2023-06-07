@@ -62,6 +62,7 @@ function ItemMaster(props: any) {
   }
 
   function addItem(item: Object) {
+    clearAllFields();
     fetch("http://localhost:8000/api/items/add-item/", {
       headers: {
         "Content-Type": "application/json"
@@ -86,7 +87,7 @@ function ItemMaster(props: any) {
     let category: keyof typeof categories;
     let optionsList: Array<React.JSX.Element> = [];
     for(category in categories) {
-      optionsList.push(<option value={categories[category]}>{categories[category]}</option>)
+      optionsList.push(<option key={category} value={categories[category]}>{categories[category]}</option>)
     }
     function categoryStringToCategory(catString: string) {
       
@@ -102,7 +103,9 @@ function ItemMaster(props: any) {
         setItem({ ...item, "category": categoryStringToCategory(e.target.value) });
         }}
         value={item.category}
-         name="itemCategory" id="itemCategorySelection" className="item-master-input p-3 rounded">
+        name="itemCategory" id="itemCategorySelection" className="item-master-input p-3 rounded"
+        required
+         >
         {optionsList}
       </select>
     )
@@ -122,18 +125,22 @@ function ItemMaster(props: any) {
               <div className=" text-lg text-green-600 dark:text-green-300">
                 Add your Item to list on Lessgo
               </div>
+                <form className=" flex justify-center w-full" action="" method="POST" onSubmit={(e) => {
+                  e.preventDefault();
+                  addItem(item);
+                }}>
               <div className=" flex flex-col gap-8 mt-6 w-1/2">
                 <div>
                   <label htmlFor="itemName">Enter Item Name to be displayed</label>
-                  <input onChange={(e) => {setItem({ ...item, "itemName": e.target.value })}} name="itemName" type="text" className="w-full item-master-input" maxLength={100} minLength={3} />
+                  <input onChange={(e) => {setItem({ ...item, "itemName": e.target.value })}} name="itemName" type="text" className="w-full item-master-input" maxLength={100} minLength={3} required />
                 </div>
                 <div className="">
                   <label htmlFor="itemDesc">Describe the item in short</label>
-                  <textarea onChange={(e) => {setItem({ ...item, "description": e.target.value })}} name="itemDesc" id="description" className="w-full h-24 item-master-input" maxLength={3000} minLength={10}></textarea>
+                  <textarea onChange={(e) => {setItem({ ...item, "description": e.target.value })}} name="itemDesc" id="description" className="w-full h-24 item-master-input" maxLength={3000} minLength={10} required></textarea>
                 </div>
                 <div>
                   <label htmlFor="itemPrice">Price (INR)</label>
-                  <input onChange={(e) => {setItem({ ...item, "priceRs": Number(e.target.value) })}} name="itemPrice" type="number" className="w-full item-master-input" max={1000000000} min={0.1} step="any" />
+                  <input onChange={(e) => {setItem({ ...item, "priceRs": Number(e.target.value) })}} name="itemPrice" type="number" className="w-full item-master-input" max={1000000000} min={0.1} step="any" required />
                 </div>
                 <div className=" flex">
                   <label htmlFor="itemCategory" className="mr-12">Category</label>
@@ -141,17 +148,15 @@ function ItemMaster(props: any) {
                 </div>
                 <div>
                   <label htmlFor="itemImage">Display Image of the product</label>
-                  <input onChange={(e) => {setItem({ ...item, "image": new Blob([`${e.target.value}`]) })}} name="itemImage" type="file" className=" w-full item-master-input" />
+                  <input onChange={(e) => {setItem({ ...item, "image": new Blob([`${e.target.value}`]) })}} name="itemImage" type="file" className=" w-full item-master-input" required />
                 </div>
                 <div>
                   <label htmlFor="itemVideo">Video demonstrating the product</label>
-                  <input onChange={(e) => {setItem({ ...item, "video": new Blob([`${e.target.value}`]) })}} name="itemVideo" type="file" className="w-full item-master-input" />
+                  <input onChange={(e) => {setItem({ ...item, "video": new Blob([`${e.target.value}`]) })}} name="itemVideo" type="file" className="w-full item-master-input" required />
                 </div>
-                <button onClick={() => {
-                  addItem(item);
-                  clearAllFields();
-                }} className="bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700 mb-12 ">Submit</button>
+                <button className="bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700 mb-12 ">Submit</button>
             </div>
+                </form>
           </div>
         </div>
       </div>
