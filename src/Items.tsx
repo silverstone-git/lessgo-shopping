@@ -3,11 +3,12 @@ import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { Item } from './models/models';
+import Forbidden from './Forbidden';
 
 
 async function getItems(jwtToken: String) {
     var itemList: Array<Item> = [];
-    const res = await fetch(`http://localhost:8000/api/items/`, {
+    const res = await fetch(`http://localhost:8000/api/items/get-items/`, {
         "method": "POST",
         "headers": {
             "Content-Type": "application/json",
@@ -155,8 +156,7 @@ function Items(props: any) {
             console.log(val);
             setListOfItems(val)
         });
-}, [jwtToken]
-)
+    }, [jwtToken]);
 
     
     if(loggedIn) {
@@ -165,7 +165,7 @@ function Items(props: any) {
             <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
         );
     } else {
-        return null;
+        return <Forbidden />;
     }
 }
 

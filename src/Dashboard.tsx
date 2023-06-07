@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Forbidden from "./Forbidden";
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
@@ -83,7 +84,7 @@ function Dashboard() {
     </div>
     )
   } else {
-    return null
+    return < Forbidden />
   }
 }
 

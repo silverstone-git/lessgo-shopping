@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
 import { Category, Item } from "./models/models";
+import Forbidden from "./Forbidden";
+import Snacc from "./Snacc";
 
 
 function ItemMaster(props: any) {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+  const [snackBarMessage, setSnackBarMessage] = useState("");
 	const [isVendor, setIsVendor] = useState(false);
   const [item, setItem] = useState( Item.toMap('', '', Category.other, true, 0, new Date(), new Blob(), new Blob()));
+
+
+  function showSnackBar(message: string) {
+      setSnackBarMessage(message);
+      setTimeout(() => {
+          setSnackBarMessage("");
+      }, 3000)
+  }
+
 
 
   const checkJWTFromStorage = () => {
@@ -50,7 +62,7 @@ function ItemMaster(props: any) {
   }
 
   function addItem(item: Object) {
-    fetch("http://localhost:8000/api/items/add/", {
+    fetch("http://localhost:8000/api/items/add-item/", {
       headers: {
         "Content-Type": "application/json"
       },
@@ -59,6 +71,12 @@ function ItemMaster(props: any) {
         "Authorization": jwtToken,
         "item": item
       })
+    }).then((val) => val.json()).then((val: any) => {
+      if(val.succ) {
+        showSnackBar("Your Item has been added!");
+      } else {
+        showSnackBar(val.message)
+      }
     })
   }
 
@@ -137,14 +155,22 @@ function ItemMaster(props: any) {
           </div>
         </div>
       </div>
+
+      <Snacc {...{"message": snackBarMessage}} />
     </div>
     )
   } else if(loggedIn) {
-    return <div>
-      <h1>You have to create a new vendor account to complete this action :)</h1>
-    </div>
+    return(
+
+      <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
+      h-screen w-full'>
+        <div>
+          <h1>You have to create a new vendor account to complete this action :)</h1>
+        </div>
+      </div>
+    )
   } else {
-    return null
+    return <Forbidden />
   }
 }
 export default ItemMaster;
