@@ -86,10 +86,6 @@ function Layout() {
     // fetchUser(username);
   }, []);
 
-  setInterval(function() {
-    checkLoggedIn(localStorage.jwtToken);
-  }, 10000);
-
 
   return (
         <>

@@ -4,6 +4,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { Item } from './models/models';
 import Forbidden from './Forbidden';
+import ShoppingCart from './shoppingCart';
 
 
 async function getItems(jwtToken: String) {
@@ -146,17 +147,18 @@ function Items(props: any) {
         const countMap: Map<string, number> = props.noOfItems;
         return (
             <>
-        <div id='items' className='flex items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
-            <div className='mt-[20vh] flex w-full flex-wrap items-center justify-center bg-slate-100 dark:bg-slate-800'>
-            {listOfItems.map(el => {
-                // map each object into component
-                const thisId = el.itemName + el.dateAdded;
-                var thisCount = countMap.get(thisId)
-                thisCount = thisCount !== undefined ? thisCount : 0;
-                return <ItemCard {...{...Item.toMap(el), "thisId": thisId, "thisCount": thisCount, "key": thisId}} />
-            })}
+            <div id='items' className='flex items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
+                <div className='mt-[20vh] flex w-full flex-wrap items-center justify-center bg-slate-100 dark:bg-slate-800'>
+                {listOfItems.map(el => {
+                    // map each object into component
+                    const thisId = el.itemName + el.dateAdded;
+                    var thisCount = countMap.get(thisId)
+                    thisCount = thisCount !== undefined ? thisCount : 0;
+                    return <ItemCard {...{...Item.toMap(el), "thisId": thisId, "thisCount": thisCount, "key": thisId}} />
+                })}
+                </div>
+                <ShoppingCart {...{"cart": noOfItems}} />
             </div>
-        </div>
             </>
         )
     }
@@ -180,7 +182,7 @@ function Items(props: any) {
             <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
         );
     } else {
-        return <Forbidden />;
+        return(<Forbidden />);
     }
 }
 

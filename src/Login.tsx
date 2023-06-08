@@ -59,10 +59,11 @@ function Login() {
         });
         const resJ = await res.json();
         // console.log("bro login hogya h")
-        localStorage.setItem("jwtToken", resJ.Authorization);
-        localStorage.setItem("loggedIn", 'true');
 
         if(resJ.succ) {
+
+            localStorage.setItem("jwtToken", resJ.Authorization);
+            localStorage.setItem("loggedIn", 'true');
 
             let goTo: string | undefined;
             if(window.location.href.search('localhost') === -1) {
@@ -110,9 +111,9 @@ function Login() {
             </div>
             <div>
                 <div className='flex flex-col gap-4'>
-                    <label htmlFor="username-input">Enter Username</label>
+                    <label htmlFor="username-input">Username</label>
                     <input onChange={(e) => setUserName(e.target.value)} type="text" />
-                    <label htmlFor="password-input">Enter Password</label>
+                    <label htmlFor="password-input">Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} type="password" />
                     <SubmitButton {...{"isDark": submitButtonDark}} />
                 </div>

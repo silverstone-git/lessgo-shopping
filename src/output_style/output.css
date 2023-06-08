@@ -595,6 +595,14 @@ video {
   top: 2rem;
 }
 
+.bottom-\[2vh\] {
+  bottom: 2vh;
+}
+
+.right-\[2vw\] {
+  right: 2vw;
+}
+
 .mb-12 {
   margin-bottom: 3rem;
 }
@@ -711,6 +719,14 @@ video {
   width: 100%;
 }
 
+.w-24 {
+  width: 6rem;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
 .list-none {
   list-style-type: none;
 }
@@ -770,6 +786,10 @@ video {
 
 .rounded-md {
   border-radius: 0.375rem;
+}
+
+.rounded-full {
+  border-radius: 9999px;
 }
 
 .rounded-l {
