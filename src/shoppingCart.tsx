@@ -14,20 +14,18 @@ export default function ShoppingCart(props: any) {
         }, 3000)
     }
 
-    async function placeOrder(auth: string, cart: any) {
+    async function addToCart(auth: string, cart: any) {
         //send a place order post request to backend
 
         // show loading icon
 
-        console.log("received cart is: ");
-        console.log(cart);
         let fetchLocation: string | undefined;
         if(window.location.href.search("localhost") === -1) {
             fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
         } else {
             fetchLocation = process.env.REACT_APP_CUR_SERVER;
         }
-        const res = await fetch(`${fetchLocation}:8000/api/items/place-order/`, {
+        const res = await fetch(`${fetchLocation}:8000/api/items/add-to-cart/`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
@@ -37,7 +35,7 @@ export default function ShoppingCart(props: any) {
         })
         const resJ = await res.json();
         if(resJ.succ) {
-            showSnackBar("Order has been placed successfully");
+            showSnackBar("Item(s) added to cart successfully");
             // proceed to clear the cart state in parent
         } else {
             showSnackBar(resJ.message);
@@ -50,7 +48,7 @@ export default function ShoppingCart(props: any) {
         return(
             <div onClick={async (e) => {
                 // send no Of Items to order function
-                await placeOrder(props.auth, props.cart);
+                await addToCart(props.auth, props.cart);
             }} className=' absolute flex justify-center items-center bottom-[2vh] right-[2vw] rounded-full h-12 w-12 bg-green-500'>
                 <FontAwesomeIcon icon={icon({name: 'cart-shopping', style: 'solid'})} />
             <Snacc {...{"message": snackBarMessage}} />

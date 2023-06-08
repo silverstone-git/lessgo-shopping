@@ -67,7 +67,11 @@ function ItemMaster(props: any) {
     // pass till you figure out refs
   }
 
-  function addItem(item: Object) {
+  async function addItem(item: any) {
+    item.image = await item.image.text();
+    item.video = await item.video.text();
+    console.log("sending image: ");
+    console.log(item.image);
     let fetchLocation: string | undefined;
     if(window.location.href.search('localhost') === -1) {
       fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
@@ -75,7 +79,7 @@ function ItemMaster(props: any) {
       fetchLocation = process.env.REACT_APP_CUR_SERVER;
     }
     clearAllFields();
-    fetch(`${fetchLocation}:8000/api/items/add-item/`, {
+    const res = await fetch(`${fetchLocation}:8000/api/items/add-item/`, {
       headers: {
         "Content-Type": "application/json"
       },
@@ -84,13 +88,19 @@ function ItemMaster(props: any) {
         "Authorization": jwtToken,
         "item": item
       })
-    }).then((val) => val.json()).then((val: any) => {
-      if(val.succ) {
-        showSnackBar("Your Item has been added!");
-      } else {
-        showSnackBar(val.message)
-      }
-    })
+    });
+    const resJ = await res.json();
+
+    if(resJ.succ) {
+      showSnackBar("Your Item has been added!");
+    } else {
+      showSnackBar(resJ.message)
+    }
+
+
+
+
+
   }
 
 
@@ -134,9 +144,9 @@ function ItemMaster(props: any) {
               <div className=" text-lg text-green-600 dark:text-green-300">
                 Add your Item to list on Lessgo
               </div>
-                <form className=" flex justify-center w-full" action="" method="POST" onSubmit={(e) => {
+                <form className=" flex justify-center w-full" action="" method="POST" onSubmit={async (e) => {
                   e.preventDefault();
-                  addItem(item);
+                  await addItem(item);
                 }}>
               <div className=" flex flex-col gap-8 mt-6 w-1/2">
                 <div>
@@ -157,11 +167,11 @@ function ItemMaster(props: any) {
                 </div>
                 <div>
                   <label htmlFor="itemImage">Display Image of the product</label>
-                  <input onChange={(e) => {setItem({ ...item, "image": new Blob([`${e.target.value}`]) })}} name="itemImage" type="file" className=" w-full item-master-input" required />
+                  <input onChange={(e) => {setItem({ ...item, "image": new Blob([e.target.files != null ? e.target.files[0] : ''], {type: 'image/*'})})}} name="itemImage" type="file" className=" w-full item-master-input" required />
                 </div>
                 <div>
                   <label htmlFor="itemVideo">Video demonstrating the product</label>
-                  <input onChange={(e) => {setItem({ ...item, "video": new Blob([`${e.target.value}`]) })}} name="itemVideo" type="file" className="w-full item-master-input" required />
+                  <input onChange={(e) => {setItem({ ...item, "video": new Blob([e.target.files != null ? e.target.files[0] : ''], {type: 'video/*'})})}} name="itemVideo" type="file" className="w-full item-master-input" required />
                 </div>
                 <button className="bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700 mb-12 ">Submit</button>
             </div>

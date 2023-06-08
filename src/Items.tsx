@@ -2,13 +2,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Item } from './models/models';
 import Forbidden from './Forbidden';
 import ShoppingCart from './shoppingCart';
 
 
 async function getItems(jwtToken: String) {
-    var itemList: Array<Item> = [];
     let fetchLocation: string | undefined;
     if(window.location.href.search('localhost') === -1) {
       fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
@@ -81,10 +79,6 @@ function Items(props: any) {
     });
 };
 
-    // setInterval(function() {
-    //     getItems(props.jwtToken).then((val) => {setListOfItems(val)});
-    // }, 10000);
-
 
     function changeCount(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
         // JSON.parse(JSON.stringify(myObj));
@@ -112,10 +106,28 @@ function Items(props: any) {
     }
 
     function ItemCard(props: any) {
+        console.log("buffer image of this item is: ");
+        console.log(props.image);
+        function _arrayBufferToBase64( buffer: any ) {
+            var binary = '';
+            var bytes = new Uint8Array( buffer );
+            var len = bytes.byteLength;
+            for (var i = 0; i < len; i++) {
+                binary += String.fromCharCode( bytes[ i ] );
+            }
+            return window.btoa( binary );
+        }
+        const base644 = _arrayBufferToBase64(props.image);
+        console.log("image 64 is: ");
+        console.log(base644);
+        const myblob = new Blob([props.image], {type: "image/png"});
+        console.log("blob is: ");
+        console.log(myblob)
+        const myUrl = window.URL.createObjectURL(myblob);
         return (
         <div id={props.item_id} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col justify-center'>
-                <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Kawasaki_ZX-RR_2007TMS.jpg"></img>
+                <img alt="" src={myUrl}></img>
                 <div className="flex flex-col justify-between h-28 items-center gap-2">
                     <div className='ml-5 mt-2'>{`${props.item_name}, ₹${props.price_rs}`}</div>
                     <div className='ml-5'>{`${props.description.substring(0, 20)}...`}</div>
