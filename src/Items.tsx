@@ -25,13 +25,8 @@ async function getItems(jwtToken: String) {
         })
     });
     const resJ = await res.json();
-    const data = resJ.itemList;
 
-    itemList = data.map((el: Object) => {
-        console.log(el);
-        return el as Item;
-    });
-    return itemList;
+    return JSON.parse(resJ.itemList);
 }
 
 
@@ -39,7 +34,7 @@ async function getItems(jwtToken: String) {
 
 function Items(props: any) {
     
-    const initList: Array<Item> = [];
+    const initList: Array<any> = [];
     const [listOfItems, setListOfItems] = useState(initList);
 
 
@@ -113,25 +108,23 @@ function Items(props: any) {
                 breh.set(thisID, thisCount - 1);
             }
         }
-        // console.log(`new map is :`);
-        // console.log(breh.entries());
         setNoOfItems(breh);
     }
 
     function ItemCard(props: any) {
         return (
-        <div id={props.thisId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
+        <div id={props.item_id} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col justify-center'>
                 <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Kawasaki_ZX-RR_2007TMS.jpg"></img>
                 <div className="flex flex-col justify-between h-28 items-center gap-2">
-                    <div className='ml-5 mt-2'>{`${props.itemName}, ₹${props.priceRs}`}</div>
+                    <div className='ml-5 mt-2'>{`${props.item_name}, ₹${props.price_rs}`}</div>
                     <div className='ml-5'>{`${props.description.substring(0, 20)}...`}</div>
                     <div className=' flex items-center mb-4'>
-                        <button className='subtractButton bg-red-500 rounded-l px-2' value={props.thisId} onClick={(e) => changeCount(e)}>
+                        <button className='subtractButton bg-red-500 rounded-l px-2' value={props.item_id} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'minus', style: 'solid'})} />
                         </button>
                         <div className='px-2'>{props.thisCount}</div>
-                        <button className='addButton bg-green-500 rounded-r px-2' value={props.thisId} onClick={(e) => changeCount(e)}>
+                        <button className='addButton bg-green-500 rounded-r px-2' value={props.item_id} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'plus', style: 'solid'})} />
                         </button>
 
@@ -143,7 +136,7 @@ function Items(props: any) {
     }
 
     function ItemCards(props: any) {
-        const listOfItems: Array<Item> = props.listOfItems;
+        const listOfItems: Array<any> = props.listOfItems;
         const countMap: Map<string, number> = props.noOfItems;
         return (
             <>
@@ -151,10 +144,9 @@ function Items(props: any) {
                 <div className='mt-[20vh] flex w-full flex-wrap items-center justify-center bg-slate-100 dark:bg-slate-800'>
                 {listOfItems.map(el => {
                     // map each object into component
-                    const thisId = el.itemName + el.dateAdded;
-                    var thisCount = countMap.get(thisId)
+                    var thisCount = countMap.get(el.item_id.toString())
                     thisCount = thisCount !== undefined ? thisCount : 0;
-                    return <ItemCard {...{...Item.toMap(el), "thisId": thisId, "thisCount": thisCount, "key": thisId}} />
+                    return <ItemCard {...{...el, "thisCount": thisCount, "key": el.item_id}} />
                 })}
                 </div>
                 <ShoppingCart {...{"cart": noOfItems, "auth": jwtToken}} />
