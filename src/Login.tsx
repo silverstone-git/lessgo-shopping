@@ -12,7 +12,14 @@ function Login() {
 
     useEffect(() => {
         if(loggedIn === "true") {
-            window.location.href = "http://localhost:3005/dashboard"
+
+            let goTo: string | undefined;
+            if(window.location.href.search('localhost') === -1) {
+            goTo = process.env.REACT_APP_LOCAL_SERVER;
+            } else {
+            goTo = process.env.REACT_APP_CUR_SERVER;
+            }
+            window.location.href = `${goTo}:3005/dashboard`;
         }
     })
 
@@ -34,7 +41,13 @@ function Login() {
         // setUserName("");
         // setPassword("");
 
-        const res = await fetch("http://localhost:8000/api/auth/login/", {
+        let fetchLocation: string | undefined;
+        if(window.location.href.search('localhost') === -1) {
+        fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
+        } else {
+        fetchLocation = process.env.REACT_APP_CUR_SERVER;
+        }
+        const res = await fetch(`${fetchLocation}:8000/api/auth/login/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -48,8 +61,16 @@ function Login() {
         // console.log("bro login hogya h")
         localStorage.setItem("jwtToken", resJ.Authorization);
         localStorage.setItem("loggedIn", 'true');
+
         if(resJ.succ) {
-            window.location.href = "http://localhost:3005/dashboard";
+
+            let goTo: string | undefined;
+            if(window.location.href.search('localhost') === -1) {
+            goTo = process.env.REACT_APP_LOCAL_SERVER;
+            } else {
+            goTo = process.env.REACT_APP_CUR_SERVER;
+            }
+            window.location.href = `${goTo}:3005/dashboard`;
         } else {
             showSnackBar(resJ.message);
             console.log("Login Failure");

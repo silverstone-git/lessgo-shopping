@@ -25,7 +25,13 @@ function Dashboard() {
 
   const checkLoggedIn = (jwtToken: String) => {
 		// to check if logged in at every render
-		fetch("http://localhost:8000/api/auth/isLoggedIn/",
+    let fetchLocation: string | undefined;
+    if(window.location.href.search('localhost') === -1) {
+      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
+    } else {
+      fetchLocation = process.env.REACT_APP_CUR_SERVER;
+    }
+		fetch(`${fetchLocation}:8000/api/auth/isLoggedIn/`,
 		{
 			method: "POST",
 			headers: {"Content-Type": "application/json"},
@@ -50,9 +56,6 @@ function Dashboard() {
 
   }, [jwtToken])
 
-  console.log("logged in and typeof in this render is: ");
-  console.log(loggedIn);
-  console.log(typeof loggedIn);
 
   if(isVendor) {
     // rendering the vendor dashboard if the user is a vendor

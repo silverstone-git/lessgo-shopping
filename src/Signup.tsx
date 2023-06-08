@@ -28,13 +28,26 @@ function Signup() {
 
     useEffect(() => {
         if(loggedIn === "true") {
-            window.location.href = "http://localhost:3005/dashboard/"
+            let goTo: string | undefined;
+            if(window.location.href.search('localhost') === -1) {
+                goTo = process.env.REACT_APP_LOCAL_SERVER;
+            } else {
+                goTo = process.env.REACT_APP_CUR_SERVER;
+            }
+            window.location.href = `${goTo}:3005/dashboard/`
         }
     })
 
     async function createMyAccount() {
         // POST the form creds to the api for account creation
-        const res = await fetch("http://localhost:8000/api/auth/create", {
+
+        let fetchLocation: string | undefined;
+        if(window.location.href.search('localhost') === -1) {
+        fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
+        } else {
+        fetchLocation = process.env.REACT_APP_CUR_SERVER;
+        }
+        const res = await fetch(`${fetchLocation}:8000/api/auth/create`, {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json",

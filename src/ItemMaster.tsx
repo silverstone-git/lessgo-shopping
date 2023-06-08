@@ -9,7 +9,7 @@ function ItemMaster(props: any) {
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
   const [snackBarMessage, setSnackBarMessage] = useState("");
 	const [isVendor, setIsVendor] = useState(false);
-  const [item, setItem] = useState( Item.toMap('', '', Category.other, true, 0, new Date(), new Blob(), new Blob()));
+  const [item, setItem] = useState( Item.toMap(new Item('', '', Category.other, true, 0, new Date(), new Blob(), new Blob())));
 
 
   function showSnackBar(message: string) {
@@ -38,7 +38,13 @@ function ItemMaster(props: any) {
 
   const checkLoggedIn = (jwtToken: String) => {
 		// to check if logged in at every render
-		fetch("http://localhost:8000/api/auth/isLoggedIn/",
+    let fetchLocation: string | undefined;
+    if(window.location.href.search('localhost') === -1) {
+      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
+    } else {
+      fetchLocation = process.env.REACT_APP_CUR_SERVER;
+    }
+		fetch(`${fetchLocation}:8000/api/auth/isLoggedIn/`,
 		{
 			method: "POST",
 			headers: {"Content-Type": "application/json"},
@@ -62,8 +68,14 @@ function ItemMaster(props: any) {
   }
 
   function addItem(item: Object) {
+    let fetchLocation: string | undefined;
+    if(window.location.href.search('localhost') === -1) {
+      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
+    } else {
+      fetchLocation = process.env.REACT_APP_CUR_SERVER;
+    }
     clearAllFields();
-    fetch("http://localhost:8000/api/items/add-item/", {
+    fetch(`${fetchLocation}:8000/api/items/add-item/`, {
       headers: {
         "Content-Type": "application/json"
       },
@@ -110,9 +122,6 @@ function ItemMaster(props: any) {
       </select>
     )
   }
-
-
-
 
   if(isVendor) {
     return(

@@ -8,7 +8,13 @@ import Forbidden from './Forbidden';
 
 async function getItems(jwtToken: String) {
     var itemList: Array<Item> = [];
-    const res = await fetch(`http://localhost:8000/api/items/get-items/`, {
+    let fetchLocation: string | undefined;
+    if(window.location.href.search('localhost') === -1) {
+      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
+    } else {
+      fetchLocation = process.env.REACT_APP_CUR_SERVER;
+    }
+    const res = await fetch(`${fetchLocation}:8000/api/items/get-items/`, {
         "method": "POST",
         "headers": {
             "Content-Type": "application/json",
@@ -61,17 +67,23 @@ function Items(props: any) {
 
   const checkLoggedIn = (jwtToken: String) => {
 		// to check if logged in at every render
-		fetch("http://localhost:8000/api/auth/isLoggedIn/",
-		{
-			method: "POST",
-			headers: {"Content-Type": "application/json"},
-			body: JSON.stringify({"Authorization": `${jwtToken}`}),
-		},
-		)
-		.then((val) => val.json()).then((val: any) => {
-			setLoggedIN(val.isLoggedIn);
-		});
-	};
+    let fetchLocation: string | undefined;
+    if(window.location.href.search('localhost') === -1) {
+      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
+    } else {
+      fetchLocation = process.env.REACT_APP_CUR_SERVER;
+    }
+    fetch(`${fetchLocation}:8000/api/auth/isLoggedIn/`,
+    {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({"Authorization": `${jwtToken}`}),
+    },
+    )
+    .then((val) => val.json()).then((val: any) => {
+        setLoggedIN(val.isLoggedIn);
+    });
+};
 
     // setInterval(function() {
     //     getItems(props.jwtToken).then((val) => {setListOfItems(val)});
@@ -110,14 +122,15 @@ function Items(props: any) {
         <div id={props.thisId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col justify-center'>
                 <img alt="" src="https://upload.wikimedia.org/wikipedia/commons/0/05/Kawasaki_ZX-RR_2007TMS.jpg"></img>
-                <div className="flex justify-between h-12 items-center gap-2">
-                    <div className='ml-5 py-3'>{props.itemName} {props.priceRs}</div>
-                    <div className=' flex items-center'>
-                        <button className='subtractButton p-5' value={props.thisId} onClick={(e) => changeCount(e)}>
+                <div className="flex flex-col justify-between h-28 items-center gap-2">
+                    <div className='ml-5 mt-2'>{`${props.itemName}, ₹${props.priceRs}`}</div>
+                    <div className='ml-5'>{`${props.description.substring(0, 20)}...`}</div>
+                    <div className=' flex items-center mb-4'>
+                        <button className='subtractButton bg-red-500 rounded-l px-2' value={props.thisId} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'minus', style: 'solid'})} />
                         </button>
-                        <div className='px-4'>{props.thisCount}</div>
-                        <button className='addButton p-5' value={props.thisId} onClick={(e) => changeCount(e)}>
+                        <div className='px-2'>{props.thisCount}</div>
+                        <button className='addButton bg-green-500 rounded-r px-2' value={props.thisId} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'plus', style: 'solid'})} />
                         </button>
 
@@ -140,7 +153,7 @@ function Items(props: any) {
                 const thisId = el.itemName + el.dateAdded;
                 var thisCount = countMap.get(thisId)
                 thisCount = thisCount !== undefined ? thisCount : 0;
-                return <ItemCard {...{"itemName": el.itemName, "priceRs": el.priceRs, "thisId": thisId, "thisCount": thisCount, "key": thisId}} />
+                return <ItemCard {...{...Item.toMap(el), "thisId": thisId, "thisCount": thisCount, "key": thisId}} />
             })}
             </div>
         </div>

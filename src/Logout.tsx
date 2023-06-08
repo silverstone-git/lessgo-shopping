@@ -2,7 +2,14 @@
 function LogOut() {
     localStorage.setItem("loggedIn", 'false');
     localStorage.setItem("jwtToken", '');
-    window.location.href = "http://localhost:3005/"
+
+    let goTo: string | undefined;
+    if(window.location.href.search('localhost') === -1) {
+    goTo = process.env.REACT_APP_LOCAL_SERVER;
+    } else {
+    goTo = process.env.REACT_APP_CUR_SERVER;
+    }
+    window.location.href = `${goTo}:3005/`
     return (
         null
     )
