@@ -68,10 +68,28 @@ function ItemMaster(props: any) {
   }
 
   async function addItem(item: any) {
-    item.image = await item.image.text();
-    item.video = await item.video.text();
-    console.log("sending image: ");
+    console.log("image before: ");
     console.log(item.image);
+    
+    function blobToBase64(blob: Blob) {
+      return new Promise((resolve, _) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+      });
+    }
+
+    item.image = await blobToBase64( item.image);
+    item.video = await blobToBase64( item.video);
+    
+    //
+    
+    // item.image = JSON.stringify(item.image);
+    // item.video = JSON.stringify(item.video);
+
+    // console.log("sending image: ");
+    // console.log(item.image);
+
     let fetchLocation: string | undefined;
     if(window.location.href.search('localhost') === -1) {
       fetchLocation = process.env.REACT_APP_LOCAL_SERVER;

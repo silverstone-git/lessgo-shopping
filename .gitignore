@@ -28,3 +28,4 @@ message.txt
 *.swo
 .env
 tdl
+package-lock.json
