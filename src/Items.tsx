@@ -157,7 +157,7 @@ function Items(props: any) {
                     return <ItemCard {...{...Item.toMap(el), "thisId": thisId, "thisCount": thisCount, "key": thisId}} />
                 })}
                 </div>
-                <ShoppingCart {...{"cart": noOfItems}} />
+                <ShoppingCart {...{"cart": noOfItems, "auth": jwtToken}} />
             </div>
             </>
         )
@@ -169,8 +169,6 @@ function Items(props: any) {
         checkLoggedIn(jwtToken);
 
         getItems(jwtToken).then((val) => {
-            console.log("result of get items is: ");
-            console.log(val);
             setListOfItems(val)
         });
     }, [jwtToken]);
