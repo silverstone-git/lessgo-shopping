@@ -176,6 +176,9 @@ function Items(props: any) {
                 })}
                 </div>
                 <ShoppingCart {...{"cart": noOfItems, "auth": jwtToken, "showSnackBar": showSnackBar, "setIsLoading": showLoading}} />
+
+                <Snacc {...{"message": snackBarMessage}} />
+                <Loading {...{"isLoading": isLoading}} />
             </div>
             </>
         )
@@ -197,8 +200,6 @@ function Items(props: any) {
         return (
             <>
             <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
-            <Snacc {...{"message": snackBarMessage}} />
-            <Loading {...{"isLoading": isLoading}} />
             </>
         );
     } else {

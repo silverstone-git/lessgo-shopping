@@ -17,7 +17,7 @@ export default function ShoppingCart(props: any) {
         } else {
             fetchLocation = process.env.REACT_APP_CUR_SERVER;
         }
-        const res = await fetch(`${fetchLocation}:8000/api/items/add-to-cart/`, {
+        const res = await fetch(`${fetchLocation}:8000/api/orders/add-to-cart/`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
