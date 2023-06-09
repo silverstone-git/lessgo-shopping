@@ -9,7 +9,7 @@ function Login() {
     const [password, setPassword] = useState("");
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [submitButtonDark, setSubmitButtonDark] = useState(0);
-    const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+    const [loggedIn, ] = useState(localStorage.loggedIn);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {

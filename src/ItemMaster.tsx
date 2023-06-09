@@ -181,7 +181,7 @@ function ItemMaster(props: any) {
                   <textarea onChange={(e) => {setItem({ ...item, "description": e.target.value })}} name="itemDesc" id="description" className="w-full h-24 item-master-input" maxLength={3000} minLength={10} required></textarea>
                 </div>
                 <div>
-                  <label htmlFor="itemPrice">Price (INR)</label>
+                  <label htmlFor="itemPrice">Price (₹)</label>
                   <input onChange={(e) => {setItem({ ...item, "price_rs": Number(e.target.value) })}} name="itemPrice" type="number" className="w-full item-master-input" max={1000000000} min={0.1} step="any" required />
                 </div>
                 <div className=" flex">

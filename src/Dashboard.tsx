@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Forbidden from "./Forbidden";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
@@ -89,7 +91,19 @@ function Dashboard() {
         Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
         </div>
         <div className='text-md text-slate-600 dark:text-slate-200'>
-        Your user points are to be fetched from auth repository in this view
+          <button onClick={() => {
+            let goTo: string | undefined;
+            if(window.location.href.search('localhost') === -1) {
+            goTo = process.env.REACT_APP_LOCAL_SERVER;
+            } else {
+            goTo = process.env.REACT_APP_CUR_SERVER;
+            }
+            window.location.href = `${goTo}:3005/cart`
+          }
+          } className=" mt-7 flex justify-center items-center p-5 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100 font-thin text-2xl rounded-full border-white border">
+            <div>Your Cart</div>
+            <div className="ml-4"><FontAwesomeIcon icon={icon({name: 'cart-shopping', style: 'solid'})} /></div>
+          </button>
         </div>
       </div>
     </div>

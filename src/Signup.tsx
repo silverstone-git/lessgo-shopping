@@ -11,7 +11,7 @@ function Signup() {
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
-    const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+    const [loggedIn, ] = useState(localStorage.loggedIn);
 
     function toggleVendor(vendorReq: string) {
         if(vendorReq === "vendor") {

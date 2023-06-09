@@ -137,9 +137,9 @@ function Items(props: any) {
 	// receivedItem.video = await vidFetchRes.blob();
         return (
         <div id={props.itemId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
-            <div className=' border rounded border-slate-500 flex flex-col justify-center'>
-                <div className="h-28 w-28 overflow-hidden flex justify-center align-center">
-                    <img alt="" src={props.image}></img>
+            <div className=' border rounded border-slate-500 flex flex-col items-center justify-center'>
+                <div className="h-32 w-40 mt-4 overflow-hidden flex justify-center align-center">
+                    <img className='object-cover' alt="" src={props.image}></img>
                 </div>
                 <div className="flex flex-col justify-between h-28 items-center gap-2">
                     <div className='ml-5 mt-2'>{`${props.itemName}, ₹${props.priceRs}`}</div>
