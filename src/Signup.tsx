@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Snacc from './Snacc';
+import Loading from './Loading';
 
 
 function Signup() {
@@ -8,6 +9,7 @@ function Signup() {
     const [password, setPassword ] = useState("");
     const [vendorReq, setVendor ] = useState("user");
     const [snackBarMessage, setSnackBarMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
 
@@ -41,6 +43,8 @@ function Signup() {
     async function createMyAccount() {
         // POST the form creds to the api for account creation
 
+        setIsLoading(true);
+
         let fetchLocation: string | undefined;
         if(window.location.href.search('localhost') === -1) {
         fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
@@ -61,11 +65,13 @@ function Signup() {
             })
         });
         const resJ = await res.json();
+        setIsLoading(false);
         if(resJ.succ) {
             showSnackBar(resJ.message);
         } else {
             showSnackBar(resJ.fail);
         }
+
     }
 
     return (
@@ -92,6 +98,7 @@ function Signup() {
                 </div>
             </div>
             <Snacc {...{"message": snackBarMessage}} />
+            <Loading {...{"isLoading": isLoading}} />
         </div>
     )
 }

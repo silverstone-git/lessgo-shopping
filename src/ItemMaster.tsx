@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Category, Item } from "./models/models";
 import Forbidden from "./Forbidden";
 import Snacc from "./Snacc";
+import Loading from "./Loading";
 
 
 function ItemMaster(props: any) {
@@ -10,6 +11,7 @@ function ItemMaster(props: any) {
   const [snackBarMessage, setSnackBarMessage] = useState("");
 	const [isVendor, setIsVendor] = useState(false);
   const [item, setItem] = useState( Item.toMap(new Item('', '', Category.other, true, 0, new Date(), new Blob(), new Blob())));
+  const [isLoading, setIsLoading] = useState(false);
 
 
   function showSnackBar(message: string) {
@@ -68,6 +70,7 @@ function ItemMaster(props: any) {
   }
 
   async function addItem(item: any) {
+    setIsLoading(true);
     console.log("image before: ");
     console.log(item.image);
     
@@ -108,15 +111,13 @@ function ItemMaster(props: any) {
       })
     });
     const resJ = await res.json();
+    setIsLoading(false)
 
     if(resJ.succ) {
       showSnackBar("Your Item has been added!");
     } else {
       showSnackBar(resJ.message)
     }
-
-
-
 
 
   }
@@ -199,6 +200,7 @@ function ItemMaster(props: any) {
       </div>
 
       <Snacc {...{"message": snackBarMessage}} />
+      <Loading {...{"isLoading": isLoading}} />
     </div>
     )
   } else if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {

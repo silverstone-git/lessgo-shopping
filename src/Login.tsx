@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Snacc from './Snacc';
+import Loading from './Loading';
 
 
 
@@ -9,6 +10,7 @@ function Login() {
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [submitButtonDark, setSubmitButtonDark] = useState(0);
     const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if(loggedIn === "true") {
@@ -34,6 +36,7 @@ function Login() {
         // console.log("bro login ho raha h")
 
         // TODO: A progess bar starts here
+        setIsLoading(true);
         setSubmitButtonDark(1);
 
         // TODO: updation of state is only one way, need a method to update
@@ -59,6 +62,7 @@ function Login() {
         });
         const resJ = await res.json();
         // console.log("bro login hogya h")
+        setIsLoading(false)
 
         if(resJ.succ) {
 
@@ -120,6 +124,7 @@ function Login() {
                 <div className=' mt-8 text-sm text-slate-500 '>Create a new account <a className='text-green-600 dark:text-green-300 hover:opacity-80' href='/signup'>here</a></div>
             </div>
             <Snacc {...{"message": snackBarMessage}} />
+            <Loading {...{"isLoading": isLoading}} />
         </div>
     )
 }

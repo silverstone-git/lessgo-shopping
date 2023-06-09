@@ -1,23 +1,15 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
-import Snacc from "./Snacc";
 
 export default function ShoppingCart(props: any) {
 
-    const [snackBarMessage, setSnackBarMessage] = useState("");
-
-    function showSnackBar(message: string) {
-        setSnackBarMessage(message)
-        setTimeout(() => {
-            setSnackBarMessage("");
-        }, 3000)
-    }
 
     async function addToCart(auth: string, cart: any) {
         //send a place order post request to backend
 
-        // show loading icon
+        // show loading icono
+
+        props.setIsLoading(true);
 
         let fetchLocation: string | undefined;
         if(window.location.href.search("localhost") === -1) {
@@ -35,24 +27,24 @@ export default function ShoppingCart(props: any) {
         })
         const resJ = await res.json();
         if(resJ.succ) {
-            showSnackBar("Item(s) added to cart successfully");
+            props.showSnackBar("Item(s) added to cart successfully");
             // proceed to clear the cart state in parent
         } else {
-            showSnackBar(resJ.message);
+            props.showSnackBar(resJ.message);
         }
 
         // stop loading icon
+        props.setIsLoading(false);
     }
     if(props.cart.size > 0) {
         //
         return(
-            <div onClick={async (e) => {
+            <button onClick={async (e) => {
                 // send no Of Items to order function
                 await addToCart(props.auth, props.cart);
-            }} className=' absolute flex justify-center items-center bottom-[2vh] right-[2vw] rounded-full h-12 w-12 bg-green-500'>
+            }} className=' cursor-pointer absolute flex justify-center items-center bottom-[2vh] right-[2vw] rounded-full h-12 w-12 bg-green-500'>
                 <FontAwesomeIcon icon={icon({name: 'cart-shopping', style: 'solid'})} />
-            <Snacc {...{"message": snackBarMessage}} />
-            </div>
+            </button>
         )
     } else {
         return null;

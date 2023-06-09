@@ -4,6 +4,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Forbidden from './Forbidden';
 import ShoppingCart from './shoppingCart';
+import Snacc from './Snacc';
+import Loading from './Loading';
 
 
 async function getItems(jwtToken: String) {
@@ -43,6 +45,20 @@ function Items(props: any) {
 
     const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
+    const [snackBarMessage, setSnackBarMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    
+    function showSnackBar(message: string) {
+        setSnackBarMessage(message)
+        setTimeout(() => {
+            setSnackBarMessage("");
+        }, 3000)
+    }
+
+    function showLoading(val: boolean) {
+        setIsLoading(val);
+    }
+
 
 
   const checkJWTFromStorage = () => {
@@ -151,7 +167,7 @@ function Items(props: any) {
                     return <ItemCard {...{...el, "thisCount": thisCount, "key": el.item_id}} />
                 })}
                 </div>
-                <ShoppingCart {...{"cart": noOfItems, "auth": jwtToken}} />
+                <ShoppingCart {...{"cart": noOfItems, "auth": jwtToken, "showSnackBar": showSnackBar, "setIsLoading": showLoading}} />
             </div>
             </>
         )
@@ -171,7 +187,11 @@ function Items(props: any) {
     if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {
         //
         return (
+            <>
             <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
+            <Snacc {...{"message": snackBarMessage}} />
+            <Loading {...{"isLoading": isLoading}} />
+            </>
         );
     } else {
         return(<Forbidden />);
