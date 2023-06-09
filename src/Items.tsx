@@ -145,11 +145,11 @@ function Items(props: any) {
                     <div className='ml-5 mt-2'>{`${props.itemName}, ₹${props.priceRs}`}</div>
                     <div className='ml-5'>{`${props.description.substring(0, 20)}...`}</div>
                     <div className=' flex items-center mb-4'>
-                        <button className='subtractButton bg-red-500 rounded-l px-2' value={props.itemId} onClick={(e) => changeCount(e)}>
+                        <button className='subtractButton flex justify-center items-center bg-red-600 text-slate-100 dark:bg-red-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'minus', style: 'solid'})} />
                         </button>
                         <div className='px-2'>{props.thisCount}</div>
-                        <button className='addButton bg-green-500 rounded-r px-2' value={props.itemId} onClick={(e) => changeCount(e)}>
+                        <button className='addButton flex justify-center items-center bg-green-600 text-slate-100 dark:bg-green-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'plus', style: 'solid'})} />
                         </button>
 
