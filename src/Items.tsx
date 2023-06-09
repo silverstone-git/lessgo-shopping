@@ -6,6 +6,7 @@ import Forbidden from './Forbidden';
 import ShoppingCart from './shoppingCart';
 import Snacc from './Snacc';
 import Loading from './Loading';
+import { Item } from './models/models';
 
 
 async function getItems(jwtToken: String) {
@@ -27,7 +28,13 @@ async function getItems(jwtToken: String) {
     });
     const resJ = await res.json();
 
-    return JSON.parse(resJ.itemList);
+    const itemsArr: Array<Item> = [];
+    const objArr: Array<any> = JSON.parse(resJ.itemList);
+    for(var i = 0; i < objArr.length; i ++) {
+        itemsArr.push(Item.fromMap(objArr[i]));
+    }
+
+    return itemsArr;
 }
 
 
@@ -35,7 +42,7 @@ async function getItems(jwtToken: String) {
 
 function Items(props: any) {
     
-    const initList: Array<any> = [];
+    const initList: Array<Item> = [];
     const [listOfItems, setListOfItems] = useState(initList);
 
 
@@ -129,20 +136,20 @@ function Items(props: any) {
 	// const vidFetchRes = await fetch(receivedItem.video);
 	// receivedItem.video = await vidFetchRes.blob();
         return (
-        <div id={props.item_id} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
+        <div id={props.itemId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col justify-center'>
                 <div className="h-28 w-28 overflow-hidden flex justify-center align-center">
                     <img alt="" src={props.image}></img>
                 </div>
                 <div className="flex flex-col justify-between h-28 items-center gap-2">
-                    <div className='ml-5 mt-2'>{`${props.item_name}, ₹${props.price_rs}`}</div>
+                    <div className='ml-5 mt-2'>{`${props.itemName}, ₹${props.priceRs}`}</div>
                     <div className='ml-5'>{`${props.description.substring(0, 20)}...`}</div>
                     <div className=' flex items-center mb-4'>
-                        <button className='subtractButton bg-red-500 rounded-l px-2' value={props.item_id} onClick={(e) => changeCount(e)}>
+                        <button className='subtractButton bg-red-500 rounded-l px-2' value={props.itemId} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'minus', style: 'solid'})} />
                         </button>
                         <div className='px-2'>{props.thisCount}</div>
-                        <button className='addButton bg-green-500 rounded-r px-2' value={props.item_id} onClick={(e) => changeCount(e)}>
+                        <button className='addButton bg-green-500 rounded-r px-2' value={props.itemId} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'plus', style: 'solid'})} />
                         </button>
 
@@ -154,7 +161,7 @@ function Items(props: any) {
     }
 
     function ItemCards(props: any) {
-        const listOfItems: Array<any> = props.listOfItems;
+        const listOfItems: Array<Item> = props.listOfItems;
         const countMap: Map<string, number> = props.noOfItems;
         return (
             <>
@@ -162,9 +169,10 @@ function Items(props: any) {
                 <div className='mt-[20vh] flex w-full flex-wrap items-center justify-center bg-slate-100 dark:bg-slate-800'>
                 {listOfItems.map(el => {
                     // map each object into component
-                    var thisCount = countMap.get(el.item_id.toString())
+                    const thisId: string = el.itemId ? el.itemId.toString(): `${el.itemName}///${el.dateAdded}`;
+                    var thisCount = countMap.get(thisId);
                     thisCount = thisCount !== undefined ? thisCount : 0;
-                    return <ItemCard {...{...el, "thisCount": thisCount, "key": el.item_id}} />
+                    return <ItemCard {...{...el, "thisCount": thisCount, "key": thisId}} />
                 })}
                 </div>
                 <ShoppingCart {...{"cart": noOfItems, "auth": jwtToken, "showSnackBar": showSnackBar, "setIsLoading": showLoading}} />

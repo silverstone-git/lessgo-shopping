@@ -10,7 +10,11 @@ function ItemMaster(props: any) {
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
   const [snackBarMessage, setSnackBarMessage] = useState("");
 	const [isVendor, setIsVendor] = useState(false);
-  const [item, setItem] = useState( Item.toMap(new Item('', '', Category.other, true, 0, new Date(), new Blob(), new Blob())));
+
+  const newItem: any = Item.toMap(new Item('', '', Category.other, true, 0, new Date(), '', '', undefined));
+  newItem.image = new Blob([]);
+  newItem.video = new Blob([]);
+  const [item, setItem] = useState(newItem);
   const [isLoading, setIsLoading] = useState(false);
 
 
@@ -170,7 +174,7 @@ function ItemMaster(props: any) {
               <div className=" flex flex-col gap-8 mt-6 w-1/2">
                 <div>
                   <label htmlFor="itemName">Enter Item Name to be displayed</label>
-                  <input onChange={(e) => {setItem({ ...item, "itemName": e.target.value })}} name="itemName" type="text" className="w-full item-master-input" maxLength={100} minLength={3} required />
+                  <input onChange={(e) => {setItem({ ...item, "item_name": e.target.value })}} name="itemName" type="text" className="w-full item-master-input" maxLength={100} minLength={3} required />
                 </div>
                 <div className="">
                   <label htmlFor="itemDesc">Describe the item in short</label>
@@ -178,7 +182,7 @@ function ItemMaster(props: any) {
                 </div>
                 <div>
                   <label htmlFor="itemPrice">Price (INR)</label>
-                  <input onChange={(e) => {setItem({ ...item, "priceRs": Number(e.target.value) })}} name="itemPrice" type="number" className="w-full item-master-input" max={1000000000} min={0.1} step="any" required />
+                  <input onChange={(e) => {setItem({ ...item, "price_rs": Number(e.target.value) })}} name="itemPrice" type="number" className="w-full item-master-input" max={1000000000} min={0.1} step="any" required />
                 </div>
                 <div className=" flex">
                   <label htmlFor="itemCategory" className="mr-12">Category</label>
