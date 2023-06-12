@@ -4,7 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import Snacc from "./Snacc";
 import Loading from "./Loading";
-import SoldItems from "./SoldItems";
+import SellerItems from "./SellerItems";
+import { Item } from "./models/models";
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
@@ -13,6 +14,9 @@ function Dashboard() {
 	const [isVendor, setIsVendor] = useState(false);
   const [snackBarMessage, setSnackBarMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const initListedItems: Array<Item> = [];
+  const [soldItems, setListedItems] = useState(initListedItems)
+  const [noOfItems, setNoOfItems] = useState(0);
 
 
   function showSnackBar(message: string) {
@@ -22,7 +26,7 @@ function Dashboard() {
       }, 3000)
   }
 
-  const checkJWTFromStorage = () => {
+  const checkJWTFromStorage = async () => {
     const token = localStorage.getItem('jwtToken');
     if(token === '' || token === null || token === undefined) {
       setLoggedIN(false);
@@ -37,7 +41,7 @@ function Dashboard() {
   };
 
 
-  const checkLoggedIn = (jwtToken: String) => {
+  const checkLoggedIn = async (jwtToken: String) => {
 		// to check if logged in at every render
     let fetchLocation: string | undefined;
     if(window.location.href.search('localhost') === -1) {
@@ -45,25 +49,72 @@ function Dashboard() {
     } else {
       fetchLocation = process.env.REACT_APP_CUR_SERVER;
     }
-		fetch(`${fetchLocation}:8000/api/auth/isLoggedIn/`,
+		const res = await fetch(`${fetchLocation}:8000/api/auth/isLoggedIn/`,
 		{
 			method: "POST",
 			headers: {"Content-Type": "application/json"},
 			body: JSON.stringify({"Authorization": `${jwtToken}`}),
 		},
 		)
-		.then((val) => val.json()).then((val: any) => {
-			setLoggedIN(val.isLoggedIn);
-      setUsername(val.username);
-      setIsVendor(val.isVendor);
-      // setUsername(val.username);
-		});
+    const resJ = await res.json();
+
+    if(res.status === 403 || res.status === 200) {
+      console.log("response is right here -");
+      console.log(resJ);
+      setLoggedIN(resJ.isLoggedIn);
+      setUsername(resJ.username);
+      setIsVendor(resJ.isVendor);
+    } else {
+      showSnackBar("Unhandled Exception");
+    }
+    return resJ
 	};
 
-  useEffect(() => {
-    checkJWTFromStorage();
-    checkLoggedIn(jwtToken);
 
+  async function getListedItems(jwtToken: string) {
+      // gets user cart by getting from backend
+      setIsLoading(true);
+      let fetchLocation: string | undefined;
+      if(window.location.href.search('localhost') === -1) {
+      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
+      } else {
+      fetchLocation = process.env.REACT_APP_CUR_SERVER;
+      }
+      const res = await fetch(`${fetchLocation}:8000/api/items/listed/`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+              "Authorization": jwtToken,
+          })
+      });
+      const resJ = await res.json();
+      const itemsArr: Array<Item> = [];
+      if(resJ.succ) {
+          for(var i = 0; i < resJ.itemsObjectList.length; i ++) {
+              itemsArr.push(Item.fromMap(resJ.itemsObjectList[i]));
+          }
+      } else {
+        if(res.status === 404) {
+          setNoOfItems(0);
+        } else {
+          showSnackBar(resJ.message);
+        }
+      }
+      setIsLoading(false);
+      return itemsArr;
+  }
+
+  async function dashboardSetup() {
+    await checkJWTFromStorage();
+    const tempIsVendor = (await checkLoggedIn(jwtToken)).isVendor;
+    console.log("checkloggedin is over, is vendor is: ", tempIsVendor);
+    if(tempIsVendor) {
+      setListedItems(await getListedItems(jwtToken));
+      setIsVendor(true);
+    }
+  }
+  useEffect(() => {
+    dashboardSetup();
   }, [jwtToken])
 
 
@@ -80,10 +131,10 @@ function Dashboard() {
           Welcome <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
         </div>
 
-        <div>
-          This is your seller dashboard
+        <div className="bold text-md">
+          {noOfItems === 0 ? "No Items are listed, please add new by going to Add new item section" : "Your Listings"}
         </div>
-        <SoldItems {...{"auth": jwtToken, "setIsLoading": setIsLoading, "showSnackBar": showSnackBar}} />
+        <SellerItems {...{"soldItems": soldItems}} />
       </div>
       <Snacc {...{"message": snackBarMessage}} />
       <Loading {...{"isLoading": isLoading}} />
