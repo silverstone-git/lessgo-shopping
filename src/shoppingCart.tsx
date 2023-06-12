@@ -42,7 +42,7 @@ export default function ShoppingCart(props: any) {
             <button onClick={async (e) => {
                 // send no Of Items to order function
                 await addToCart(props.auth, props.cart);
-            }} className=' cursor-pointer absolute flex justify-center items-center bottom-[2vh] right-[2vw] rounded-full h-12 w-12 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100'>
+            }} className=' cursor-pointer fixed flex justify-center items-center bottom-[13vh] md:bottom-[5vh] right-[2vw] rounded-full h-12 w-12 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100'>
                 <FontAwesomeIcon icon={icon({name: 'cart-shopping', style: 'solid'})} />
             </button>
         )

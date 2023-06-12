@@ -103,7 +103,7 @@ function Layout() {
   <FontAwesomeIcon className='text-slate-800 inline dark:hidden' icon={icon({name: 'sun', style: 'solid'})} />
     </div>
         <Outlet />
-        <nav className=" fixed p-4 bg-green-600 dark:bg-green-300 text-slate-100 dark:text-slate-800 bottom-0 flex justify-between w-full md:hidden list-none flex-row">
+        <nav className=" fixed py-4 px-8 bg-green-600 dark:bg-green-300 text-slate-100 dark:text-slate-800 bottom-0 flex justify-between w-full md:hidden list-none flex-row">
             <AppRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
             <ItemMasterRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, "isVendor": isVendor}} />
             <LogOutRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />

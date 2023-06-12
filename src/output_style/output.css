@@ -619,6 +619,18 @@ video {
   bottom: 5rem;
 }
 
+.bottom-\[5vh\] {
+  bottom: 5vh;
+}
+
+.bottom-\[15vh\] {
+  bottom: 15vh;
+}
+
+.bottom-\[13vh\] {
+  bottom: 13vh;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -965,6 +977,16 @@ video {
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
 .pt-24 {
@@ -1479,6 +1501,26 @@ input:not(.dont-pad-this-input) {
 @media (min-width: 768px) {
   .md\:bottom-12 {
     bottom: 3rem;
+  }
+
+  .md\:bottom-\[2vh\] {
+    bottom: 2vh;
+  }
+
+  .md\:bottom-\[10vh\] {
+    bottom: 10vh;
+  }
+
+  .md\:bottom-\[9vh\] {
+    bottom: 9vh;
+  }
+
+  .md\:bottom-\[5vh\] {
+    bottom: 5vh;
+  }
+
+  .md\:block {
+    display: block;
   }
 
   .md\:flex {

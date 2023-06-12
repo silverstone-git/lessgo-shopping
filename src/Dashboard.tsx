@@ -2,13 +2,25 @@ import { useEffect, useState } from "react";
 import Forbidden from "./Forbidden";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import Snacc from "./Snacc";
+import Loading from "./Loading";
+import SoldItems from "./SoldItems";
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
 	const [username, setUsername] = useState("");
 	const [isVendor, setIsVendor] = useState(false);
+  const [snackBarMessage, setSnackBarMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
+
+  function showSnackBar(message: string) {
+      setSnackBarMessage(message)
+      setTimeout(() => {
+          setSnackBarMessage("");
+      }, 3000)
+  }
 
   const checkJWTFromStorage = () => {
     const token = localStorage.getItem('jwtToken');
@@ -51,10 +63,6 @@ function Dashboard() {
   useEffect(() => {
     checkJWTFromStorage();
     checkLoggedIn(jwtToken);
-    // setTimeout(() => {
-    //   console.log("checking logged in after the delay...")
-    //   checkLoggedIn(jwtToken);
-    // }, 3000);
 
   }, [jwtToken])
 
@@ -75,8 +83,10 @@ function Dashboard() {
         <div>
           This is your seller dashboard
         </div>
-        <div>The items you have sold are: </div>
+        <SoldItems {...{"auth": jwtToken, "setIsLoading": setIsLoading, "showSnackBar": showSnackBar}} />
       </div>
+      <Snacc {...{"message": snackBarMessage}} />
+      <Loading {...{"isLoading": isLoading}} />
     </div>
     )
   }
@@ -107,6 +117,8 @@ function Dashboard() {
         </div>
       </div>
 
+      <Snacc {...{"message": snackBarMessage}} />
+      <Loading {...{"isLoading": isLoading}} />
     </div>
     )
   } else {
