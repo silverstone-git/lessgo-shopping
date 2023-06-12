@@ -6,6 +6,8 @@ import Snacc from "./Snacc";
 import Loading from "./Loading";
 import SellerItems from "./SellerItems";
 import { Item } from "./models/models";
+import CarouselDashboard from "./CarouselDashboard";
+// import { Carousel } from 'react-responsive-carousel';
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
@@ -17,6 +19,8 @@ function Dashboard() {
   const initListedItems: Array<Item> = [];
   const [soldItems, setListedItems] = useState(initListedItems)
   const [noOfItems, setNoOfItems] = useState(0);
+  const initCarouselArray: Array<Array<string>> = []
+  const [carouselArray, setCarouselArray] = useState(initCarouselArray);
 
 
   function showSnackBar(message: string) {
@@ -59,8 +63,6 @@ function Dashboard() {
     const resJ = await res.json();
 
     if(res.status === 403 || res.status === 200) {
-      console.log("response is right here -");
-      console.log(resJ);
       setLoggedIN(resJ.isLoggedIn);
       setUsername(resJ.username);
       setIsVendor(resJ.isVendor);
@@ -90,6 +92,7 @@ function Dashboard() {
       const resJ = await res.json();
       const itemsArr: Array<Item> = [];
       if(resJ.succ) {
+          setNoOfItems(resJ.itemsObjectList.length);
           for(var i = 0; i < resJ.itemsObjectList.length; i ++) {
               itemsArr.push(Item.fromMap(resJ.itemsObjectList[i]));
           }
@@ -107,10 +110,16 @@ function Dashboard() {
   async function dashboardSetup() {
     await checkJWTFromStorage();
     const tempIsVendor = (await checkLoggedIn(jwtToken)).isVendor;
-    console.log("checkloggedin is over, is vendor is: ", tempIsVendor);
     if(tempIsVendor) {
       setListedItems(await getListedItems(jwtToken));
       setIsVendor(true);
+    } else {
+      setCarouselArray([
+        ["https://picsum.photos/200/300", "Ah hell naw", "123"],
+        ["https://picsum.photos/200/300", "Ah hell naw", "123"],
+        ["https://picsum.photos/200", "Ah hell naw", "123"],
+        ["https://picsum.photos/200", "Ah hell naw", "123"],
+      ]);
     }
   }
   useEffect(() => {
@@ -124,8 +133,8 @@ function Dashboard() {
 
     <div id='dashboard'>
 
-      <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
-      h-screen w-fulltext-md text-slate-600 dark:text-slate-200'>
+      <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
+            h-screen w-full text-slate-800 dark:text-slate-100'>
 
         <div className=" text-green-600 dark:text-green-300 text-3xl mb-6">
           Welcome <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
@@ -146,12 +155,11 @@ function Dashboard() {
     return(
     <div id='dashboard'>
 
-      <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
-      h-screen w-full'>
+      <div className='flex flex-col pt-[80vh] justify-center items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
         <div className='font-bold text-xl md:text-3xl text-green-600 dark:text-green-300'>
-        Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
+          Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
         </div>
-        <div className=' text-xl md:text-2xl text-slate-600 dark:text-slate-200'>
+        <div className=' text-xl md:text-2xl text-slate-600 dark:text-slate-200 mt-16 mb-28'>
           <button onClick={() => {
             let goTo: string | undefined;
             if(window.location.href.search('localhost') === -1) {
@@ -165,6 +173,9 @@ function Dashboard() {
             <div className="mr-4"><FontAwesomeIcon icon={icon({name: 'cart-shopping', style: 'solid'})} /></div>
             <div>Your Cart</div>
           </button>
+        </div>
+        <div className=" bg-slate-100 dark:bg-slate-800 pb-14 w-full flex items-center justify-center">
+        <CarouselDashboard {...{"listOfImages": carouselArray}} />
         </div>
       </div>
 
