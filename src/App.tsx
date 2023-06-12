@@ -23,10 +23,10 @@ function App() {
 
     <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
     h-screen w-full'>
-      <div className='font-bold text-3xl text-green-600 dark:text-green-300'>
+      <div className='font-bold md:text-3xl text-2xl text-green-600 dark:text-green-300'>
       Welcome to Less Go
       </div>
-      <div className='text-md text-slate-600 dark:text-slate-200'>
+      <div className='md:text-md text-sm text-slate-600 dark:text-slate-200'>
       Sign In to enjoy seamless shopping
       </div>
       </div>

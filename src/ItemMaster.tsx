@@ -161,9 +161,9 @@ function ItemMaster(props: any) {
     <div id='item-master'>
 
       <div className='flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800
-      h-screen w-full'>
+      h-screen w-full '>
         <div className="flex-col text-slate-800 dark:text-slate-300 h-[70vh] w-full">
-          <div className="w-full flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800">
+          <div className="w-full flex flex-col justify-center items-center bg-slate-100 dark:bg-slate-800 pb-14 ">
               <div className=" text-lg text-green-600 dark:text-green-300">
                 Add your Item to list on Lessgo
               </div>
@@ -171,7 +171,7 @@ function ItemMaster(props: any) {
                   e.preventDefault();
                   await addItem(item);
                 }}>
-              <div className=" flex flex-col gap-8 mt-6 w-1/2">
+              <div className=" flex flex-col gap-8 mt-6 md:w-1/2 w-11/12">
                 <div>
                   <label htmlFor="itemName">Enter Item Name to be displayed</label>
                   <input onChange={(e) => {setItem({ ...item, "item_name": e.target.value })}} name="itemName" type="text" className="w-full item-master-input" maxLength={100} minLength={3} required />
@@ -184,7 +184,7 @@ function ItemMaster(props: any) {
                   <label htmlFor="itemPrice">Price (₹)</label>
                   <input onChange={(e) => {setItem({ ...item, "price_rs": Number(e.target.value) })}} name="itemPrice" type="number" className="w-full item-master-input" max={1000000000} min={0.1} step="any" required />
                 </div>
-                <div className=" flex">
+                <div className=" flex md:flex-row flex-col ">
                   <label htmlFor="itemCategory" className="mr-12">Category</label>
                   <CategoryOptions />
                 </div>

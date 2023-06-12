@@ -138,10 +138,10 @@ function Items(props: any) {
         return (
         <div id={props.itemId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col items-center justify-center'>
-                <div className="h-32 w-40 mt-4 overflow-hidden flex justify-center align-center">
+                <div className="h-full w-11/12 mt-4 overflow-hidden flex justify-center align-center">
                     <img className='object-cover' alt="" src={props.image}></img>
                 </div>
-                <div className="flex flex-col justify-between h-28 items-center gap-2">
+                <div className="flex flex-col justify-between items-center">
                     <div className='ml-5 mt-2'>{`${props.itemName}, ₹${props.priceRs}`}</div>
                     <div className='ml-5'>{`${props.description.substring(0, 20)}...`}</div>
                     <div className=' flex items-center mb-4'>
@@ -164,9 +164,9 @@ function Items(props: any) {
         const listOfItems: Array<Item> = props.listOfItems;
         const countMap: Map<string, number> = props.noOfItems;
         return (
-            <>
-            <div id='items' className='flex items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
-                <div className='mt-[20vh] flex w-full flex-wrap items-center justify-center bg-slate-100 dark:bg-slate-800'>
+            <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
+            h-screen w-full text-slate-800 dark:text-slate-100'>
+                <div className='flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-14 '>
                 {listOfItems.map(el => {
                     // map each object into component
                     const thisId: string = el.itemId ? el.itemId.toString(): `${el.itemName}///${el.dateAdded}`;
@@ -180,7 +180,6 @@ function Items(props: any) {
                 <Snacc {...{"message": snackBarMessage}} />
                 <Loading {...{"isLoading": isLoading}} />
             </div>
-            </>
         )
     }
 
@@ -199,7 +198,9 @@ function Items(props: any) {
         //
         return (
             <>
-            <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
+            <div id='items'>
+                <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
+            </div>
             </>
         );
     } else {

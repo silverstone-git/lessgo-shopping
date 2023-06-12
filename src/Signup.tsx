@@ -76,11 +76,11 @@ function Signup() {
 
     return (
         <div className='flex justify-center items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
-            <div className=' mr-24 flex flex-col items-center'>
+            <div className=' mr-24 md:flex hidden flex-col items-center'>
                 <div className='text-3xl font-bold text-green-600 dark:text-green-300'>Sign In to Create an Account</div>
                 <div className='text-slate-600 dark:text-slate-200'>Keep your head strong and your password stronger</div>
             </div>
-            <div>
+            <div className=' px-4 sm:px-8 md:px-0 w-full md:w-auto'>
                 <div className='flex flex-col gap-4'>
                     <label htmlFor="username-input">Enter Username</label>
                     <input onChange={(e) => setUserName(e.target.value)} id="username-input" type="text" />
@@ -88,8 +88,12 @@ function Signup() {
                     <input onChange={(e) => setEmail(e.target.value)} id="email-input" type="email" />
                     <label htmlFor="password-input">Enter Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} id="password-input" type="password" />
-                    <div className='flex gap-4'>
+                    <div className='md:flex gap-4 hidden'>
                         <label htmlFor="vendor-input">Check this if you are a seller!</label>
+                        <input className='inline' onClick={(e) => toggleVendor(vendorReq)} id="vendor-input" type="checkbox" />
+                    </div>
+                    <div className='md:hidden gap-4 flex'>
+                        <label htmlFor="vendor-input">Lessgo Seller Account</label>
                         <input className='inline' onClick={(e) => toggleVendor(vendorReq)} id="vendor-input" type="checkbox" />
                     </div>
                     <button onClick={createMyAccount} className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700  '>

@@ -109,7 +109,7 @@ function Login() {
 
     return (
         <div className='flex justify-center items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
-            <div className=' mr-24 flex flex-col items-center'>
+            <div className=' mr-24 flex-col items-center md:flex hidden'>
                 <div className='text-3xl font-bold text-green-600 dark:text-green-300'>Welcome Back</div>
                 <div className='text-slate-600 dark:text-slate-200'>Log back into your Account</div>
             </div>
