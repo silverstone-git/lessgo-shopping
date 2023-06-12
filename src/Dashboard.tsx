@@ -159,7 +159,7 @@ function Dashboard() {
         <div className='font-bold text-xl md:text-3xl text-green-600 dark:text-green-300'>
           Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
         </div>
-        <div className=' text-xl md:text-2xl text-slate-600 dark:text-slate-200 mt-16 mb-28'>
+        <div className=' text-xl md:text-2xl text-slate-600 dark:text-slate-200 my-12'>
           <button onClick={() => {
             let goTo: string | undefined;
             if(window.location.href.search('localhost') === -1) {
@@ -174,7 +174,8 @@ function Dashboard() {
             <div>Your Cart</div>
           </button>
         </div>
-        <div className=" bg-slate-100 dark:bg-slate-800 pb-14 w-full flex items-center justify-center">
+        <div className=" bg-slate-100 dark:bg-slate-800 pb-14 w-full flex flex-col items-center justify-center">
+          <div className="flex items-center mb-16 gap-4"><div className=" font-bold text-sm sm:text-md md:text-xl">Continue where you left off!</div><FontAwesomeIcon icon={icon({name: 'arrow-right', style: 'solid'})} /></div>
         <CarouselDashboard {...{"listOfImages": carouselArray}} />
         </div>
       </div>
