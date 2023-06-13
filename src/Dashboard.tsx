@@ -116,10 +116,10 @@ function Dashboard() {
       setIsVendor(true);
     } else {
       setCarouselArray([
-        ["https://picsum.photos/200/300", "Ah hell naw", "123"],
-        ["https://picsum.photos/200/300", "Ah hell naw", "123"],
-        ["https://picsum.photos/200", "Ah hell naw", "123"],
-        ["https://picsum.photos/200", "Ah hell naw", "123"],
+        ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
+        ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
+        ["https://picsum.photos/200", "Ah hell naw", "535754102"],
+        ["https://picsum.photos/200", "Ah hell naw", "535754102"],
       ]);
       // setCarouselArray(JSON.parse(localStorage.carouselArray));
     }

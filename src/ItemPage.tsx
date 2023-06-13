@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Category, Item } from "./models/models";
 import Snacc from "./Snacc";
 import Loading from "./Loading";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useParams } from "react-router-dom";
+import ItemBigCard from "./ItemBigCard";
+import { Category, Item } from "./models/models";
 
 async function getItem(passedId: string, setIsLoading: any, showSnackBar: any, jwtToken: string, setSnackBarMessage: any) {
     // returns the Item item from the passed id to set the state
@@ -18,17 +17,13 @@ async function getItem(passedId: string, setIsLoading: any, showSnackBar: any, j
     }
 
     const options = {
-        method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-            "Authorization": jwtToken,
-        })
     }
     const res = await fetch(`${fetchLocation}:8000/api/items/get-item/${passedId}/`, options);
     const resJ = await res.json();
     setIsLoading(false);
     if(resJ.succ) {
-        return Item.fromMap(resJ.itemObj);
+        return Item.fromMap(JSON.parse(resJ.itemObjStr));
     } else {
         showSnackBar(resJ.message, setSnackBarMessage);
         return null
@@ -66,35 +61,27 @@ function showSnackBar(message: string, setSnackBarMessage: any) {
 
 
 function ItemPage(props:any) {
-    const [item, setItem] = useState(new Item('', '', Category.other, false, 0, new Date(), '', '', 0));
+    const initItem: Item = new Item('', '', Category.other, false, 0,new Date(), '', '', undefined);
+    const [item, setItem] = useState(initItem);
+    const [auth, setAuth] = useState('');
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     let { passedId } = useParams();
 
     async function setupItemPage() {
 
-        if(typeof passedId != 'string') {
-            passedId = '404';
-        }
-
         const tempJwtToken = await checkJWTFromStorage();
-        const receivedItem = await getItem(passedId, setIsLoading, showSnackBar, tempJwtToken.jwtToken, setSnackBarMessage)
+        const receivedItem = await getItem(passedId ? passedId : 'undefined', setIsLoading, showSnackBar, tempJwtToken.jwtToken, setSnackBarMessage)
         if(receivedItem !== null) {
             setItem (receivedItem);
         }
+        setAuth(tempJwtToken.jwtToken);
     }
 
-    useEffect(() => {setupItemPage()});
+    useEffect(() => {setupItemPage()}, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
-            <div className="flex flex-col items-center md:w-11/12 w-full">
-                <div className=" self-start pl-8 flex items-center text-md md:text-xl gap-4"><FontAwesomeIcon icon={icon({name: 'arrow-left', style: 'solid'})} /><div className=" font-bold text-sm sm:text-md md:text-xl">Back</div></div>
-                <div id="item-image" className="h-[40vh] w-full relative bottom-8"><img src={item.image} alt="" /></div>
-                <div className="text-xl">{item.itemName}</div>
-                <div className="text-md">{item.description}</div>
-                <div className="font-bold"> In {item.category}</div>
-                <div>Add a Review</div>
-            </div>
+            <ItemBigCard  {...{"item": item}}/>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />
         </div>

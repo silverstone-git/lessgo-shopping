@@ -26,8 +26,8 @@ root.render(
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<App />} />
-        <Route path="item/:id" element={<ItemPage />} />
         <Route path="items" element={<Items />} />
+        <Route path="/item/:passedId" element={<ItemPage />} />
         <Route path="item-master" element={<ItemMaster />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
