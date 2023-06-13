@@ -12,6 +12,7 @@ import LogOut from './Logout';
 import Items from './Items';
 import ItemMaster from './ItemMaster';
 import Cart from './Cart';
+import ItemPage from './ItemPage';
 
 
 const root = ReactDOM.createRoot(
@@ -25,6 +26,7 @@ root.render(
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<App />} />
+        <Route path="item/:id" element={<ItemPage />} />
         <Route path="items" element={<Items />} />
         <Route path="item-master" element={<ItemMaster />} />
         <Route path="login" element={<Login />} />
@@ -38,8 +40,3 @@ root.render(
     </BrowserRouter>
   </React.StrictMode>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-// reportWebVitals();

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Item } from "./models/models";
 
 export default function SellerItems(props: any) {

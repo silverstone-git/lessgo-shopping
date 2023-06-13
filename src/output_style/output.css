@@ -583,6 +583,10 @@ video {
   position: absolute;
 }
 
+.relative {
+  position: relative;
+}
+
 .bottom-0 {
   bottom: 0px;
 }
@@ -611,12 +615,21 @@ video {
   top: 2rem;
 }
 
+.bottom-8 {
+  bottom: 2rem;
+}
+
 .z-10 {
   z-index: 10;
 }
 
 .z-20 {
   z-index: 20;
+}
+
+.my-12 {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
 }
 
 .my-2 {
@@ -629,21 +642,12 @@ video {
   margin-bottom: 0.75rem;
 }
 
-.my-12 {
-  margin-top: 3rem;
-  margin-bottom: 3rem;
-}
-
 .mb-12 {
   margin-bottom: 3rem;
 }
 
 .mb-16 {
   margin-bottom: 4rem;
-}
-
-.mb-28 {
-  margin-bottom: 7rem;
 }
 
 .mb-4 {
@@ -672,10 +676,6 @@ video {
 
 .mr-4 {
   margin-right: 1rem;
-}
-
-.mt-16 {
-  margin-top: 4rem;
 }
 
 .mt-2 {
@@ -750,6 +750,10 @@ video {
   height: 100vh;
 }
 
+.h-\[40vh\] {
+  height: 40vh;
+}
+
 .w-11\/12 {
   width: 91.666667%;
 }
@@ -813,6 +817,10 @@ video {
 
 .gap-8 {
   gap: 2rem;
+}
+
+.self-start {
+  align-self: flex-start;
 }
 
 .overflow-hidden {
@@ -948,6 +956,22 @@ video {
 
 .pt-\[80vh\] {
   padding-top: 80vh;
+}
+
+.pl-8 {
+  padding-left: 2rem;
+}
+
+.pt-\[30vh\] {
+  padding-top: 30vh;
+}
+
+.pt-\[10vh\] {
+  padding-top: 10vh;
+}
+
+.pt-\[20vh\] {
+  padding-top: 20vh;
 }
 
 .text-2xl {
@@ -1483,6 +1507,10 @@ input:not(.dont-pad-this-input) {
 
   .md\:w-auto {
     width: auto;
+  }
+
+  .md\:w-11\/12 {
+    width: 91.666667%;
   }
 
   .md\:flex-row {

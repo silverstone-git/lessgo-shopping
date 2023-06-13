@@ -59,6 +59,7 @@ export default function Cart(props: any) {
         getUserCart(jwtToken).then((cartArray) => {
             setCartItems(cartArray);
         })
+        // eslint-disable-next-line
     }, [jwtToken]);
     if(loggedIn) {
         return(

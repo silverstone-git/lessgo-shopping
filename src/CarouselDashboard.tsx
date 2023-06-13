@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -17,7 +16,7 @@ function CarouselDashboard(props: any) {
                     }
                     window.location.href = `${goTo}:3005/item/${el[2]}`
                 }}>
-                    <img src={el[0]} />
+                    <img src={el[0]} alt="Recently viewed items" />
                     <p className="legend">{el[1]}</p>
                 </div>
                 )

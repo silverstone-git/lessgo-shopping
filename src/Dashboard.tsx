@@ -19,8 +19,8 @@ function Dashboard() {
   const initListedItems: Array<Item> = [];
   const [soldItems, setListedItems] = useState(initListedItems)
   const [noOfItems, setNoOfItems] = useState(0);
-  const initCarouselArray: Array<Array<string>> = []
-  const [carouselArray, setCarouselArray] = useState(initCarouselArray);
+  const initCarouselArray: Array<Array<string>> = [];
+  const [carouselArray, setCarouselArray]= useState(initCarouselArray);
 
 
   function showSnackBar(message: string) {
@@ -107,7 +107,8 @@ function Dashboard() {
       return itemsArr;
   }
 
-  async function dashboardSetup() {
+
+  async function dashboardSetup(jwtToken: string) {
     await checkJWTFromStorage();
     const tempIsVendor = (await checkLoggedIn(jwtToken)).isVendor;
     if(tempIsVendor) {
@@ -120,10 +121,12 @@ function Dashboard() {
         ["https://picsum.photos/200", "Ah hell naw", "123"],
         ["https://picsum.photos/200", "Ah hell naw", "123"],
       ]);
+      // setCarouselArray(JSON.parse(localStorage.carouselArray));
     }
   }
   useEffect(() => {
-    dashboardSetup();
+    dashboardSetup(jwtToken);
+    // eslint-disable-next-line
   }, [jwtToken])
 
 
@@ -133,8 +136,7 @@ function Dashboard() {
 
     <div id='dashboard'>
 
-      <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
-            h-screen w-full text-slate-800 dark:text-slate-100'>
+      <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
 
         <div className=" text-green-600 dark:text-green-300 text-3xl mb-6">
           Welcome <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
@@ -155,7 +157,7 @@ function Dashboard() {
     return(
     <div id='dashboard'>
 
-      <div className='flex flex-col pt-[80vh] justify-center items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
+      <div className='flex flex-col pt-[20vh] items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
         <div className='font-bold text-xl md:text-3xl text-green-600 dark:text-green-300'>
           Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
         </div>
@@ -169,7 +171,7 @@ function Dashboard() {
             }
             window.location.href = `${goTo}:3005/cart`
           }
-          } className=" mt-7 flex justify-center items-center p-5 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100 font-thin rounded-full border-white border">
+          } className=" flex justify-center items-center p-5 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100 font-thin rounded-full border-white border">
             <div className="mr-4"><FontAwesomeIcon icon={icon({name: 'cart-shopping', style: 'solid'})} /></div>
             <div>Your Cart</div>
           </button>
