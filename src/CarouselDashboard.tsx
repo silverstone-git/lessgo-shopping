@@ -7,7 +7,7 @@ function CarouselDashboard(props: any) {
         <Carousel className="md:w-2/3 w-full" >
             {props.listOfImages.map((el: any) => {
                 return(
-                <div className="h-[60vh] w-full" onClick={() => {
+                <div key={el[2]} className="h-[60vh] w-full cursor-pointer" onClick={() => {
                     let goTo: string | undefined;
                     if(window.location.href.search('localhost') === -1) {
                     goTo = process.env.REACT_APP_LOCAL_SERVER;

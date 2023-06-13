@@ -78,10 +78,11 @@ function ItemPage(props:any) {
         setAuth(tempJwtToken.jwtToken);
     }
 
+    // eslint-disable-next-line
     useEffect(() => {setupItemPage()}, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
-            <ItemBigCard  {...{"item": item}}/>
+            <ItemBigCard  {...{"item": item, "auth": auth}}/>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />
         </div>

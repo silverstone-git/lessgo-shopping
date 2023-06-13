@@ -702,6 +702,14 @@ video {
   margin-top: 0.3rem;
 }
 
+.mt-\[15vh\] {
+  margin-top: 15vh;
+}
+
+.mb-14 {
+  margin-bottom: 3.5rem;
+}
+
 .inline {
   display: inline;
 }
@@ -1524,6 +1532,10 @@ input:not(.dont-pad-this-input) {
   .md\:px-0 {
     padding-left: 0px;
     padding-right: 0px;
+  }
+
+  .md\:pb-0 {
+    padding-bottom: 0px;
   }
 
   .md\:text-2xl {

@@ -67,7 +67,7 @@ export default function Cart(props: any) {
             <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
             h-screen w-full text-slate-800 dark:text-slate-100'>
                 Cart Items
-                <CartItemCards {...{"cartItems": cartItems, "auth": jwtToken}} />
+                <CartItemCards {...{"cartItems": cartItems, "jwtToken": jwtToken, "setIsLoading": setIsLoading, "setCartItems": setCartItems}} />
 
                 <Snacc {...{"message": snackBarMessage}} />
                 <Loading {...{"isLoading": isLoading}} />

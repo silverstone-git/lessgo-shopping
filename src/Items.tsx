@@ -130,11 +130,6 @@ function Items(props: any) {
     }
 
     function ItemCard(props: any) {
-
-	// const fetchRes = await fetch(receivedItem.image);
-	// receivedItem.image = await fetchRes.blob();
-	// const vidFetchRes = await fetch(receivedItem.video);
-	// receivedItem.video = await vidFetchRes.blob();
         return (
         <div id={props.itemId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col items-center justify-center'>

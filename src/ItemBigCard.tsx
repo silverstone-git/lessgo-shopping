@@ -1,6 +1,7 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
+import ReviewItem from "./ReviewItem";
 
 function ItemBigCard(props: any) {
     let navigate = useNavigate();
@@ -13,7 +14,7 @@ function ItemBigCard(props: any) {
             <div className="text-xl">{props.item.itemName}</div>
             <div className="text-md">{props.item.description}</div>
             <div className="font-bold"> In {props.item.category}</div>
-            <div>Add a Review</div>
+            <ReviewItem {...{"auth": props.auth}} />
         </div>
     )
 }
