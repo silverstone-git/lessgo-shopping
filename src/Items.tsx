@@ -144,10 +144,10 @@ function Items(props: any) {
                 }} className="h-full w-11/12 mt-4 overflow-hidden flex justify-center align-center cursor-pointer">
                     <img className='object-cover' alt="" src={props.image}></img>
                 </div>
-                <div className="flex flex-col justify-between items-center">
-                    <div className='ml-5 mt-2'>{`${props.itemName}, ₹${props.priceRs}`}</div>
-                    <div className='ml-5'>{`${props.description.substring(0, 20)}...`}</div>
-                    <div className=' flex items-center mb-4'>
+                <div className="flex flex-col justify-between w-full">
+                    <div className='ml-5 mt-4 '>{`${props.itemName}, ₹${props.priceRs}`}</div>
+                    <div className='ml-5 '>{`${props.description.substring(0, 20)}...`}</div>
+                    <div className=' flex items-center mb-4 ml-4 mt-2'>
                         <button className='subtractButton flex justify-center items-center bg-red-600 text-slate-100 dark:bg-red-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e)}>
                             <FontAwesomeIcon icon={icon({name: 'minus', style: 'solid'})} />
                         </button>

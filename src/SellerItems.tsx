@@ -20,9 +20,9 @@ export default function SellerItems(props: any) {
                             }}>
                                 <img className='object-cover' alt="" src={el.image}></img>
                             </div>
-                            <div className="flex flex-col justify-between items-center">
-                                <div className='my-2'>{`${el.itemName}, ₹${el.priceRs}`}</div>
-                                <div>{`${el.description.substring(0, 35)}...`}</div>
+                            <div className="flex flex-col justify-between ml-6 w-full">
+                                <div className='my-2 ml-2'>{`${el.itemName}, ₹${el.priceRs}`}</div>
+                                <div className="ml-2">{`${el.description.substring(0, 20)}...`}</div>
                                 <div className="flex justify-between my-3">
                                     <button className="p-4 dark:bg-red-300 dark:text-slate-800 text-slate-100 bg-red-600 rounded-full border border-white mr-3">Delete</button>
                                 </div>

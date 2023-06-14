@@ -4,6 +4,9 @@ import { CartItem, } from "./models/models";
 import Loading from "./Loading";
 import Snacc from "./Snacc";
 import CartItemCards from "./CartItemCards";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 
 
@@ -16,6 +19,7 @@ export default function Cart(props: any) {
     const initCartArray: Array<CartItem> = [];
     const [cartItems, setCartItems] = useState(initCartArray);
     const [isLoading, setIsLoading] = useState(false);
+    let navigate = useNavigate();
 
 
     function showSnackBar(message: string) {
@@ -66,6 +70,9 @@ export default function Cart(props: any) {
             
             <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
             h-screen w-full text-slate-800 dark:text-slate-100'>
+                <div onClick={() => {
+                    navigate(-1);
+                }} className=" cursor-pointer self-start pl-8 flex items-center text-md md:text-xl gap-4"><FontAwesomeIcon icon={icon({name: 'arrow-left', style: 'solid'})} /><div className=" font-bold text-sm sm:text-md md:text-xl">Back</div></div>
                 Cart Items
                 <CartItemCards {...{"cartItems": cartItems, "jwtToken": jwtToken, "setIsLoading": setIsLoading, "setCartItems": setCartItems}} />
 
