@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { CartItem, } from "./models/models";
 
 export default function CartItemCards(props: any) {
@@ -46,6 +45,11 @@ export default function CartItemCards(props: any) {
             })
         });
         const resJ = await res.json();
+        if(resJ.succ) {
+            props.showSnackBar("Item successfully deleted!")
+        } else {
+            props.showSnackBar(resJ.message)
+        }
         props.setIsLoading(false);
 
     }

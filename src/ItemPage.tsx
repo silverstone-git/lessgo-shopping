@@ -87,7 +87,7 @@ function ItemPage(props:any) {
                     }
                 }
                 if(!found) {
-                    localArray.push(newArr[0])
+                    localArray.unshift(newArr[0]);
                 }
                 if(localArray.length > 5) {
                     localArray.pop();
@@ -103,6 +103,7 @@ function ItemPage(props:any) {
     // eslint-disable-next-line
     useEffect(() => {
         setupItemPage();
+        // eslint-disable-next-line
     }, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
