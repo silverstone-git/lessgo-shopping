@@ -74,12 +74,36 @@ function ItemPage(props:any) {
         const receivedItem = await getItem(passedId ? passedId : 'undefined', setIsLoading, showSnackBar, tempJwtToken.jwtToken, setSnackBarMessage)
         if(receivedItem !== null) {
             setItem (receivedItem);
+
+            // caching item to local storage
+            const localArrayString = localStorage.getItem('carouselArray');
+            const newArr: Array<Array<string>> = [[receivedItem.image, receivedItem.itemName, receivedItem.itemId?.toString()!]];
+            if(localArrayString) {
+                const localArray: Array<Array<string>> = JSON.parse(localArrayString);
+                let found = false;
+                for(var i = 0; i < localArray.length; i ++) {
+                    if(localArray[i][2] === newArr[0][2]) {
+                        found = true
+                    }
+                }
+                if(!found) {
+                    localArray.push(newArr[0])
+                }
+                if(localArray.length > 5) {
+                    localArray.pop();
+                }
+                localStorage.setItem('carouselArray', JSON.stringify(localArray));
+            } else {
+                localStorage.setItem('carouselArray', JSON.stringify(newArr));
+            }
         }
         setAuth(tempJwtToken.jwtToken);
     }
 
     // eslint-disable-next-line
-    useEffect(() => {setupItemPage()}, [passedId,]);
+    useEffect(() => {
+        setupItemPage();
+    }, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
             <ItemBigCard  {...{"item": item, "auth": auth}}/>

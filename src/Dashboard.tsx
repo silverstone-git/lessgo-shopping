@@ -115,13 +115,19 @@ function Dashboard() {
       setListedItems(await getListedItems(jwtToken));
       setIsVendor(true);
     } else {
-      setCarouselArray([
-        ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
-        ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
-        ["https://picsum.photos/200", "Ah hell naw", "535754102"],
-        ["https://picsum.photos/200", "Ah hell naw", "535754102"],
-      ]);
-      // setCarouselArray(JSON.parse(localStorage.carouselArray));
+      if(localStorage.carouselArray) {
+        setCarouselArray(JSON.parse(localStorage.carouselArray));
+      } else {
+        //
+        // TODO: get hot items if you dont have local items already
+        //
+        setCarouselArray([
+          ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
+          ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
+          ["https://picsum.photos/200", "Ah hell naw", "535754102"],
+          ["https://picsum.photos/200", "Ah hell naw", "535754102"],
+        ]);
+      }
     }
   }
   useEffect(() => {

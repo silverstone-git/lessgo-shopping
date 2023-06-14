@@ -53,11 +53,11 @@ export default function CartItemCards(props: any) {
     // console.log(cardCartItems);
     console.log(props.cartItems);
     return(
-        <div className="flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-14">
+        <div className="flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-14 w-full">
             {props.cartItems.map((el: CartItem) => {
                 return(
                     <div key={el.itemId ? el.itemId.toString() : "" + el.count} id={el.itemId?.toString()}  className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
-                        <div className=' border rounded border-slate-500 flex flex-col items-center justify-center'>
+                        <div className=' border rounded border-slate-500 flex flex-col items-center justify-center w-full'>
                             <div onClick={() => {
                                 let goTo: string | undefined;
                                 if(window.location.href.search('localhost') === -1) {
