@@ -73,7 +73,7 @@ export default function Cart(props: any) {
                 <div onClick={() => {
                     navigate(-1);
                 }} className=" cursor-pointer self-start pl-8 flex items-center text-md md:text-xl gap-4"><FontAwesomeIcon icon={icon({name: 'arrow-left', style: 'solid'})} /><div className=" font-bold text-sm sm:text-md md:text-xl">Back</div></div>
-                Cart Items
+                <div className="text-md md:text-xl font-bold mt-4">Your Cart</div>
                 <CartItemCards {...{"cartItems": cartItems, "jwtToken": jwtToken, "setIsLoading": setIsLoading, "setCartItems": setCartItems, "showSnackBar": showSnackBar}} />
 
                 <Snacc {...{"message": snackBarMessage}} />

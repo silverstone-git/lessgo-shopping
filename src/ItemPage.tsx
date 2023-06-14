@@ -96,6 +96,17 @@ function ItemPage(props:any) {
             } else {
                 localStorage.setItem('carouselArray', JSON.stringify(newArr));
             }
+        } else {
+            // the received item id doesnt exist / is deleted
+            const localArrayString = localStorage.getItem('carouselArray');
+            if(localArrayString) {
+                const localArray: Array<Array<string>> = JSON.parse(localArrayString);
+                const voidPoint = localArray.findIndex((el) => {return el[2] === passedId})
+                if(voidPoint !== -1)
+                    localArray.splice(voidPoint, 1);
+                localStorage.setItem('carouselArray', JSON.stringify(localArray));
+            }
+            showSnackBar('Item doesn\'t exist', setSnackBarMessage);
         }
         setAuth(tempJwtToken.jwtToken);
     }

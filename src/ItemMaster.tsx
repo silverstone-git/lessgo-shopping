@@ -171,7 +171,7 @@ function ItemMaster(props: any) {
                   e.preventDefault();
                   await addItem(item);
                 }}>
-              <div className=" flex flex-col gap-8 mt-6 md:w-1/2 w-11/12">
+              <div className=" flex flex-col gap-8 mt-6 md:w-1/2 w-10/12">
                 <div>
                   <label htmlFor="itemName">Enter Item Name to be displayed</label>
                   <input onChange={(e) => {setItem({ ...item, "item_name": e.target.value })}} name="itemName" type="text" className="w-full item-master-input" maxLength={100} minLength={3} required />
@@ -201,9 +201,11 @@ function ItemMaster(props: any) {
                 </form>
           </div>
         </div>
+        <div className="fixed bottom-5 w-full flex justify-center">
+          <Snacc {...{"message": snackBarMessage}} />
+        </div>
       </div>
 
-      <Snacc {...{"message": snackBarMessage}} />
       <Loading {...{"isLoading": isLoading}} />
     </div>
     )

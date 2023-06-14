@@ -53,9 +53,6 @@ export default function CartItemCards(props: any) {
         props.setIsLoading(false);
 
     }
-    console.log("cart is: ");
-    // console.log(cardCartItems);
-    console.log(props.cartItems);
     return(
         <div className="flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-14 w-full">
             {props.cartItems.map((el: CartItem) => {

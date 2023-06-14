@@ -7,7 +7,6 @@ import Loading from "./Loading";
 import SellerItems from "./SellerItems";
 import { Item } from "./models/models";
 import CarouselDashboard from "./CarouselDashboard";
-// import { Carousel } from 'react-responsive-carousel';
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
@@ -91,10 +90,11 @@ function Dashboard() {
       });
       const resJ = await res.json();
       const itemsArr: Array<Item> = [];
+      const itemsObjectList: Array<Object> = JSON.parse(resJ.itemsObjectList);
       if(resJ.succ) {
-          setNoOfItems(resJ.itemsObjectList.length);
-          for(var i = 0; i < resJ.itemsObjectList.length; i ++) {
-              itemsArr.push(Item.fromMap(resJ.itemsObjectList[i]));
+          setNoOfItems(itemsObjectList.length);
+          for(var i = 0; i < itemsObjectList.length; i ++) {
+              itemsArr.push(Item.fromMap(itemsObjectList[i]));
           }
       } else {
         if(res.status === 404) {
@@ -151,7 +151,7 @@ function Dashboard() {
         <div className="bold text-md">
           {noOfItems === 0 ? "No Items are listed, please add new by going to Add new item section" : "Your Listings"}
         </div>
-        <SellerItems {...{"soldItems": soldItems}} />
+        <SellerItems {...{"soldItems": soldItems, "setIsLoading": setIsLoading, "showSnackBar": showSnackBar, "setListedItems": setListedItems, "jwtToken": jwtToken}} />
       </div>
       <Snacc {...{"message": snackBarMessage}} />
       <Loading {...{"isLoading": isLoading}} />

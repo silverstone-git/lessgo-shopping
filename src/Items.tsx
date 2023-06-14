@@ -169,6 +169,7 @@ function Items(props: any) {
         return (
             <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
             h-screen w-full text-slate-800 dark:text-slate-100'>
+                <div className='my-4 text-md md:text-xl font-bold'>All Items</div>
                 <div className='flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-14 '>
                 {listOfItems.map(el => {
                     // map each object into component
@@ -180,7 +181,9 @@ function Items(props: any) {
                 </div>
                 <ShoppingCart {...{"cart": noOfItems, "auth": jwtToken, "showSnackBar": showSnackBar, "setIsLoading": showLoading}} />
 
+                {/* <div className='self-center'> */}
                 <Snacc {...{"message": snackBarMessage}} />
+                {/* </div> */}
                 <Loading {...{"isLoading": isLoading}} />
             </div>
         )
