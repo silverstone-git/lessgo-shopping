@@ -60,7 +60,6 @@ function ItemMaster(props: any) {
 		.then((val) => val.json()).then((val: any) => {
 			setLoggedIN(val.isLoggedIn);
       setIsVendor(val.isVendor);
-      // setUsername(val.username);
 		});
 	};
 
@@ -132,7 +131,7 @@ function ItemMaster(props: any) {
     let category: keyof typeof categories;
     let optionsList: Array<React.JSX.Element> = [];
     for(category in categories) {
-      optionsList.push(<option key={category} value={categories[category]}>{categories[category]}</option>)
+      optionsList.push(<option className=" dark:bg-slate-800 dark:text-slate-100 bg-slate-100 text-slate-800"  key={category} value={categories[category]}>{categories[category]}</option>)
     }
     function categoryStringToCategory(catString: string) {
       

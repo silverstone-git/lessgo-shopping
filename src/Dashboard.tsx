@@ -56,7 +56,10 @@ function Dashboard() {
 		{
 			method: "POST",
 			headers: {"Content-Type": "application/json"},
-			body: JSON.stringify({"Authorization": `${jwtToken}`}),
+			body: JSON.stringify({
+        "Authorization": `${jwtToken}`,
+        "sendUsername": true,
+    }),
 		},
 		)
     const resJ = await res.json();
@@ -90,8 +93,8 @@ function Dashboard() {
       });
       const resJ = await res.json();
       const itemsArr: Array<Item> = [];
-      const itemsObjectList: Array<Object> = JSON.parse(resJ.itemsObjectList);
       if(resJ.succ) {
+        const itemsObjectList: Array<Object> = JSON.parse(resJ.itemsObjectList);
           setNoOfItems(itemsObjectList.length);
           for(var i = 0; i < itemsObjectList.length; i ++) {
               itemsArr.push(Item.fromMap(itemsObjectList[i]));
@@ -145,11 +148,11 @@ function Dashboard() {
       <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
 
         <div className=" text-green-600 dark:text-green-300 text-3xl mb-6">
-          Welcome <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
+          Welcome <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username.split(' ')[0]}</div>
         </div>
 
         <div className="bold text-md">
-          {noOfItems === 0 ? "No Items are listed, please add new by going to Add new item section" : "Your Listings"}
+          {noOfItems === 0 ? "" : "Your Listings"}
         </div>
         <SellerItems {...{"soldItems": soldItems, "setIsLoading": setIsLoading, "showSnackBar": showSnackBar, "setListedItems": setListedItems, "jwtToken": jwtToken}} />
       </div>
@@ -165,7 +168,7 @@ function Dashboard() {
 
       <div className='flex flex-col pt-[20vh] items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
         <div className='font-bold text-xl md:text-3xl text-green-600 dark:text-green-300'>
-          Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username}</div>
+          Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{username.split(' ')[0]}</div>
         </div>
         <div className=' text-xl md:text-2xl text-slate-600 dark:text-slate-200 my-12'>
           <button onClick={() => {

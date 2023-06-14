@@ -38,8 +38,6 @@ function Layout() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
   const [isVendor, setIsVendor] = useState(false);
-  // const [username, setUsername] = useState("");
-	// const [user, setUser] = useState(new User('', '', '', false));
 
   const checkJWTFromStorage = () => {
     const token = localStorage.getItem('jwtToken');
@@ -83,7 +81,6 @@ function Layout() {
 	useEffect(() => {
     checkJWTFromStorage();
     checkLoggedIn(localStorage.jwtToken);
-    // fetchUser(username);
   }, []);
 
 

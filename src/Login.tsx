@@ -5,7 +5,7 @@ import Loading from './Loading';
 
 
 function Login() {
-    const [username, setUserName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [submitButtonDark, setSubmitButtonDark] = useState(0);
@@ -33,16 +33,12 @@ function Login() {
     }
 
     async function logMeIn() {
-        // console.log("bro login ho raha h")
 
-        // TODO: A progess bar starts here
         setIsLoading(true);
         setSubmitButtonDark(1);
 
         // TODO: updation of state is only one way, need a method to update
         // the input field values according to the frontend state instead of the opposite
-        // setUserName("");
-        // setPassword("");
 
         let fetchLocation: string | undefined;
         if(window.location.href.search('localhost') === -1) {
@@ -56,12 +52,11 @@ function Login() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                "username": username,
+                "email": email,
                 "password": password
             })
         });
         const resJ = await res.json();
-        // console.log("bro login hogya h")
         setIsLoading(false)
 
         if(resJ.succ) {
@@ -83,7 +78,6 @@ function Login() {
         }
         setSubmitButtonDark(0);
 
-        // TODO: a progress bar ends here
     }
 
 
@@ -91,14 +85,14 @@ function Login() {
         if(props.isDark) {
             //
             return (
-                <button onClick={logMeIn} className='bg-green-900 dark:bg-green-700 hover:bg-green-800 hover:dark:bg-green-100  rounded-md p-3 mt-4 text-lg text-slate-100 dark:text-slate-700'>
+                <button type='submit' className='bg-green-900 dark:bg-green-700 hover:bg-green-800 hover:dark:bg-green-100  rounded-md p-3 mt-4 text-lg text-slate-100 dark:text-slate-700'>
                     Submit
                 </button>
             )
         } else {
             // show a nice colorful submit button
             return (
-                <button onClick={logMeIn} className='bg-green-600 dark:bg-green-300 hover:bg-green-800 hover:dark:bg-green-100  rounded-md p-3 mt-4 text-lg text-slate-100 dark:text-slate-700'>
+                <button type='submit' className='bg-green-600 dark:bg-green-300 hover:bg-green-800 hover:dark:bg-green-100  rounded-md p-3 mt-4 text-lg text-slate-100 dark:text-slate-700'>
                     Submit
                 </button>
             )
@@ -114,13 +108,16 @@ function Login() {
                 <div className='text-slate-600 dark:text-slate-200'>Log back into your Account</div>
             </div>
             <div>
-                <div className='flex flex-col gap-4'>
-                    <label htmlFor="username-input">Username</label>
-                    <input onChange={(e) => setUserName(e.target.value)} type="text" />
+                <form className='flex flex-col gap-4' action='' onSubmit={async (e) => {
+                  e.preventDefault();
+                  await logMeIn();
+                }}>
+                    <label htmlFor="email-input">Email</label>
+                    <input onChange={(e) => setEmail(e.target.value)} type="text" />
                     <label htmlFor="password-input">Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} type="password" />
                     <SubmitButton {...{"isDark": submitButtonDark}} />
-                </div>
+                </form>
                 <div className=' mt-8 text-sm text-slate-500 '>Create a new account <a className='text-green-600 dark:text-green-300 hover:opacity-80' href='/signup'>here</a></div>
             </div>
             <Snacc {...{"message": snackBarMessage}} />
