@@ -7,17 +7,13 @@ import Snacc from './common/components/SnackBarComponent';
 import Loading from './common/components/Loading';
 import { Item } from './models/models';
 import ShoppingCart from './cart/ShoppingCart';
+import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
 
 
 async function getItems(jwtToken: String) {
 
-    let fetchLocation: string | undefined;
-    if(window.location.href.search('localhost') === -1) {
-      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-    } else {
-      fetchLocation = process.env.REACT_APP_CUR_SERVER;
-    }
-    const res = await fetch(`${fetchLocation}:8000/api/items/get-items/`, {
+    const fetchLocation = getBackendLocation();
+    const res = await fetch(`${fetchLocation}/api/items/get-items/`, {
         "method": "POST",
         "headers": {
             "Content-Type": "application/json",
@@ -84,14 +80,9 @@ function Items(props: any) {
 
 
   const checkLoggedIn = (jwtToken: String) => {
-		// to check if logged in at every render
-    let fetchLocation: string | undefined;
-    if(window.location.href.search('localhost') === -1) {
-      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-    } else {
-      fetchLocation = process.env.REACT_APP_CUR_SERVER;
-    }
-    fetch(`${fetchLocation}:8000/api/auth/isLoggedIn/`,
+	// to check if logged in at every render
+    const fetchLocation = getBackendLocation();
+    fetch(`${fetchLocation}/api/auth/isLoggedIn/`,
     {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -134,13 +125,7 @@ function Items(props: any) {
         <div id={props.itemId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col items-center justify-center'>
                 <div onClick={() => {
-                    let goTo: string | undefined;
-                    if(window.location.href.search('localhost') === -1) {
-                    goTo = process.env.REACT_APP_LOCAL_SERVER;
-                    } else {
-                    goTo = process.env.REACT_APP_CUR_SERVER;
-                    }
-                    window.location.href = `${goTo}:3005/item/${props.itemId}`
+                    window.location.href = `${getFrontendLocation()}/item/${props.itemId}`
                 }} className="h-full w-11/12 mt-4 overflow-hidden flex justify-center align-center cursor-pointer">
                     <img className='object-cover' alt="" src={props.image}></img>
                 </div>

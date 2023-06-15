@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Snacc from './common/components/SnackBarComponent';
 import Loading from './common/components/Loading';
+import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
 
 
 
@@ -14,14 +15,7 @@ function Login() {
 
     useEffect(() => {
         if(loggedIn === "true") {
-
-            let goTo: string | undefined;
-            if(window.location.href.search('localhost') === -1) {
-            goTo = process.env.REACT_APP_LOCAL_SERVER;
-            } else {
-            goTo = process.env.REACT_APP_CUR_SERVER;
-            }
-            window.location.href = `${goTo}:3005/dashboard`;
+            window.location.href = `${getFrontendLocation()}/dashboard`;
         }
     })
 
@@ -39,14 +33,8 @@ function Login() {
 
         // TODO: updation of state is only one way, need a method to update
         // the input field values according to the frontend state instead of the opposite
-
-        let fetchLocation: string | undefined;
-        if(window.location.href.search('localhost') === -1) {
-        fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-        } else {
-        fetchLocation = process.env.REACT_APP_CUR_SERVER;
-        }
-        const res = await fetch(`${fetchLocation}:8000/api/auth/login/`, {
+        const fetchLocation = getBackendLocation();
+        const res = await fetch(`${fetchLocation}/api/auth/login/`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -63,14 +51,7 @@ function Login() {
 
             localStorage.setItem("jwtToken", resJ.Authorization);
             localStorage.setItem("loggedIn", 'true');
-
-            let goTo: string | undefined;
-            if(window.location.href.search('localhost') === -1) {
-            goTo = process.env.REACT_APP_LOCAL_SERVER;
-            } else {
-            goTo = process.env.REACT_APP_CUR_SERVER;
-            }
-            window.location.href = `${goTo}:3005/dashboard`;
+            window.location.href = `${getFrontendLocation()}/dashboard`;
         } else {
             showSnackBar(resJ.message);
             console.log("Login Failure");

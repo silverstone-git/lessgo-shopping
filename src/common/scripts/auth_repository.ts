@@ -1,14 +1,11 @@
 import { showSnackBar } from "./snacc";
+import { getBackendLocation } from "./urls";
+
 
 export const checkLoggedIn = async (jwtToken: String, setLoggedIn: any, setUsername: any = undefined, setIsVendor: any, setSnackBarMessage: any = undefined) => {
   // to check if logged in at every render
-  let fetchLocation: string | undefined;
-  if(window.location.href.search('localhost') === -1) {
-    fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-  } else {
-    fetchLocation = process.env.REACT_APP_CUR_SERVER;
-  }
-  const res = await fetch(`${fetchLocation}:8000/api/auth/isLoggedIn/`,
+  const fetchLocation = getBackendLocation();
+  const res = await fetch(`${fetchLocation}/api/auth/isLoggedIn/`,
   {
     method: "POST",
     headers: {"Content-Type": "application/json"},

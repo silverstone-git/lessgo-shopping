@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Forbidden from "../Forbidden";
-import { Item } from "../models/models";
+import { Item, initCategoryCarousels } from "../models/models";
 import DashboardVendor from "./DashboardVendor";
 import * as authRepo from '../common/scripts/auth_repository';
 import * as vendorRepo from '../common/scripts/vendor_repository';
 import * as snacc from '../common/scripts/snacc';
 import DashboardCustomer from "./DasbhboardCustomer";
+import { carouselItemsByCategory } from "../common/scripts/items_repository";
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
@@ -19,6 +20,7 @@ function Dashboard() {
   const [noOfItems, setNoOfItems] = useState(0);
   const initCarouselArray: Array<Array<string>> = [];
   const [carouselArray, setCarouselArray]= useState(initCarouselArray);
+  const [categoriesCarousels, setCategoriesCarousels] = useState(initCategoryCarousels);
 
 
   async function dashboardSetup(jwtToken: string) {
@@ -40,6 +42,14 @@ function Dashboard() {
           ["https://picsum.photos/200", "Ah hell naw", "535754102"],
           ["https://picsum.photos/200", "Ah hell naw", "535754102"],
         ]);
+
+        setCategoriesCarousels({
+          ...categoriesCarousels,
+          fmcg: await carouselItemsByCategory("fmcg", jwtToken),
+          veh: await carouselItemsByCategory("veh", jwtToken),
+          elec: await carouselItemsByCategory("elec", jwtToken),
+          mat: await carouselItemsByCategory("mat", jwtToken),
+      })
       }
     }
   }
@@ -56,22 +66,18 @@ function Dashboard() {
     )
   }
   else if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {
-    const carouselArray1 = [
-      ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
-      ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
-      ["https://picsum.photos/200", "Ah hell naw", "535754102"],
-      ["https://picsum.photos/200", "Ah hell naw", "535754102"],
-    ];
-    const electronicsCarousel = carouselArray1.slice();
-    const fmcgCarousel = carouselArray1.slice();
-    const vehiclesCarousel = carouselArray1.slice();
-    const materialCarousel = carouselArray1.slice();
+    // const carouselArray1 = [
+    //   ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
+    //   ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
+    //   ["https://picsum.photos/200", "Ah hell naw", "535754102"],
+    //   ["https://picsum.photos/200", "Ah hell naw", "535754102"],
+    // ];
     return(
       <DashboardCustomer {...{carouselArray: carouselArray,
-        electronicsCarousel: electronicsCarousel,
-        fmcgCarousel: fmcgCarousel,
-        vehiclesCarousel: vehiclesCarousel,
-        materialCarousel: materialCarousel,
+        electronicsCarousel: categoriesCarousels.elec,
+        fmcgCarousel: categoriesCarousels.fmcg,
+        vehiclesCarousel: categoriesCarousels.veh,
+        materialCarousel: categoriesCarousels.mat,
         snackBarMessage: snackBarMessage,
         isLoading: isLoading,
         username: username}}/>

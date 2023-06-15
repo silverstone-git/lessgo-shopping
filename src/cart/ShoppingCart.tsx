@@ -1,5 +1,6 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getBackendLocation } from "../common/scripts/urls";
 
 export default function ShoppingCart(props: any) {
 
@@ -11,13 +12,8 @@ export default function ShoppingCart(props: any) {
 
         props.setIsLoading(true);
 
-        let fetchLocation: string | undefined;
-        if(window.location.href.search("localhost") === -1) {
-            fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-        } else {
-            fetchLocation = process.env.REACT_APP_CUR_SERVER;
-        }
-        const res = await fetch(`${fetchLocation}:8000/api/orders/add-to-cart/`, {
+        const fetchLocation = getBackendLocation();
+        const res = await fetch(`${fetchLocation}/api/orders/add-to-cart/`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({

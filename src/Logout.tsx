@@ -1,15 +1,9 @@
+import { getFrontendLocation } from "./common/scripts/urls";
 
 function LogOut() {
     localStorage.setItem("loggedIn", 'false');
     localStorage.setItem("jwtToken", '');
-
-    let goTo: string | undefined;
-    if(window.location.href.search('localhost') === -1) {
-    goTo = process.env.REACT_APP_LOCAL_SERVER;
-    } else {
-    goTo = process.env.REACT_APP_CUR_SERVER;
-    }
-    window.location.href = `${goTo}:3005/`
+    window.location.href = `${getFrontendLocation()}/`
     return (
         null
     )

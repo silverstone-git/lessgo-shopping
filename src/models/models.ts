@@ -33,6 +33,22 @@ export enum Category {
     other = "Other",
 }
 
+export const initCategoryCarousels: {
+    fmcg: Array<Array<string>>,
+    veh: Array<Array<string>>,
+    elec:Array<Array<string>>,
+    mat: Array<Array<string>>, 
+    other: Array<Array<string>>, 
+    mach: Array<Array<string>>, 
+  } = {
+    elec: [],
+    veh: [],
+    mat: [],
+    fmcg: [],
+    mach: [],
+    other: [],
+}
+
 export interface ItemInterface {
     item_id: number | undefined;
     item_name: string;

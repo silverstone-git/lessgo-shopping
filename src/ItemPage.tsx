@@ -4,22 +4,16 @@ import Loading from "./common/components/Loading";
 import { useParams } from "react-router-dom";
 import ItemBigCard from "./ItemBigCard";
 import { Category, Item } from "./models/models";
+import { getBackendLocation } from "./common/scripts/urls";
 
 async function getItem(passedId: string, setIsLoading: any, showSnackBar: any, jwtToken: string, setSnackBarMessage: any) {
     // returns the Item item from the passed id to set the state
     setIsLoading(true);
-
-    let fetchLocation: string | undefined;
-    if(window.location.href.search('localhost') === -1) {
-    fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-    } else {
-    fetchLocation = process.env.REACT_APP_CUR_SERVER;
-    }
-
     const options = {
         headers: {"Content-Type": "application/json"},
     }
-    const res = await fetch(`${fetchLocation}:8000/api/items/get-item/${passedId}/`, options);
+    const fetchLocation = getBackendLocation();
+    const res = await fetch(`${fetchLocation}/api/items/get-item/${passedId}/`, options);
     const resJ = await res.json();
     setIsLoading(false);
     if(resJ.succ) {

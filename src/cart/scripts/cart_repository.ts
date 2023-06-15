@@ -1,16 +1,12 @@
 import { showSnackBar } from "../../common/scripts/snacc";
+import { getBackendLocation } from "../../common/scripts/urls";
 import { CartItem } from "../../models/models";
 
 export async function getUserCart(jwtToken: string, setIsLoading: any, setSnackBarMessage: any) {
     // gets user cart by getting from backend
     setIsLoading(true);
-    let fetchLocation: string | undefined;
-    if(window.location.href.search('localhost') === -1) {
-    fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-    } else {
-    fetchLocation = process.env.REACT_APP_CUR_SERVER;
-    }
-    const res = await fetch(`${fetchLocation}:8000/api/orders/cart/`, {
+    const fetchLocation = getBackendLocation();
+    const res = await fetch(`${fetchLocation}/api/orders/cart/`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -49,13 +45,8 @@ export async function getUserCart(jwtToken: string, setIsLoading: any, setSnackB
         setCartItems(newCartItems);
 
         // deleting from backend
-        let fetchLocation: string | undefined;
-        if(window.location.href.search('localhost') === -1) {
-            fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-        } else {
-            fetchLocation = process.env.REACT_APP_CUR_SERVER;
-        }
-        const res = await fetch(`${fetchLocation}:8000/api/orders/delete-from-cart/`, {
+        const fetchLocation = getBackendLocation();
+        const res = await fetch(`${fetchLocation}/api/orders/delete-from-cart/`, {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json",

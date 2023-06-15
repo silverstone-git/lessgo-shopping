@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CarouselDashboard from './common/components/Carousel';
+import { getFrontendLocation } from './common/scripts/urls';
 // require('dotenv').config()
 // import './output_style/output.css';
 
@@ -11,10 +12,9 @@ function App() {
     () => {
       if(loggedIn === 'true') {
         if(window.location.href.search('localhost') === -1) {
-          window.location.href = `${process.env.REACT_APP_LOCAL_SERVER}:3005/dashboard/`;
+          window.location.href = `${getFrontendLocation()}/dashboard/`;
         } else {
-          //
-          window.location.href = `${process.env.REACT_APP_CUR_SERVER}:3005/dashboard/`;
+          window.location.href = `${getFrontendLocation()}/dashboard/`;
         }
       }
       setCarouselArray([

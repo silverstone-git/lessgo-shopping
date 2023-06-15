@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CarouselDashboard from "../common/components/Carousel";
 import Snacc from "../common/components/SnackBarComponent";
 import Loading from "../common/components/Loading";
+import { getFrontendLocation } from "../common/scripts/urls";
 
 export default function DashboardCustomer(props: any) {
     return (
@@ -14,13 +15,7 @@ export default function DashboardCustomer(props: any) {
         </div>
         <div className=' text-xl md:text-2xl text-slate-600 dark:text-slate-200 my-12'>
           <button onClick={() => {
-            let goTo: string | undefined;
-            if(window.location.href.search('localhost') === -1) {
-            goTo = process.env.REACT_APP_LOCAL_SERVER;
-            } else {
-            goTo = process.env.REACT_APP_CUR_SERVER;
-            }
-            window.location.href = `${goTo}:3005/cart`
+            window.location.href = `${getFrontendLocation()}/cart`
           }
           } className=" flex justify-center items-center p-5 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100 font-thin rounded-full border-white border">
             <div className="mr-4"><FontAwesomeIcon icon={icon({name: 'cart-shopping', style: 'solid'})} /></div>

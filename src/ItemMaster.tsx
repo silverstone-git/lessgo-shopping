@@ -4,6 +4,7 @@ import Forbidden from "./Forbidden";
 import Snacc from "./common/components/SnackBarComponent";
 import Loading from "./common/components/Loading";
 import { checkJWTFromStorage, checkLoggedIn } from "./common/scripts/auth_repository";
+import {getBackendLocation} from "./common/scripts/urls";
 
 
 function ItemMaster(props: any) {
@@ -61,14 +62,9 @@ function ItemMaster(props: any) {
     // console.log("sending image: ");
     // console.log(item.image);
 
-    let fetchLocation: string | undefined;
-    if(window.location.href.search('localhost') === -1) {
-      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-    } else {
-      fetchLocation = process.env.REACT_APP_CUR_SERVER;
-    }
+    const fetchLocation = getBackendLocation();
     clearAllFields();
-    const res = await fetch(`${fetchLocation}:8000/api/items/add-item/`, {
+    const res = await fetch(`${fetchLocation}/api/items/add-item/`, {
       headers: {
         "Content-Type": "application/json"
       },

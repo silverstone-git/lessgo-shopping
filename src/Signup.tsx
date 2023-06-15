@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Snacc from './common/components/SnackBarComponent';
 import Loading from './common/components/Loading';
+import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
 
 
 function Signup() {
@@ -31,13 +32,7 @@ function Signup() {
 
     useEffect(() => {
         if(loggedIn === "true") {
-            let goTo: string | undefined;
-            if(window.location.href.search('localhost') === -1) {
-                goTo = process.env.REACT_APP_LOCAL_SERVER;
-            } else {
-                goTo = process.env.REACT_APP_CUR_SERVER;
-            }
-            window.location.href = `${goTo}:3005/dashboard/`
+            window.location.href = `${getFrontendLocation()}/dashboard/`
         }
     })
 
@@ -45,14 +40,8 @@ function Signup() {
         // POST the form creds to the api for account creation
 
         setIsLoading(true);
-
-        let fetchLocation: string | undefined;
-        if(window.location.href.search('localhost') === -1) {
-        fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-        } else {
-        fetchLocation = process.env.REACT_APP_CUR_SERVER;
-        }
-        const res = await fetch(`${fetchLocation}:8000/api/auth/create`, {
+        const fetchLocation = getBackendLocation();
+        const res = await fetch(`${fetchLocation}/api/auth/create`, {
             "method": "POST",
             "headers": {
                 "Content-Type": "application/json",
