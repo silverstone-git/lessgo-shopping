@@ -3,6 +3,7 @@ import { Category, Item } from "./models/models";
 import Forbidden from "./Forbidden";
 import Snacc from "./common/components/SnackBarComponent";
 import Loading from "./common/components/Loading";
+import { checkJWTFromStorage, checkLoggedIn } from "./common/scripts/auth_repository";
 
 
 function ItemMaster(props: any) {
@@ -27,45 +28,9 @@ function ItemMaster(props: any) {
 
 
 
-  const checkJWTFromStorage = () => {
-    const token = localStorage.getItem('jwtToken');
-    if(token === '' || token === null || token === undefined) {
-      setLoggedIN(false);
-      setJwtToken("");
-      localStorage.setItem('loggedIn', 'false');
-      localStorage.setItem('jwtToken', "");
-    } else {
-      // if such a token exists, update the authorization status
-      setLoggedIN(true);
-      localStorage.setItem('loggedIn', 'true');
-    }
-  };
-
-
-  const checkLoggedIn = (jwtToken: String) => {
-		// to check if logged in at every render
-    let fetchLocation: string | undefined;
-    if(window.location.href.search('localhost') === -1) {
-      fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-    } else {
-      fetchLocation = process.env.REACT_APP_CUR_SERVER;
-    }
-		fetch(`${fetchLocation}:8000/api/auth/isLoggedIn/`,
-		{
-			method: "POST",
-			headers: {"Content-Type": "application/json"},
-			body: JSON.stringify({"Authorization": `${jwtToken}`}),
-		},
-		)
-		.then((val) => val.json()).then((val: any) => {
-			setLoggedIN(val.isLoggedIn);
-      setIsVendor(val.isVendor);
-		});
-	};
-
   useEffect(() => {
-    checkJWTFromStorage();
-    checkLoggedIn(jwtToken);
+    checkJWTFromStorage(setLoggedIN, setJwtToken);
+    checkLoggedIn(jwtToken, setLoggedIN, undefined, setIsVendor, setSnackBarMessage);
 
   }, [jwtToken])
   function clearAllFields() {

@@ -23,7 +23,7 @@ function Dashboard() {
 
   async function dashboardSetup(jwtToken: string) {
     await authRepo.checkJWTFromStorage(setLoggedIN, setJwtToken);
-    const tempIsVendor = (await authRepo.checkLoggedIn(jwtToken, setLoggedIN, setUsername, setIsVendor, snacc.showSnackBar, setSnackBarMessage)).isVendor;
+    const tempIsVendor = (await authRepo.checkLoggedIn(jwtToken, setLoggedIN, setUsername, setIsVendor, setSnackBarMessage)).isVendor;
     if(tempIsVendor) {
       setListedItems(await vendorRepo.getListedItems(jwtToken, setIsLoading, setNoOfItems, snacc.showSnackBar, setSnackBarMessage));
       setIsVendor(true);

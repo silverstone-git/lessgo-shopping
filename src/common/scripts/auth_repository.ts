@@ -1,5 +1,6 @@
+import { showSnackBar } from "./snacc";
 
-export const checkLoggedIn = async (jwtToken: String, setLoggedIn: any, setUsername: any = undefined, setIsVendor: any, showSnackBar: any, setSnackBarMessage: any) => {
+export const checkLoggedIn = async (jwtToken: String, setLoggedIn: any, setUsername: any = undefined, setIsVendor: any, setSnackBarMessage: any = undefined) => {
   // to check if logged in at every render
   let fetchLocation: string | undefined;
   if(window.location.href.search('localhost') === -1) {
@@ -25,7 +26,8 @@ export const checkLoggedIn = async (jwtToken: String, setLoggedIn: any, setUsern
       setUsername(resJ.username);
     setIsVendor(resJ.isVendor);
   } else {
-    showSnackBar("Unhandled Exception");
+    if(setSnackBarMessage)
+      showSnackBar("Unhandled Exception", setSnackBarMessage);
   }
   return resJ
 };
