@@ -591,6 +591,10 @@ video {
   bottom: 5rem;
 }
 
+.bottom-5 {
+  bottom: 1.25rem;
+}
+
 .bottom-\[13vh\] {
   bottom: 13vh;
 }
@@ -609,10 +613,6 @@ video {
 
 .top-8 {
   top: 2rem;
-}
-
-.bottom-5 {
-  bottom: 1.25rem;
 }
 
 .z-10 {
@@ -663,12 +663,20 @@ video {
   margin-bottom: 1.5rem;
 }
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.ml-4 {
+  margin-left: 1rem;
+}
+
 .ml-5 {
   margin-left: 1.25rem;
 }
 
-.ml-7 {
-  margin-left: 1.75rem;
+.ml-6 {
+  margin-left: 1.5rem;
 }
 
 .mr-12 {
@@ -715,18 +723,6 @@ video {
   margin-top: 15vh;
 }
 
-.ml-4 {
-  margin-left: 1rem;
-}
-
-.ml-6 {
-  margin-left: 1.5rem;
-}
-
-.ml-2 {
-  margin-left: 0.5rem;
-}
-
 .inline {
   display: inline;
 }
@@ -763,6 +759,10 @@ video {
   height: 2rem;
 }
 
+.h-\[20vh\] {
+  height: 20vh;
+}
+
 .h-\[40vh\] {
   height: 40vh;
 }
@@ -783,6 +783,18 @@ video {
   height: 100vh;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-1\/4 {
+  width: 25%;
+}
+
+.w-10\/12 {
+  width: 83.333333%;
+}
+
 .w-11\/12 {
   width: 91.666667%;
 }
@@ -797,10 +809,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-10\/12 {
-  width: 83.333333%;
 }
 
 .cursor-pointer {
@@ -922,11 +930,6 @@ video {
 .bg-slate-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
-}
-
-.bg-green-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(34 197 94 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r {
@@ -1078,11 +1081,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-teal-600 {
-  --tw-text-opacity: 1;
-  color: rgb(13 148 136 / var(--tw-text-opacity));
 }
 
 .opacity-70 {
@@ -1291,28 +1289,8 @@ input:not(.dont-pad-this-input) {
   background-color: rgb(20 83 45 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-green-600:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
-}
-
-.hover\:text-slate-100:hover {
-  --tw-text-opacity: 1;
-  color: rgb(241 245 249 / var(--tw-text-opacity));
-}
-
 .hover\:opacity-80:hover {
   opacity: 0.8;
-}
-
-.focus\:bg-green-600:focus {
-  --tw-bg-opacity: 1;
-  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
-}
-
-.focus\:text-slate-100:focus {
-  --tw-text-opacity: 1;
-  color: rgb(241 245 249 / var(--tw-text-opacity));
 }
 
 .focus\:outline-none:focus {
@@ -1496,26 +1474,6 @@ input:not(.dont-pad-this-input) {
 :is(.dark .hover\:dark\:bg-green-100):hover {
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity));
-}
-
-:is(.dark .dark\:hover\:bg-green-300:hover) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
-}
-
-:is(.dark .dark\:hover\:text-slate-800:hover) {
-  --tw-text-opacity: 1;
-  color: rgb(30 41 59 / var(--tw-text-opacity));
-}
-
-:is(.dark .dark\:focus\:bg-green-300:focus) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(134 239 172 / var(--tw-bg-opacity));
-}
-
-:is(.dark .dark\:focus\:text-slate-800:focus) {
-  --tw-text-opacity: 1;
-  color: rgb(30 41 59 / var(--tw-text-opacity));
 }
 
 :is(.dark .dark\:focus\:before\:shadow-\[3px_-1px_0px_13px_rgba\(255\2c 255\2c 255\2c 0\.4\)\]:focus)::before {

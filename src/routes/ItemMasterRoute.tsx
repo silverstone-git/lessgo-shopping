@@ -24,7 +24,7 @@ function ItemMasterRoute(props: any) {
 			<li className="routeli">
                 <Link to="/items"  className="flex items-center gap-2">
 					<FontAwesomeIcon icon={icon({name: 'magnifying-glass', style: 'solid'})} />
-					<div className="md:block hidden">Items</div>
+					<div className="md:block hidden">Explore</div>
 				</Link>
             </li>
 		);

@@ -56,9 +56,25 @@ function Dashboard() {
     )
   }
   else if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {
-
+    const carouselArray1 = [
+      ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
+      ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
+      ["https://picsum.photos/200", "Ah hell naw", "535754102"],
+      ["https://picsum.photos/200", "Ah hell naw", "535754102"],
+    ];
+    const electronicsCarousel = carouselArray1.slice();
+    const fmcgCarousel = carouselArray1.slice();
+    const vehiclesCarousel = carouselArray1.slice();
+    const materialCarousel = carouselArray1.slice();
     return(
-      <DashboardCustomer {...{carouselArray: carouselArray, snackBarMessage: snackBarMessage, isLoading: isLoading, username: username}}/>
+      <DashboardCustomer {...{carouselArray: carouselArray,
+        electronicsCarousel: electronicsCarousel,
+        fmcgCarousel: fmcgCarousel,
+        vehiclesCarousel: vehiclesCarousel,
+        materialCarousel: materialCarousel,
+        snackBarMessage: snackBarMessage,
+        isLoading: isLoading,
+        username: username}}/>
     )
   } else {
     return < Forbidden />

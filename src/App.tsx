@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import CarouselDashboard from './CarouselDashboard';
+import CarouselDashboard from './common/components/Carousel';
 // require('dotenv').config()
 // import './output_style/output.css';
 

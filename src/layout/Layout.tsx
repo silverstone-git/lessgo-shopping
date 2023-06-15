@@ -3,12 +3,12 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
-import './output_style/output.css';
-import ItemMasterRoute from "./routes/ItemMasterRoute";
-import LogOutRoute from './routes/LogOutRoute';
-import AppRoute from './routes/AppRoute';
-import { checkJWTFromStorage, checkLoggedIn } from "./common/scripts/auth_repository";
-import ProfileDropDown from "./layout/ProfileDropDown";
+import '../output_style/output.css';
+import ItemMasterRoute from "../routes/ItemMasterRoute";
+import LogOutRoute from '../routes/LogOutRoute';
+import AppRoute from '../routes/AppRoute';
+import { checkJWTFromStorage, checkLoggedIn } from "../common/scripts/auth_repository";
+import ProfileDropDown from "./ProfileDropDown";
 
 function Layout() {
   // On page load or when changing themes, best to add inline in `head` to avoid FOUC
