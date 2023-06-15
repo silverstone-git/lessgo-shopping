@@ -1,7 +1,7 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
-import ReviewItem from "./ReviewItem";
+import ReviewItem from "./ItemReview";
 
 function ItemBigCard(props: any) {
     let navigate = useNavigate();

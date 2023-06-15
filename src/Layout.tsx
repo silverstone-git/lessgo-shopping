@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import './output_style/output.css';
-import ItemMasterRoute from "./ItemMasterRoute";
-import LogOutRoute from './LogOutRoute';
-import AppRoute from './AppRoute';
+import ItemMasterRoute from "./routes/ItemMasterRoute";
+import LogOutRoute from './routes/LogOutRoute';
+import AppRoute from './routes/AppRoute';
 
 function Layout() {
   // On page load or when changing themes, best to add inline in `head` to avoid FOUC

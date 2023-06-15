@@ -1,50 +1,9 @@
-import { CartItem, Item } from "./models/models";
+import { deleteFromListing } from "../common/scripts/vendor_repository";
+import { CartItem, } from "../models/models";
 
 export default function SellerItems(props: any) {
 
     
-    async function deleteFromListing(itemId: number | undefined) {
-        props.setIsLoading(true);
-
-        // deleting from frontend
-
-        // loss of generality in this line because order id is stripped from the received cart-item from parent
-        const newSoldItems: Array<Item> = props.soldItems.slice();
-        for(var i = 0; i < newSoldItems.length; i ++) {
-            console.log("current orderId : ", newSoldItems[i].itemId, typeof newSoldItems[i].itemId);
-            if(newSoldItems[i].itemId === itemId) {
-                newSoldItems.splice(i, 1);
-            }
-        }
-        props.setListedItems(newSoldItems);
-
-        // deleting from backend
-        let fetchLocation: string | undefined;
-        if(window.location.href.search('localhost') === -1) {
-            fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-        } else {
-            fetchLocation = process.env.REACT_APP_CUR_SERVER;
-        }
-        const res = await fetch(`${fetchLocation}:8000/api/items/delete-listing/`, {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json",
-            },
-            "body": JSON.stringify({
-                "Authorization": props.jwtToken,
-                "itemId": itemId
-            })
-        });
-        const resJ = await res.json();
-        if(resJ.succ) {
-            props.showSnackBar("Item successfully deleted!")
-        } else {
-            props.showSnackBar(resJ.message)
-        }
-        props.setIsLoading(false);
-
-    }
-
     if(props.soldItems.length > 0) {
         //
         return(
@@ -71,7 +30,7 @@ export default function SellerItems(props: any) {
                                     <div className="flex justify-between my-3">
                                         <button onClick={() => {
                                             // send delete command to orders table given the order id with status  column 0
-                                            deleteFromListing(el.itemId);
+                                            deleteFromListing(el.itemId, props.setIsLoading, props.setListedItems, props.soldItems, props.jwtToken, props.setSnackBarMessage);
                                         }} className="p-4 dark:bg-red-300 dark:text-slate-800 text-slate-100 bg-red-600 rounded-full border border-white mr-3">Delete</button>
                                     </div>
                                 </div>

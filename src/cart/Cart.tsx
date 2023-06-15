@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import Forbidden from "./Forbidden"
-import { CartItem, } from "./models/models";
-import Loading from "./Loading";
-import Snacc from "./Snacc";
+import Forbidden from "../Forbidden"
+import { CartItem, } from "../models/models";
+import Loading from "../common/components/Loading";
+import Snacc from "../common/components/SnackBarComponent";
 import CartItemCards from "./CartItemCards";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { getUserCart } from "./scripts/cart_repository";
 
 
 
@@ -22,45 +23,10 @@ export default function Cart(props: any) {
     let navigate = useNavigate();
 
 
-    function showSnackBar(message: string) {
-        setSnackBarMessage(message)
-        setTimeout(() => {
-            setSnackBarMessage("");
-        }, 3000)
-    }
-
-    async function getUserCart(jwtToken: string) {
-        // gets user cart by getting from backend
-        setIsLoading(true);
-        let fetchLocation: string | undefined;
-        if(window.location.href.search('localhost') === -1) {
-        fetchLocation = process.env.REACT_APP_LOCAL_SERVER;
-        } else {
-        fetchLocation = process.env.REACT_APP_CUR_SERVER;
-        }
-        const res = await fetch(`${fetchLocation}:8000/api/orders/cart/`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                "Authorization": jwtToken,
-            })
-        });
-        const resJ = await res.json();
-        const itemsArr: Array<CartItem> = [];
-        if(resJ.succ) {
-            for(var i = 0; i < resJ.itemsObjectList.length; i ++) {
-                itemsArr.push(CartItem.fromMap(resJ.itemsObjectList[i]));
-            }
-        } else {
-            showSnackBar(resJ.message);
-        }
-        setIsLoading(false);
-        return itemsArr;
-    }
 
     useEffect(() => {
         // get the user's cart by giving jwt to the backend
-        getUserCart(jwtToken).then((cartArray) => {
+        getUserCart(jwtToken, setIsLoading, setSnackBarMessage).then((cartArray) => {
             setCartItems(cartArray);
         })
         // eslint-disable-next-line
@@ -74,7 +40,7 @@ export default function Cart(props: any) {
                     navigate(-1);
                 }} className=" cursor-pointer self-start pl-8 flex items-center text-md md:text-xl gap-4"><FontAwesomeIcon icon={icon({name: 'arrow-left', style: 'solid'})} /><div className=" font-bold text-sm sm:text-md md:text-xl">Back</div></div>
                 <div className="text-md md:text-xl font-bold mt-4">Your Cart</div>
-                <CartItemCards {...{"cartItems": cartItems, "jwtToken": jwtToken, "setIsLoading": setIsLoading, "setCartItems": setCartItems, "showSnackBar": showSnackBar}} />
+                <CartItemCards {...{"cartItems": cartItems, "jwtToken": jwtToken, "setIsLoading": setIsLoading, "setCartItems": setCartItems, setSnackBarMessage: setSnackBarMessage}} />
 
                 <Snacc {...{"message": snackBarMessage}} />
                 <Loading {...{"isLoading": isLoading}} />

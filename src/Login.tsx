@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Snacc from './Snacc';
-import Loading from './Loading';
+import Snacc from './common/components/SnackBarComponent';
+import Loading from './common/components/Loading';
 
 
 

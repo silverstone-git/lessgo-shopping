@@ -3,10 +3,10 @@ import { icon } from '@fortawesome/fontawesome-svg-core/import.macro'
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Forbidden from './Forbidden';
-import Snacc from './Snacc';
-import Loading from './Loading';
+import Snacc from './common/components/SnackBarComponent';
+import Loading from './common/components/Loading';
 import { Item } from './models/models';
-import ShoppingCart from './ShoppingCart';
+import ShoppingCart from './cart/ShoppingCart';
 
 
 async function getItems(jwtToken: String) {

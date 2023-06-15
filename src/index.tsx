@@ -7,11 +7,11 @@ import App from './App';
 import './output_style/output.css';
 import Login from './Login';
 import Signup from './Signup';
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import LogOut from './Logout';
 import Items from './Items';
 import ItemMaster from './ItemMaster';
-import Cart from './Cart';
+import Cart from './cart/Cart';
 import ItemPage from './ItemPage';
 
 

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Category, Item } from "./models/models";
 import Forbidden from "./Forbidden";
-import Snacc from "./Snacc";
-import Loading from "./Loading";
+import Snacc from "./common/components/SnackBarComponent";
+import Loading from "./common/components/Loading";
 
 
 function ItemMaster(props: any) {
