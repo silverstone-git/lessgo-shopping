@@ -24,22 +24,22 @@ export default function DashboardCustomer(props: any) {
         </div>
         <div className=" bg-slate-100 dark:bg-slate-800 pb-14 w-full flex flex-col items-center justify-center">
           <div className="flex items-center mb-16 gap-4"><div className=" font-bold text-sm sm:text-md md:text-xl">Continue where you left off!</div><FontAwesomeIcon icon={icon({name: 'arrow-right', style: 'solid'})} /></div>
-        <CarouselDashboard {...{"listOfImages": props.carouselArray}} />
+          <CarouselDashboard {...{"listOfImages": props.carouselArray}} />
         </div>
-        <div id="offers" className="flex-wrap flex bg-slate-100 dark:bg-slate-800 w-full">
-          <div id="electronics" className="flex flex-col items-center gap-4 p-4 w-1/2">
+        <div id="offers" className="flex-wrap flex bg-slate-100 dark:bg-slate-800 w-full font-lg font-bold pb-14">
+          <div id="electronics" className="flex flex-col items-center gap-4 p-4 md:w-1/2 w-full pt-7 md:pt-0">
             <div>Electronics for your home</div>
             <CarouselDashboard {...{listOfImages: props.electronicsCarousel}}/>
           </div>
-          <div id="fmcg" className="flex flex-col items-center gap-4 p-4 w-1/2">
+          <div id="fmcg" className="flex flex-col items-center gap-4 p-4 md:w-1/2 w-full pt-7 md:pt-0">
             <div>Fresh Home Products from Lessgo</div>
             <CarouselDashboard {...{listOfImages: props.fmcgCarousel}}/>
           </div>
-          <div id="vehicles" className="flex flex-col items-center gap-4 p-4 w-1/2">
+          <div id="vehicles" className="flex flex-col items-center gap-4 p-4 md:w-1/2 w-full pt-7 md:pt-0">
             <div>Hot Wheels for long rides</div>
             <CarouselDashboard {...{listOfImages: props.vehiclesCarousel}}/>
           </div>
-          <div id="material" className="flex flex-col items-center gap-4 p-4 w-1/2">
+          <div id="material" className="flex flex-col items-center gap-4 p-4 md:w-1/2 w-full pt-7 md:pt-0">
             <div>Craft something new with Lessgo</div>
             <CarouselDashboard {...{listOfImages: props.materialCarousel}}/>
           </div>

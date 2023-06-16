@@ -32,7 +32,7 @@ function Signup() {
 
     useEffect(() => {
         if(loggedIn === "true") {
-            window.location.href = `${getFrontendLocation()}/dashboard/`
+            window.location.href = `${getFrontendLocation()}/home`
         }
     })
 

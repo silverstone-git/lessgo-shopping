@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Category, Item } from "./models/models";
-import Forbidden from "./Forbidden";
-import Snacc from "./common/components/SnackBarComponent";
-import Loading from "./common/components/Loading";
-import { checkJWTFromStorage, checkLoggedIn } from "./common/scripts/auth_repository";
-import {getBackendLocation} from "./common/scripts/urls";
+import { Category, Item } from "../../models/models";
+import Forbidden from "../../Forbidden";
+import Snacc from "../../common/components/SnackBarComponent";
+import Loading from "../../common/components/Loading";
+import { checkJWTFromStorage, checkLoggedIn } from "../../common/scripts/auth_repository";
+import {getBackendLocation} from "../../common/scripts/urls";
 
 
 function ItemMaster(props: any) {

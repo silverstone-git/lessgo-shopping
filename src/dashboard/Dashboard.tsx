@@ -43,21 +43,20 @@ function Dashboard() {
           ["https://picsum.photos/200", "Ah hell naw", "535754102"],
         ]);
 
-        setCategoriesCarousels({
-          ...categoriesCarousels,
-          fmcg: await carouselItemsByCategory("fmcg", jwtToken),
-          veh: await carouselItemsByCategory("veh", jwtToken),
-          elec: await carouselItemsByCategory("elec", jwtToken),
-          mat: await carouselItemsByCategory("mat", jwtToken),
-      })
       }
+      setCategoriesCarousels({
+        ...categoriesCarousels,
+        fmcg: await carouselItemsByCategory("fmcg", jwtToken),
+        veh: await carouselItemsByCategory("veh", jwtToken),
+        elec: await carouselItemsByCategory("elec", jwtToken),
+        mat: await carouselItemsByCategory("mat", jwtToken),
+      })
     }
   }
   useEffect(() => {
     dashboardSetup(jwtToken);
     // eslint-disable-next-line
   }, [jwtToken])
-
 
   if(isVendor) {
     // rendering the vendor dashboard if the user is a vendor

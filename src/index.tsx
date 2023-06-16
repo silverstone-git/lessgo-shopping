@@ -10,9 +10,9 @@ import Signup from './Signup';
 import Dashboard from './dashboard/Dashboard';
 import LogOut from './Logout';
 import Items from './Items';
-import ItemMaster from './ItemMaster';
+import ItemMaster from './items/vendor/ItemMaster';
 import Cart from './cart/Cart';
-import ItemPage from './ItemPage';
+import ItemPage from './items/customer/components/ItemPage';
 
 
 const root = ReactDOM.createRoot(
@@ -31,7 +31,7 @@ root.render(
         <Route path="item-master" element={<ItemMaster />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="home" element={<Dashboard />} />
         <Route path="cart" element={<Cart />} />
       </Route>
       <Route path='/logout' element={<LogOut />}>

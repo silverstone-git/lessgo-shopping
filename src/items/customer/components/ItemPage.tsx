@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Snacc from "./common/components/SnackBarComponent";
-import Loading from "./common/components/Loading";
+import Snacc from "../../../common/components/SnackBarComponent";
+import Loading from "../../../common/components/Loading";
 import { useParams } from "react-router-dom";
 import ItemBigCard from "./ItemBigCard";
-import { Category, Item } from "./models/models";
-import { getBackendLocation } from "./common/scripts/urls";
+import { Category, Item } from "../../../models/models";
+import { getBackendLocation } from "../../../common/scripts/urls";
 
 async function getItem(passedId: string, setIsLoading: any, showSnackBar: any, jwtToken: string, setSnackBarMessage: any) {
     // returns the Item item from the passed id to set the state
@@ -112,7 +112,7 @@ function ItemPage(props:any) {
     }, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
-            <ItemBigCard  {...{"item": item, "auth": auth}}/>
+            <ItemBigCard  {...{item: item, auth: auth, setSnackBarMessage: setSnackBarMessage}}/>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />
         </div>

@@ -5,7 +5,6 @@ export function getBackendLocation() {
   } else {
     fetchLocation = process.env.REACT_APP_CUR_BACKEND;
   }
-  console.log("sending backend: ", fetchLocation);
   return fetchLocation;
 }
 

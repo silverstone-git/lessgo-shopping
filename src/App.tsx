@@ -12,9 +12,9 @@ function App() {
     () => {
       if(loggedIn === 'true') {
         if(window.location.href.search('localhost') === -1) {
-          window.location.href = `${getFrontendLocation()}/dashboard/`;
+          window.location.href = `${getFrontendLocation()}/home`;
         } else {
-          window.location.href = `${getFrontendLocation()}/dashboard/`;
+          window.location.href = `${getFrontendLocation()}/home`;
         }
       }
       setCarouselArray([
