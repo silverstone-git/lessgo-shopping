@@ -21,6 +21,8 @@ export default function Cart(props: any) {
     const initCartArray: Array<CartItem> = [];
     const [cartItems, setCartItems] = useState(initCartArray);
     const [isLoading, setIsLoading] = useState(false);
+    const newItemCount: Map<string, number> = new Map();
+    const [noOfItems, setNoOfItems] = useState(newItemCount);
     let navigate = useNavigate();
 
 
@@ -47,7 +49,15 @@ export default function Cart(props: any) {
 
                 </div>
                 <div className="text-md md:text-xl font-bold mt-4">Your Cart</div>
-                <CartItemCards {...{"cartItems": cartItems, "jwtToken": jwtToken, "setIsLoading": setIsLoading, "setCartItems": setCartItems, setSnackBarMessage: setSnackBarMessage}} />
+                <CartItemCards {...{
+                    "cartItems": cartItems,
+                    "jwtToken": jwtToken,
+                    "setIsLoading": setIsLoading,
+                    "setCartItems": setCartItems,
+                    setSnackBarMessage: setSnackBarMessage,
+                    noOfItems: noOfItems,
+                    setNoOfItems: setNoOfItems,
+                    }} />
 
                 <Snacc {...{"message": snackBarMessage}} />
                 <Loading {...{"isLoading": isLoading}} />

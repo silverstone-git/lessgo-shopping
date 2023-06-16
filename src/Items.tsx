@@ -8,6 +8,7 @@ import Loading from './common/components/Loading';
 import { Item } from './models/models';
 import ShoppingCart from './cart/ShoppingCart';
 import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
+import { changeCount } from './common/scripts/cart_repository';
 
 
 async function getItems(jwtToken: String) {
@@ -95,31 +96,6 @@ function Items(props: any) {
 };
 
 
-    function changeCount(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-        // JSON.parse(JSON.stringify(myObj));
-        var breh: Map<string, number> = new Map();
-        const newArr = Array.from(noOfItems.entries());
-        for( var i = 0; i < newArr.length; i ++) {
-            if(newArr[i][1] > 0) {
-                breh.set(newArr[i][0], newArr[i][1]);
-            }
-        }
-        const thisID = e.currentTarget.value;
-        const thisCount = noOfItems.get(thisID) ? noOfItems.get(thisID) : 0;
-        if(e.currentTarget.classList.contains('addButton')) {
-            breh.set(thisID, thisCount ? thisCount + 1 : 1)
-        } else if(e.currentTarget.classList.contains('subtractButton')) {
-            if(thisCount === 0 || thisCount === undefined) {
-                // pass
-            } else if(thisCount === 1) {
-                breh.delete(thisID);
-            } else {
-                breh.set(thisID, thisCount - 1);
-            }
-        }
-        setNoOfItems(breh);
-    }
-
     function ItemCard(props: any) {
         return (
         <div id={props.itemId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
@@ -133,11 +109,11 @@ function Items(props: any) {
                     <div className='ml-5 mt-4 '>{`${props.itemName}, ₹${props.priceRs}`}</div>
                     <div className='ml-5 '>{`${props.description.substring(0, 20)}...`}</div>
                     <div className=' flex items-center mb-4 ml-4 mt-2'>
-                        <button className='subtractButton flex justify-center items-center bg-red-600 text-slate-100 dark:bg-red-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e)}>
+                        <button className='subtractButton flex justify-center items-center bg-red-600 text-slate-100 dark:bg-red-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e, noOfItems, setNoOfItems)}>
                             <FontAwesomeIcon icon={icon({name: 'minus', style: 'solid'})} />
                         </button>
                         <div className='px-2'>{props.thisCount}</div>
-                        <button className='addButton flex justify-center items-center bg-green-600 text-slate-100 dark:bg-green-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e)}>
+                        <button className='addButton flex justify-center items-center bg-green-600 text-slate-100 dark:bg-green-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e, noOfItems, setNoOfItems)}>
                             <FontAwesomeIcon icon={icon({name: 'plus', style: 'solid'})} />
                         </button>
 

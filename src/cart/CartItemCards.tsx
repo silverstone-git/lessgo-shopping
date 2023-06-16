@@ -1,6 +1,9 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getFrontendLocation } from "../common/scripts/urls";
 import { CartItem, } from "../models/models";
 import { deleteFromCart } from "./scripts/cart_repository";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { changeCount } from "../common/scripts/cart_repository";
 
 export default function CartItemCards(props: any) {
 
@@ -22,6 +25,16 @@ export default function CartItemCards(props: any) {
                                     <div className="item-count my-2">
                                         Quantity: {el.count}
                                     </div>
+                                </div>
+                                <div className=' flex items-center mb-4 ml-4 mt-2'>
+                                    <button className='subtractButton flex justify-center items-center bg-red-600 text-slate-100 dark:bg-red-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e, props.noOfItems, props.setNoOfItems)}>
+                                        <FontAwesomeIcon icon={icon({name: 'minus', style: 'solid'})} />
+                                    </button>
+                                    <div className='px-2'>{props.thisCount}</div>
+                                    <button className='addButton flex justify-center items-center bg-green-600 text-slate-100 dark:bg-green-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e, props.noOfItems, props.setNoOfItems)}>
+                                        <FontAwesomeIcon icon={icon({name: 'plus', style: 'solid'})} />
+                                    </button>
+
                                 </div>
                                 <div className="flex my-3">
                                     <button onClick={(e) => {

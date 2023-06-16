@@ -1,8 +1,15 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { getFrontendLocation } from "../common/scripts/urls"
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function YourCartButton(props: any) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+  }, [navigate]);
+
     if(props.auth && window.location.href.search('cart') === -1 && !props.isVendor) {
         // if the user is authed up and isnt already in the cart section, show a button to take them to cart
         return (
