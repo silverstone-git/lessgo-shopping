@@ -65,7 +65,7 @@ function Layout() {
   <FontAwesomeIcon className='text-slate-800 inline dark:hidden' icon={icon({name: 'sun', style: 'solid'})} />
   <ProfileDropDown {...{loggedIn: loggedIn, isVendor: isVendor, username: username}}/>
   <div className="hidden md:block">
-  <YourCartButton auth={jwtToken} />
+  <YourCartButton auth={jwtToken} isVendor={isVendor} />
   </div>
     </div>
         <Outlet />

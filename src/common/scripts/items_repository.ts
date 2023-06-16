@@ -1,3 +1,5 @@
+import { Item } from "../../models/models";
+import { showSnackBar } from "./snacc";
 import {getBackendLocation} from "./urls";
 
 export const carouselItemsByCategory = async (categoryNameShort: string, jwt: string): Promise<string[][]> => {
@@ -33,4 +35,22 @@ export const addItemToCart = async (itemId: string, auth: string, setSnackBarMes
     });
     const resJ = await res.json();
     resJ.succ ? setSnackBarMessage("Item added to cart successfully") : setSnackBarMessage(resJ.message);
+}
+
+export async function getItem(passedId: string, setIsLoading: any, setSnackBarMessage: any) {
+    // returns the Item item from the passed id to set the state
+    setIsLoading(true);
+    const options = {
+        headers: {"Content-Type": "application/json"},
+    }
+    const fetchLocation = getBackendLocation();
+    const res = await fetch(`${fetchLocation}/api/items/get-item/${passedId}/`, options);
+    const resJ = await res.json();
+    setIsLoading(false);
+    if(resJ.succ) {
+        return Item.fromMap(JSON.parse(resJ.itemObjStr));
+    } else {
+        showSnackBar(resJ.message, setSnackBarMessage);
+        return null
+    }
 }

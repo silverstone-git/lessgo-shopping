@@ -5,70 +5,27 @@ import { useParams } from "react-router-dom";
 import ItemBigCard from "./ItemBigCard";
 import { Category, Item } from "../../../models/models";
 import { getBackendLocation } from "../../../common/scripts/urls";
-
-async function getItem(passedId: string, setIsLoading: any, showSnackBar: any, jwtToken: string, setSnackBarMessage: any) {
-    // returns the Item item from the passed id to set the state
-    setIsLoading(true);
-    const options = {
-        headers: {"Content-Type": "application/json"},
-    }
-    const fetchLocation = getBackendLocation();
-    const res = await fetch(`${fetchLocation}/api/items/get-item/${passedId}/`, options);
-    const resJ = await res.json();
-    setIsLoading(false);
-    if(resJ.succ) {
-        return Item.fromMap(JSON.parse(resJ.itemObjStr));
-    } else {
-        showSnackBar(resJ.message, setSnackBarMessage);
-        return null
-    }
-}
-
-
-const checkJWTFromStorage = async () => {
-    const token = localStorage.getItem('jwtToken');
-    if(token === '' || token === null || token === undefined) {
-        localStorage.setItem('loggedIn', 'false');
-        localStorage.setItem('jwtToken', "");
-        return {
-            loggedIn: false,
-            jwtToken: "",
-        }
-    } else {
-        // if such a token exists, update the authorization status
-        localStorage.setItem('loggedIn', 'true');
-        return {
-            loggedIn: true,
-            jwtToken: token
-        }
-    }
-};
-
-function showSnackBar(message: string, setSnackBarMessage: any) {
-    setSnackBarMessage(message)
-    setTimeout(() => {
-        setSnackBarMessage("");
-    }, 3000)
-}
-
-
-
+import { checkJWTFromStorage, checkLoggedIn } from "../../../common/scripts/auth_repository";
+import { getItem } from "../../../common/scripts/items_repository";
+import { showSnackBar } from "../../../common/scripts/snacc";
 
 function ItemPage(props:any) {
     const initItem: Item = new Item('', '', Category.other, false, 0,new Date(), '', '', undefined);
     const [item, setItem] = useState(initItem);
-    const [auth, setAuth] = useState('');
+    const [auth, setAuth] = useState(localStorage.jwtToken);
+    const [loggedIn, setLoggedIn] = useState(localStorage.loggedIn);
+    const [isVendor, setIsVendor] = useState(false);
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     let { passedId } = useParams();
 
     async function setupItemPage() {
 
-        const tempJwtToken = await checkJWTFromStorage();
-        const receivedItem = await getItem(passedId ? passedId : 'undefined', setIsLoading, showSnackBar, tempJwtToken.jwtToken, setSnackBarMessage)
+        await checkJWTFromStorage(setLoggedIn, setAuth);
+        await checkLoggedIn(auth, setLoggedIn, undefined, setIsVendor, undefined)
+        const receivedItem = await getItem(passedId ? passedId : 'undefined', setIsLoading, setSnackBarMessage);
         if(receivedItem !== null) {
             setItem (receivedItem);
-
             // caching item to local storage
             const localArrayString = localStorage.getItem('carouselArray');
             const newArr: Array<Array<string>> = [[receivedItem.image, receivedItem.itemName, receivedItem.itemId?.toString()!]];
@@ -102,7 +59,6 @@ function ItemPage(props:any) {
             }
             showSnackBar('Item doesn\'t exist', setSnackBarMessage);
         }
-        setAuth(tempJwtToken.jwtToken);
     }
 
     // eslint-disable-next-line
@@ -112,7 +68,7 @@ function ItemPage(props:any) {
     }, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
-            <ItemBigCard  {...{item: item, auth: auth, setSnackBarMessage: setSnackBarMessage}}/>
+            <ItemBigCard  {...{item: item, auth: auth, setSnackBarMessage: setSnackBarMessage, isVendor: isVendor}}/>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />
         </div>

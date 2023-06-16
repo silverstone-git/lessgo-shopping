@@ -862,6 +862,10 @@ video {
   gap: 2rem;
 }
 
+.gap-6 {
+  gap: 1.5rem;
+}
+
 .self-start {
   align-self: flex-start;
 }
@@ -1006,8 +1010,16 @@ video {
   padding-bottom: 3.5rem;
 }
 
+.pl-6 {
+  padding-left: 1.5rem;
+}
+
 .pl-8 {
   padding-left: 2rem;
+}
+
+.pr-6 {
+  padding-right: 1.5rem;
 }
 
 .pt-24 {
@@ -1016,18 +1028,6 @@ video {
 
 .pt-\[20vh\] {
   padding-top: 20vh;
-}
-
-.pr-8 {
-  padding-right: 2rem;
-}
-
-.pl-6 {
-  padding-left: 1.5rem;
-}
-
-.pr-6 {
-  padding-right: 1.5rem;
 }
 
 .text-2xl {
@@ -1602,10 +1602,6 @@ input:not(.dont-pad-this-input) {
 
   .md\:pb-0 {
     padding-bottom: 0px;
-  }
-
-  .md\:pl-6 {
-    padding-left: 1.5rem;
   }
 
   .md\:pl-8 {

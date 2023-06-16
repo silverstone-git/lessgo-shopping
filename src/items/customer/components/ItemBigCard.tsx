@@ -12,11 +12,13 @@ function ItemBigCard(props: any) {
                 navigate(-1);
             }} className=" cursor-pointer self-start pl-8 flex items-center text-md md:text-xl gap-4"><FontAwesomeIcon icon={icon({name: 'arrow-left', style: 'solid'})} /><div className=" font-bold text-sm sm:text-md md:text-xl">Back</div></div>
             <div id="item-image" className=" self-center mt-7 h-[40vh] md:w-1/2 w-full flex justify-center"><img src={props.item.image} alt="" className=" w-full object-contain" /></div>
-            <div className="text-xl">{props.item.itemName}</div>
-            <div className="text-md">{props.item.description}</div>
-            <div className="font-bold"> In {props.item.category}</div>
-            <AddItemToCart {...{itemId: props.item.itemId, auth: props.auth, setSnackBarMessage: props.setSnackBarMessage}} />
-            <ReviewItem {...{"auth": props.auth}} />
+            <div className="flex flex-col gap-6">
+                <div className="text-xl">{props.item.itemName}</div>
+                <div className="text-md">{props.item.description}</div>
+                <div className="font-bold"> In {props.item.category}</div>
+                <AddItemToCart {...{itemId: props.item.itemId, auth: props.auth, setSnackBarMessage: props.setSnackBarMessage, isVendor: props.isVendor ? true : false}} />
+                <ReviewItem {...{"auth": props.auth}} />
+            </div>
         </div>
     )
 }

@@ -81,6 +81,7 @@ function Dashboard() {
         isLoading: isLoading,
         username: username,
         jwt: jwtToken,
+        isVendor: isVendor,
       }}/>
     )
   } else {

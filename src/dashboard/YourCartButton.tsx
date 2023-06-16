@@ -3,7 +3,7 @@ import { getFrontendLocation } from "../common/scripts/urls"
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 
 export default function YourCartButton(props: any) {
-    if(props.auth && window.location.href.search('cart') === -1) {
+    if(props.auth && window.location.href.search('cart') === -1 && !props.isVendor) {
         // if the user is authed up and isnt already in the cart section, show a button to take them to cart
         return (
             <div className=' md:text-sm text-xl text-slate-600 dark:text-slate-200 md:my-0 my-12 ml-6'>
@@ -16,7 +16,7 @@ export default function YourCartButton(props: any) {
             </button>
             </div>
         )
-    } else if(props.auth) {
+    } else if(props.auth && !props.isVendor) {
         return(
             <div className=' md:text-sm text-xl text-slate-600 dark:text-slate-200 md:my-0 my-12 ml-6'>
             <button onClick={() => {
