@@ -27,7 +27,7 @@ export default function CartItemCards(props: any) {
                                     <button onClick={(e) => {
                                         deleteFromCart(el.orderId!, props.setIsLoading, props.setSnackBarMessage, props.cartItems, props.setCartItems, props.jwtToken);
                                     }} className="p-4 dark:bg-red-300 dark:text-slate-800 text-slate-100 bg-red-600 rounded-full border border-white mr-3">Delete</button>
-                                    <button className="p-4 dark:bg-green-300 dark:text-slate-800 text-slate-100 bg-green-600 rounded-full border border-white">Buy</button>
+                                    {/* <button className="p-4 dark:bg-green-300 dark:text-slate-800 text-slate-100 bg-green-600 rounded-full border border-white">Buy</button> */}
                                 </div>
                             </div>
                         </div>

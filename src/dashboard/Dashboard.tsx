@@ -79,7 +79,9 @@ function Dashboard() {
         materialCarousel: categoriesCarousels.mat,
         snackBarMessage: snackBarMessage,
         isLoading: isLoading,
-        username: username}}/>
+        username: username,
+        jwt: jwtToken,
+      }}/>
     )
   } else {
     return < Forbidden />

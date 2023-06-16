@@ -8,10 +8,10 @@ function CarouselDashboard(props: any) {
         <Carousel interval={3000} autoPlay={true} infiniteLoop={true} showThumbs={props.showThumbs ? true : false} className="md:w-2/3 w-full" >
             {props.listOfImages.map((el: any) => {
                 return(
-                <div key={el[2]} className="h-[60vh] w-full cursor-pointer" onClick={() => {
+                <div key={el[2]} className={`h-[${props.height ? props.height : '60'}vh] w-full cursor-pointer flex justify-center items-center`} onClick={() => {
                     window.location.href = `${getFrontendLocation()}/item/${el[2]}`
                 }}>
-                    <img src={el[0]} alt="" />
+                    <img src={el[0]} alt="" className=" object-contain h-full" />
                     <p className="legend">{el[1]}</p>
                 </div>
                 )
