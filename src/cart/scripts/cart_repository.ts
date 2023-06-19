@@ -2,7 +2,7 @@ import { showSnackBar } from "../../common/scripts/snacc";
 import { getBackendLocation } from "../../common/scripts/urls";
 import { CartItem } from "../../models/models";
 
-export async function getUserCart(jwtToken: string, setIsLoading: any, setSnackBarMessage: any) {
+export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>) {
     // gets user cart by getting from backend
     setIsLoading(true);
     const fetchLocation = getBackendLocation();
@@ -26,7 +26,7 @@ export async function getUserCart(jwtToken: string, setIsLoading: any, setSnackB
     return itemsArr;
 }
 
-export async function deleteFromCart(id: number, setIsLoading: any, setSnackBarMessage: any, cartItems: Array<CartItem>, setCartItems: any, jwtToken: string) {
+export async function deleteFromCart(id: number, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, cartItems: Array<CartItem>, setCartItems: React.Dispatch<React.SetStateAction<any>>, jwtToken: string) {
     setIsLoading(true);
 
 
@@ -66,7 +66,7 @@ export async function deleteFromCart(id: number, setIsLoading: any, setSnackBarM
 
 }
 
-export async function addToCart(auth: string, cart: Map<string, number>, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, strictMode: boolean, originalCartArray: Array<CartItem> | undefined) {
+export async function addToCart(auth: string, cart: Map<string, number>, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, strictMode: boolean, originalCartArray: Array<CartItem> | undefined, setNoOfItems: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) {
     //send a place order post request to backend
 
     // show loading icono
@@ -106,6 +106,9 @@ export async function addToCart(auth: string, cart: Map<string, number>, setIsLo
         for (var i = 0; i < originalCartArray.length; i ++) {
             cart.set(originalCartArray[i].itemId!.toString(), cart.get(originalCartArray[i].itemId!.toString())! + originalCartArray[i].count );
         }
+    } else {
+        if(setNoOfItems)
+           setNoOfItems(new Map());
     }
 
     // stop loading icon
@@ -122,7 +125,7 @@ export function listOfCartItemsToMap(cartItems: Array<CartItem>) {
     return newMap;
 }
 
-export function changeCount(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, noOfItems: Map<string, number>, setNoOfItems: any) {
+export function changeCount(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, noOfItems: Map<string, number>, setNoOfItems: React.Dispatch<React.SetStateAction<any>>) {
 
     // strict mode means that the number to be sent can be negative as well, so as to decrease no. of items in cart
 
@@ -147,4 +150,23 @@ export function changeCount(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, 
         }
     }
     setNoOfItems(breh);
+}
+
+export const checkIfAlreadyCart =  async (itemId: number | undefined, setAlreadyCart: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>): Promise<boolean> => {
+
+    const res = await fetch(`${getBackendLocation()}/api/orders/checkif-id-carted/`, {
+        headers: {"Content-Type": "application/json", "itemId": `${itemId}`},
+    });
+    const resJ = await res.json();
+    if(resJ.succ) {
+        if(setAlreadyCart)
+            setAlreadyCart(resJ.result);
+        return resJ.result;
+    } else {
+        setSnackBarMessage(resJ.message);
+        if(setAlreadyCart)
+            setAlreadyCart(false);
+        return false;
+    }
+
 }

@@ -4,10 +4,10 @@ import Loading from "../../../common/components/Loading";
 import { useParams } from "react-router-dom";
 import ItemBigCard from "./ItemBigCard";
 import { Category, Item } from "../../../models/models";
-import { getBackendLocation } from "../../../common/scripts/urls";
 import { checkJWTFromStorage, checkLoggedIn } from "../../../common/scripts/auth_repository";
 import { getItem } from "../../../common/scripts/items_repository";
 import { showSnackBar } from "../../../common/scripts/snacc";
+import { checkIfAlreadyCart } from "../../../cart/scripts/cart_repository";
 
 function ItemPage(props:any) {
     const initItem: Item = new Item('', '', Category.other, false, 0,new Date(), '', '', undefined);
@@ -18,9 +18,9 @@ function ItemPage(props:any) {
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     let { passedId } = useParams();
+    const [alreadyAddedToCart, setAlreadyAddedToCart] = useState(false);
 
     async function setupItemPage() {
-
         await checkJWTFromStorage(setLoggedIn, setAuth);
         await checkLoggedIn(auth, setLoggedIn, undefined, setIsVendor, undefined)
         const receivedItem = await getItem(passedId ? passedId : 'undefined', setIsLoading, setSnackBarMessage);
@@ -59,6 +59,7 @@ function ItemPage(props:any) {
             }
             showSnackBar('Item doesn\'t exist', setSnackBarMessage);
         }
+        await checkIfAlreadyCart(item.itemId, setAlreadyAddedToCart, setSnackBarMessage);
     }
 
     // eslint-disable-next-line
@@ -68,7 +69,7 @@ function ItemPage(props:any) {
     }, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
-            <ItemBigCard  {...{item: item, auth: auth, setSnackBarMessage: setSnackBarMessage, isVendor: isVendor}}/>
+            <ItemBigCard  {...{item: item, auth: auth, setSnackBarMessage: setSnackBarMessage, isVendor: isVendor, alreadyAddedToCart: alreadyAddedToCart, setAlreadyAddedToCart: setAlreadyAddedToCart}}/>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />
         </div>

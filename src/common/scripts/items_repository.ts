@@ -21,7 +21,7 @@ export const carouselItemsByCategory = async (categoryNameShort: string, jwt: st
 
 }
 
-export const addItemToCart = async (itemId: string, auth: string, setSnackBarMessage: any) =>  {
+export const addItemToCart = async (itemId: string, auth: string, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, setAlreadyCart: React.Dispatch<React.SetStateAction<any>>) =>  {
     const cartMap = (new Map<string, number>()).set(itemId.toString(), 1);
     const cartObj = Object.fromEntries(cartMap);
 
@@ -35,9 +35,10 @@ export const addItemToCart = async (itemId: string, auth: string, setSnackBarMes
     });
     const resJ = await res.json();
     resJ.succ ? setSnackBarMessage("Item added to cart successfully") : setSnackBarMessage(resJ.message);
+    setAlreadyCart(true);
 }
 
-export async function getItem(passedId: string, setIsLoading: any, setSnackBarMessage: any) {
+export async function getItem(passedId: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>) {
     // returns the Item item from the passed id to set the state
     setIsLoading(true);
     const options = {
@@ -53,4 +54,28 @@ export async function getItem(passedId: string, setIsLoading: any, setSnackBarMe
         showSnackBar(resJ.message, setSnackBarMessage);
         return null
     }
+}
+
+
+export async function getItems(jwtToken: String) {
+
+    const fetchLocation = getBackendLocation();
+    const res = await fetch(`${fetchLocation}/api/items/get-items/`, {
+        "method": "POST",
+        "headers": {
+            "Content-Type": "application/json",
+        },
+        "body": JSON.stringify({
+            "Authorization": jwtToken,
+        })
+    });
+    const resJ = await res.json();
+
+    const itemsArr: Array<Item> = [];
+    const objArr: Array<any> = JSON.parse(resJ.itemList);
+    for(var i = 0; i < objArr.length; i ++) {
+        itemsArr.push(Item.fromMap(objArr[i]));
+    }
+
+    return itemsArr;
 }

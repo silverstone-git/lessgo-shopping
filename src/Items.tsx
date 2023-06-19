@@ -9,30 +9,8 @@ import { Item } from './models/models';
 import ShoppingCart from './cart/components/ShoppingCart';
 import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
 import { changeCount } from './cart/scripts/cart_repository';
-
-
-async function getItems(jwtToken: String) {
-
-    const fetchLocation = getBackendLocation();
-    const res = await fetch(`${fetchLocation}/api/items/get-items/`, {
-        "method": "POST",
-        "headers": {
-            "Content-Type": "application/json",
-        },
-        "body": JSON.stringify({
-            "Authorization": jwtToken,
-        })
-    });
-    const resJ = await res.json();
-
-    const itemsArr: Array<Item> = [];
-    const objArr: Array<any> = JSON.parse(resJ.itemList);
-    for(var i = 0; i < objArr.length; i ++) {
-        itemsArr.push(Item.fromMap(objArr[i]));
-    }
-
-    return itemsArr;
-}
+import { checkJWTFromStorage, checkLoggedIn } from './common/scripts/auth_repository';
+import { getItems } from './common/scripts/items_repository';
 
 
 
@@ -52,49 +30,6 @@ function Items(props: any) {
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     
-    function showSnackBar(message: string) {
-        setSnackBarMessage(message)
-        setTimeout(() => {
-            setSnackBarMessage("");
-        }, 3000)
-    }
-
-    function showLoading(val: boolean) {
-        setIsLoading(val);
-    }
-
-
-
-  const checkJWTFromStorage = () => {
-    const token = localStorage.getItem('jwtToken');
-    if(token === '' || token === null || token === undefined) {
-      setLoggedIN(false);
-      setJwtToken("");
-      localStorage.setItem('loggedIn', 'false');
-      localStorage.setItem('jwtToken', "");
-    } else {
-      // if such a token exists, update the authorization status
-      setLoggedIN(true);
-      localStorage.setItem('loggedIn', 'true');
-    }
-  };
-
-
-  const checkLoggedIn = (jwtToken: String) => {
-	// to check if logged in at every render
-    const fetchLocation = getBackendLocation();
-    fetch(`${fetchLocation}/api/auth/isLoggedIn/`,
-    {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({"Authorization": `${jwtToken}`}),
-    },
-    )
-    .then((val) => val.json()).then((val: any) => {
-        setLoggedIN(val.isLoggedIn);
-    });
-};
-
 
     function ItemCard(props: any) {
         return (
@@ -106,7 +41,8 @@ function Items(props: any) {
                     <img className='object-cover' alt="" src={props.image}></img>
                 </div>
                 <div className="flex flex-col justify-between w-full">
-                    <div className='ml-5 mt-4 '>{`${props.itemName}, ₹${props.priceRs}`}</div>
+                    <div className='ml-5 mt-4 text-lg font-bold'>{`₹${props.priceRs}`}</div>
+                    <div className='ml-5 '>{props.itemName}</div>
                     <div className='ml-5 '>{`${props.description.substring(0, 20)}...`}</div>
                     <div className=' flex items-center mb-4 ml-4 mt-2'>
                         <button className='subtractButton flex justify-center items-center bg-red-600 text-slate-100 dark:bg-red-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e, noOfItems, setNoOfItems)}>
@@ -140,7 +76,7 @@ function Items(props: any) {
                     return <ItemCard {...{...el, "thisCount": thisCount, "key": thisId}} />
                 })}
                 </div>
-                <ShoppingCart {...{"cart": noOfItems, "jwtToken": jwtToken, "setSnackBarMessage": setSnackBarMessage, "setIsLoading": showLoading}} />
+                <ShoppingCart {...{"cart": noOfItems, setNoOfItems: setNoOfItems, "jwtToken": jwtToken, "setSnackBarMessage": setSnackBarMessage, "setIsLoading": setIsLoading}} />
 
                 {/* <div className='self-center'> */}
                 <Snacc {...{"message": snackBarMessage}} />
@@ -152,8 +88,8 @@ function Items(props: any) {
 
 	useEffect(() => {
 	// run a command only once
-        checkJWTFromStorage();
-        checkLoggedIn(jwtToken);
+        checkJWTFromStorage(setLoggedIN, setJwtToken);
+        checkLoggedIn(jwtToken, setLoggedIN, undefined, undefined, setSnackBarMessage);
 
         getItems(jwtToken).then((val) => {
             setListOfItems(val)

@@ -2,7 +2,7 @@ import { showSnackBar } from "./snacc";
 import { getBackendLocation } from "./urls";
 
 
-export const checkLoggedIn = async (jwtToken: String, setLoggedIn: any, setUsername: any = undefined, setIsVendor: any, setSnackBarMessage: any = undefined) => {
+export const checkLoggedIn = async (jwtToken: String, setLoggedIn: React.Dispatch<React.SetStateAction<any>>, setUsername: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setIsVendor: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) => {
   // to check if logged in at every render
   const fetchLocation = getBackendLocation();
   const res = await fetch(`${fetchLocation}/api/auth/isLoggedIn/`,
@@ -21,7 +21,8 @@ export const checkLoggedIn = async (jwtToken: String, setLoggedIn: any, setUsern
     setLoggedIn(resJ.isLoggedIn);
     if(setUsername)
       setUsername(resJ.username);
-    setIsVendor(resJ.isVendor);
+    if(setIsVendor)
+      setIsVendor(resJ.isVendor);
   } else {
     if(setSnackBarMessage)
       showSnackBar("Unhandled Exception", setSnackBarMessage);
@@ -29,7 +30,7 @@ export const checkLoggedIn = async (jwtToken: String, setLoggedIn: any, setUsern
   return resJ
 };
 
-export const checkJWTFromStorage = async (setLoggedIn: any, setJwtToken: any) => {
+export const checkJWTFromStorage = async (setLoggedIn: React.Dispatch<React.SetStateAction<any>>, setJwtToken: React.Dispatch<React.SetStateAction<any>>) => {
   const token = localStorage.getItem('jwtToken');
   if(token === '' || token === null || token === undefined) {
     setLoggedIn(false);

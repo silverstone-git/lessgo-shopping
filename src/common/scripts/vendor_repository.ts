@@ -2,7 +2,7 @@ import { CartItem, Item } from "../../models/models";
 import { showSnackBar } from "./snacc";
 import { getBackendLocation } from "./urls";
 
-export async function getListedItems(jwtToken: string, setIsLoading: any, setNoOfItems: any, showSnackBar: any, setSnackBarMessage: any ) {
+export async function getListedItems(jwtToken: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setNoOfItems: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> ) {
     // gets user cart by getting from backend
     setIsLoading(true);
     const fetchLocation = getBackendLocation();

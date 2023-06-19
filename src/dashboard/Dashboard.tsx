@@ -4,7 +4,6 @@ import { Item, initCategoryCarousels } from "../models/models";
 import DashboardVendor from "./DashboardVendor";
 import * as authRepo from '../common/scripts/auth_repository';
 import * as vendorRepo from '../common/scripts/vendor_repository';
-import * as snacc from '../common/scripts/snacc';
 import DashboardCustomer from "./DasbhboardCustomer";
 import { carouselItemsByCategory } from "../common/scripts/items_repository";
 
@@ -27,7 +26,7 @@ function Dashboard() {
     await authRepo.checkJWTFromStorage(setLoggedIN, setJwtToken);
     const tempIsVendor = (await authRepo.checkLoggedIn(jwtToken, setLoggedIN, setUsername, setIsVendor, setSnackBarMessage)).isVendor;
     if(tempIsVendor) {
-      setListedItems(await vendorRepo.getListedItems(jwtToken, setIsLoading, setNoOfItems, snacc.showSnackBar, setSnackBarMessage));
+      setListedItems(await vendorRepo.getListedItems(jwtToken, setIsLoading, setNoOfItems, setSnackBarMessage));
       setIsVendor(true);
     } else {
       if(localStorage.carouselArray) {

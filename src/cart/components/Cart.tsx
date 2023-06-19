@@ -23,7 +23,6 @@ export default function Cart(props: any) {
     const [isLoading, setIsLoading] = useState(false);
     const newItemCount: Map<string, number> = new Map();
     const [noOfItems, setNoOfItems] = useState(newItemCount);
-    const initEditMode : number = -1;
     const [editModeOn, setEditModeOn] = useState(-1);
     let navigate = useNavigate();
 
@@ -36,10 +35,9 @@ export default function Cart(props: any) {
         getUserCart(jwtToken, setIsLoading, setSnackBarMessage).then((cartArray) => {
             setCartItems(cartArray);
         });
-        console.log(updaterRef);
         setEditModeOn(0);
         // eslint-disable-next-line
-    }, [jwtToken, updaterRef]);
+    }, [jwtToken]);
     if(editModeOn > -1) {
         // component has been mounted
         editModeOn === 1 ? (updaterRef.current as any).style.display = "flex" : (updaterRef.current as any).style.display = "none";
@@ -75,7 +73,7 @@ export default function Cart(props: any) {
                 <Loading {...{"isLoading": isLoading}} />
                 <button ref={updaterRef as unknown as LegacyRef<HTMLButtonElement> | undefined} onClick={async (e) => {
                     await addToCart(jwtToken, noOfItems, setIsLoading, setSnackBarMessage, true, cartItems);
-                    (e.target as HTMLElement).parentElement!.style.display = "none";
+                    (e.target as HTMLElement).style.display = "none";
                     setEditModeOn(0);
                 }} className=" flex cursor-pointer fixed justify-center items-center bottom-[13vh] md:bottom-[5vh] right-[2vw] rounded-full h-12 w-12 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100">
                     <FontAwesomeIcon icon={icon({name: 'check', style: 'solid'})} />
