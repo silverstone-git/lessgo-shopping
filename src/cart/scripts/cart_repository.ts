@@ -1,6 +1,6 @@
 import { showSnackBar } from "../../common/scripts/snacc";
 import { getBackendLocation } from "../../common/scripts/urls";
-import { CartItem } from "../../models/models";
+import { CartItem, Item } from "../../models/models";
 
 export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>) {
     // gets user cart by getting from backend
@@ -70,6 +70,11 @@ export async function addToCart(auth: string, cart: Map<string, number>, setIsLo
     //send a place order post request to backend
 
     // show loading icono
+    console.log("cart to be added: ");
+    console.log(cart);
+    console.log("original array: ");
+    console.log(originalCartArray);
+
 
     setIsLoading(true);
 
@@ -162,4 +167,15 @@ export const checkIfAlreadyCart =  async (itemId: string | undefined, setAlready
         setAlreadyCart(resJ.result);
     return resJ.return;
 
+}
+
+export function itemsToZeroCartItems(items: Array<Item>) {
+    console.log("in zeroing function rn");
+    const newCartItems: Array<CartItem> = [];
+    for(var i = 0; i < items.length; i ++) {
+        const item = items[i];
+        const cartItem = new CartItem(item.itemName, item.description, item.category, item.inStock, item.priceRs, item.dateAdded, item.image, item.video, item.itemId, 0, new Date(), undefined);
+        newCartItems.push(cartItem);
+    }
+    return newCartItems;
 }

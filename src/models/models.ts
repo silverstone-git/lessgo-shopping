@@ -131,8 +131,13 @@ export class CartItem extends Item {
         return new CartItem(map.item_name, map.description, map.category, map.in_stock === 1 ? true : false, map.price_rs, map.date_added, map.image, map.video, map.item_id, map.count, map.cart_at, map.order_id);
     }
 
+    public static fromItem(item: Item) {
+        // returns an item instance from map
+        return new CartItem(item.itemName, item.description, item.category, item.inStock, item.priceRs, item.dateAdded, item.image, item.video, item.itemId, 0, new Date(), undefined);
+    }
+
     public static toMap(cartItem: CartItem) {
-        // returns an order instance
+        // returns an object
         return {
             ...super.toMap(new Item(cartItem.itemName, cartItem.description, cartItem.category, cartItem.inStock, cartItem.priceRs, cartItem.dateAdded, cartItem.image, cartItem.video, cartItem.itemId)),
             "count": cartItem.count,

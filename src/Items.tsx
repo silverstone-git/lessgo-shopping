@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 import Forbidden from './Forbidden';
 import Snacc from './common/components/SnackBarComponent';
 import Loading from './common/components/Loading';
-import { Item } from './models/models';
+import { CartItem, Item } from './models/models';
 import ShoppingCart from './cart/components/ShoppingCart';
 import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
-import { changeCount } from './cart/scripts/cart_repository';
+import { changeCount, getUserCart, itemsToZeroCartItems, listOfCartItemsToMap } from './cart/scripts/cart_repository';
 import { checkJWTFromStorage, checkLoggedIn } from './common/scripts/auth_repository';
 import { getItems } from './common/scripts/items_repository';
 
@@ -17,7 +17,7 @@ import { getItems } from './common/scripts/items_repository';
 
 function Items(props: any) {
     
-    const initList: Array<Item> = [];
+    const initList: Array<CartItem> = [];
     const [listOfItems, setListOfItems] = useState(initList);
 
 
@@ -61,7 +61,7 @@ function Items(props: any) {
     }
 
     function ItemCards(props: any) {
-        const listOfItems: Array<Item> = props.listOfItems;
+        const listOfItems: Array<CartItem> = props.listOfItems;
         const countMap: Map<string, number> = props.noOfItems;
         return (
             <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
@@ -76,7 +76,7 @@ function Items(props: any) {
                     return <ItemCard {...{...el, "thisCount": thisCount, "key": thisId}} />
                 })}
                 </div>
-                <ShoppingCart {...{"cart": noOfItems, setNoOfItems: setNoOfItems, "jwtToken": jwtToken, "setSnackBarMessage": setSnackBarMessage, "setIsLoading": setIsLoading}} />
+                <ShoppingCart {...{"cart": noOfItems, setNoOfItems: setNoOfItems, "jwtToken": jwtToken, "setSnackBarMessage": setSnackBarMessage, "setIsLoading": setIsLoading, listOfItems: props.listOfItems}} />
 
                 {/* <div className='self-center'> */}
                 <Snacc {...{"message": snackBarMessage}} />
@@ -86,14 +86,44 @@ function Items(props: any) {
         )
     }
 
+    async function setupExplore(jwtToken: string) {
+        await checkJWTFromStorage(setLoggedIN, setJwtToken);
+        await checkLoggedIn(jwtToken, setLoggedIN, undefined, undefined, setSnackBarMessage);
+
+        const curCart = await getUserCart(jwtToken, setIsLoading, setSnackBarMessage);
+        const listOfCartIds: Array<number | undefined> = curCart.map((el) => {return el.itemId});
+
+        // long term plan -> get 10 items only
+        const allItems = await getItems(jwtToken);
+        const allCartItems = allItems.map((el: any) => {
+            const cartItem = CartItem.fromItem(el)
+            console.log("cart item before: ");
+            console.log(cartItem);
+            cartItem.count = 0;
+            console.log("cart item after: ");
+            console.log(cartItem);
+            return cartItem;
+        });
+
+        console.log(allCartItems);
+        // console.log("updating list with cart items ...");
+        
+        // putting the value of count for items which dont have count 0, ie, cart added items
+        for(var i = 0; i < allCartItems.length; i ++) {
+            const cartItemIndex = listOfCartIds.indexOf(allCartItems[i].itemId);
+            if(cartItemIndex !== -1) {
+                allCartItems[i].count = curCart[cartItemIndex].count;
+            }
+        }
+        // console.log(allCartItems);
+
+        setListOfItems(allCartItems);
+        setNoOfItems(listOfCartItemsToMap(curCart));
+    }
+
 	useEffect(() => {
 	// run a command only once
-        checkJWTFromStorage(setLoggedIN, setJwtToken);
-        checkLoggedIn(jwtToken, setLoggedIN, undefined, undefined, setSnackBarMessage);
-
-        getItems(jwtToken).then((val) => {
-            setListOfItems(val)
-        });
+        setupExplore(jwtToken)
     }, [jwtToken]);
 
     
