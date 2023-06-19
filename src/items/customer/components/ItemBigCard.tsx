@@ -7,7 +7,7 @@ import { AddItemToCart } from "./AddItemToCart";
 function ItemBigCard(props: any) {
     let navigate = useNavigate();
     return(
-        <div className=" flex justify-center w-full bg-slate-100 dark:bg-slate-800">
+        <div className=" flex justify-center w-full bg-slate-100 dark:bg-slate-800 pb-20">
         <div className="flex flex-col md:w-11/12 w-full">
             <div onClick={() => {
                 navigate(-1);

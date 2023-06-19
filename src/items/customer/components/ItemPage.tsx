@@ -59,7 +59,7 @@ function ItemPage(props:any) {
             }
             showSnackBar('Item doesn\'t exist', setSnackBarMessage);
         }
-        await checkIfAlreadyCart(item.itemId, setAlreadyAddedToCart, setSnackBarMessage);
+        await checkIfAlreadyCart(passedId, setAlreadyAddedToCart, auth);
     }
 
     // eslint-disable-next-line

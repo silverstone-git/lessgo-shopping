@@ -152,21 +152,14 @@ export function changeCount(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, 
     setNoOfItems(breh);
 }
 
-export const checkIfAlreadyCart =  async (itemId: number | undefined, setAlreadyCart: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>): Promise<boolean> => {
+export const checkIfAlreadyCart =  async (itemId: string | undefined, setAlreadyCart: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, jwtVerify: string): Promise<boolean> => {
 
     const res = await fetch(`${getBackendLocation()}/api/orders/checkif-id-carted/`, {
-        headers: {"Content-Type": "application/json", "itemId": `${itemId}`},
+        headers: {"Content-Type": "application/json", "itemId": `${itemId}`, "Authorization": jwtVerify},
     });
-    const resJ = await res.json();
-    if(resJ.succ) {
-        if(setAlreadyCart)
-            setAlreadyCart(resJ.result);
-        return resJ.result;
-    } else {
-        setSnackBarMessage(resJ.message);
-        if(setAlreadyCart)
-            setAlreadyCart(false);
-        return false;
-    }
+    const resJ = JSON.parse(await res.json());
+    if(setAlreadyCart)
+        setAlreadyCart(resJ.result);
+    return resJ.return;
 
 }
