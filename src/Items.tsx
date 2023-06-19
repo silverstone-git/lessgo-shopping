@@ -6,9 +6,9 @@ import Forbidden from './Forbidden';
 import Snacc from './common/components/SnackBarComponent';
 import Loading from './common/components/Loading';
 import { Item } from './models/models';
-import ShoppingCart from './cart/ShoppingCart';
+import ShoppingCart from './cart/components/ShoppingCart';
 import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
-import { changeCount } from './common/scripts/cart_repository';
+import { changeCount } from './cart/scripts/cart_repository';
 
 
 async function getItems(jwtToken: String) {
@@ -140,7 +140,7 @@ function Items(props: any) {
                     return <ItemCard {...{...el, "thisCount": thisCount, "key": thisId}} />
                 })}
                 </div>
-                <ShoppingCart {...{"cart": noOfItems, "auth": jwtToken, "showSnackBar": showSnackBar, "setIsLoading": showLoading}} />
+                <ShoppingCart {...{"cart": noOfItems, "jwtToken": jwtToken, "setSnackBarMessage": setSnackBarMessage, "setIsLoading": showLoading}} />
 
                 {/* <div className='self-center'> */}
                 <Snacc {...{"message": snackBarMessage}} />
