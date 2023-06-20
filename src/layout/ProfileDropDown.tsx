@@ -1,4 +1,7 @@
+import { useRef } from "react";
+
 export default function ProfileDropDown(props: any) {
+    const optionsMenuRef = useRef<HTMLDivElement>(null);
     if(props.loggedIn && props.isVendor) {
         return (
             <div onClick={() => {
@@ -8,10 +11,28 @@ export default function ProfileDropDown(props: any) {
     } else if(props.loggedIn){
         //
         return (
+            <div className="self-center justify-self-center flex flex-col items-center justify-center">
             <div onClick={() => {
                 // showing your orders, your cart, listing, etc.
-            }} className="text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer">{props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}</div>
-        )
+                const optionsMenu = (optionsMenuRef.current as HTMLDivElement);
+                if(optionsMenu.style.opacity === "1") {
+                    optionsMenu.style.opacity = "0";
+                    optionsMenu.style.display = "none";
+                } else {
+                    optionsMenu.style.opacity = "1";
+                    optionsMenu.style.display = "flex";
+                }
+            }} className=" text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer">{props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}</div>
+
+            <div ref={optionsMenuRef} className=" absolute top-8 right-3 w-36 px-3 py-3  hidden opacity-0 transition-opacity dark:bg-green-300 dark:text-slate-800 bg-green-100 text-slate-400 rounded-xl flex-col items-start">
+                <div>Your Orders</div>
+                <div>Cart</div>
+                <div>Logout</div>
+            </div>
+            </div>
+            
+
+        );
     } else {
         return null;
     }
