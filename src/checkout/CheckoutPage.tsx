@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { checkJWTFromStorage, checkLoggedIn } from "../common/scripts/auth_repository";
+import { checkJWTFromStorage, checkLoggedIn, getUserAddress } from "../common/scripts/auth_repository";
 import Snacc from "../common/components/SnackBarComponent";
 import Loading from "../common/components/Loading";
 import Forbidden from "../Forbidden";
@@ -16,10 +16,11 @@ export default function Checkout(props: any) {
     const [isVendor, setIsVendor] = useState(false);
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [addressDefault, setAddressDefault] = useState(true);
+    const [addressDefault, setAddressDefault] = useState(false);
     const [address, setAddress] = useState('');
-    const [totalPrice, setTotalPrice] = useState(0);
     const initPriceQuantity: Array<Array<number>> = [];
+
+    // price quantity array is like =>  [[price, quantity, odd/eve, order id, name]]
     const [priceQuantity, setPriceQuantity] = useState(initPriceQuantity);
     const [grandTotal, setGrandTotal] = useState(0);
     let navigate = useNavigate();
@@ -31,22 +32,25 @@ export default function Checkout(props: any) {
     async function placeOrderFront() {
         // if address is '' and user has no address field entry, cancel the order, notify the user
         if(!addressDefault) {
-            console.log("address - > ", address);
+            if(address.length < 6) {
+                setSnackBarMessage("Please enter a valid address");
+            } else {
+
+                placeOrder(jwtToken, setSnackBarMessage, address);
+            }
+        } else {
+            const myAddress = await getUserAddress(jwtToken);
+            if(myAddress === undefined || myAddress === '') {
+                setSnackBarMessage("No default was found. Please enter the address");
+            } else {
+                setAddress(myAddress)
+                placeOrder(jwtToken, setSnackBarMessage);
+            }
         }
-        else {
-            console.log("will use defaut addr");
-        }
 
-        placeOrder(jwtToken, setSnackBarMessage);
-        //
-        
-
-
-        // TODO
-        //  - order the item
-        //  - add the newly entered address to users table (if applicable)
-        //
     }
+
+    const isAlreadyTallied = (arreee: Array<Array<number>>, id: number) => arreee.find((el) => {return (el[2] === id);})
 
     async function CheckoutSetup(priceQuantity: Array<Array<any>>, jwtToken: string, getUserCart: any) {
         await checkJWTFromStorage(setLoggedIN, setJwtToken);
@@ -57,7 +61,7 @@ export default function Checkout(props: any) {
         const newPriceQuantity = priceQuantity.slice();
         let s = 0;
         for(var i = 0; i < cart.length; i ++) {
-            if(!newPriceQuantity.find((el) => el[2] === cart[i].orderId)) {
+            if(!isAlreadyTallied(newPriceQuantity, cart[i].orderId)) {
                 newPriceQuantity.push([cart[i].priceRs, cart[i].count, cart[i]!.orderId!, i % 2, cart[i].itemName]);
                 console.log("to be added: ", (cart[i]!.priceRs * cart[i]!.count));
                 s += (cart[i]!.priceRs * cart[i]!.count);
@@ -68,6 +72,7 @@ export default function Checkout(props: any) {
     }
     useEffect(() => {
         CheckoutSetup(priceQuantity, jwtToken, getUserCart);
+        // eslint-disable-next-line
     }, [jwtToken])
     if(loggedIn && !isVendor) {
         return (
@@ -88,43 +93,34 @@ export default function Checkout(props: any) {
                         </div>
                         <textarea onChange={(e) => setAddress(e.target.value)} className={`${addressDefault ? 'hidden' : 'block'} mt-4 w-52 h-36 item-master-input`} minLength={2} maxLength={500} />
                     </div>
-                    <div className="md:w-5/12 w-full flex flex-col items-center mt-12">
-                        {/* <div className="flex w-full justify-center">
-
-                            <div className="w-24 pl-8">Price</div>
-                            <div className="ml-6 pr-4">Quantity</div>
-                        </div> */}
-                        {/* <div className={`w-7/12 flex px-8 pb-4 mt-6 `}>
-                            <div className="flex justify-start w-full">
-                            <div className="w-36 flex">Name</div>
-                            <div className="w-24">Price</div>
-                            <div className="ml-6">Quantity</div>
+                    <div className=" w-full  bg-slate-100 dark:bg-slate-800 pb-28 flex flex-col items-center">
+                        <div className="md:w-5/12 w-full flex flex-col items-center mt-12">
+                            <div className={` flex pl-3 py-2  md:w-auto w-[90vw] `}>
+                                <div className="w-36">Name</div>
+                                <div className="w-24">Price</div>
+                                <div className="ml-6">Qty</div>
                             </div>
-                        </div> */}
-                        <div className={` flex pl-3 py-2  md:w-auto w-[90vw] `}>
-                            <div className="w-36">Name</div>
-                            <div className="w-24">Price</div>
-                            <div className="ml-6">Qty</div>
-                        </div>
-                        {priceQuantity.map((el) => {
-                            return(
-                            <div className={`${el[3] === 1? 'dark:bg-green-300 text-slate-800 bg-green-500' : 'bg-green-800 text-slate-100'} flex px-8 py-2 md:w-auto w-full `} id={el[2].toString()}>
-                                <div className="w-36">{el[4]}</div>
-                                <div className="w-24">{el[0]}</div>
-                                <div className="ml-6">{el[1]}</div>
-                            </div>
-                            )
-                        })}
-                        <div className={`overflow-visible bg-green-800 text-slate-100 dark:bg-green-200 dark:text-slate-700 rounded-xl w-[70vw] md:w-5/12 flex justify-center px-8 py-2 mt-6 `}>
-                            <div className="flex">
-                            <div className="w-24">Total</div>
-                            <div className="ml-6">{grandTotal}</div>
+                            {priceQuantity.map((el) => {
+                                return(
+                                <div className={`${el[3] === 1? 'dark:bg-green-300 text-slate-800 bg-green-500' : 'bg-green-800 text-slate-100'} flex px-8 py-2 md:w-auto w-full `} id={el[2].toString()}>
+                                    <div className="w-36">{el[4]}</div>
+                                    <div className="w-24">{el[0]}</div>
+                                    <div className="ml-6">{el[1]}</div>
+                                </div>
+                                )
+                            })}
+                            <div className={`overflow-visible bg-green-800 text-slate-100 dark:bg-green-200 dark:text-slate-700 rounded-xl w-[70vw] md:w-5/12 flex justify-center px-8 py-2 mt-6 `}>
+                                <div className="flex">
+                                <div className="w-24">Total</div>
+                                <div className="ml-6">{grandTotal}</div>
+                                </div>
                             </div>
                         </div>
+                        <button type="submit" onClick={placeOrderFront} className="dark:bg-green-300 bg-green-500 text-slate-100 dark:text-slate-800 p-4 rounded mt-6">
+                            Place Order    
+                        </button>
                     </div>
-                    <button type="submit" onClick={placeOrderFront} className="dark:bg-green-300 bg-green-500 text-slate-100 dark:text-slate-800 p-4 rounded mt-6">
-                        Place Order    
-                    </button>
+
                 </form>
 
                     <Snacc {...{"message": snackBarMessage}} />

@@ -14,6 +14,7 @@ import ItemMaster from './items/vendor/ItemMaster';
 import Cart from './cart/components/Cart';
 import ItemPage from './items/customer/components/ItemPage';
 import Checkout from './checkout/CheckoutPage';
+import Thankyou from './thankyou/thankyou';
 
 
 const root = ReactDOM.createRoot(
@@ -35,6 +36,7 @@ root.render(
         <Route path="home" element={<Dashboard />} />
         <Route path="cart" element={<Cart />} />
         <Route path="checkout" element={<Checkout />} />
+        <Route path="thankyou" element={<Thankyou />} />
       </Route>
       <Route path='/logout' element={<LogOut />}>
       </Route>

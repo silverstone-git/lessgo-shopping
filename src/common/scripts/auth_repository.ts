@@ -43,3 +43,15 @@ export const checkJWTFromStorage = async (setLoggedIn: React.Dispatch<React.SetS
     localStorage.setItem('loggedIn', 'true');
   }
 };
+
+
+export async function getUserAddress(jwtToken:string) {
+  const res = await fetch(`${getBackendLocation()}/api/auth/getaddress/`, {
+    headers: {
+      "Content-Type": "application/json",
+      "authorization": jwtToken,
+    },
+  })
+  const resJ = await res.json();
+  return resJ.address;
+}

@@ -1196,6 +1196,10 @@ video {
   padding-left: 0.75rem;
 }
 
+.pb-28 {
+  padding-bottom: 7rem;
+}
+
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -1671,6 +1675,11 @@ input:not(.dont-pad-this-input) {
 :is(.dark .dark\:text-slate-800) {
   --tw-text-opacity: 1;
   color: rgb(30 41 59 / var(--tw-text-opacity));
+}
+
+:is(.dark .dark\:text-slate-600) {
+  --tw-text-opacity: 1;
+  color: rgb(71 85 105 / var(--tw-text-opacity));
 }
 
 :is(.dark .dark\:after\:bg-neutral-400)::after {
