@@ -66,27 +66,46 @@ export async function deleteFromCart(id: number, setIsLoading: React.Dispatch<Re
 
 }
 
-export async function addToCart(auth: string, cart: Map<string, number>, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, strictMode: boolean, originalCartArray: Array<CartItem> | undefined, setNoOfItems: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) {
+export async function addToCart(auth: string, cart: Map<string, number>, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, strictMode: boolean, originalCartArray: Array<any> | undefined,  setNoOfItems: React.Dispatch<React.SetStateAction<any>> | undefined = undefined,  updateOriginalCartArray: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) {
     //send a place order post request to backend
 
     // show loading icono
-    console.log("cart to be added: ");
+    console.log("cart received: ");
     console.log(cart);
     console.log("original array: ");
     console.log(originalCartArray);
-
 
     setIsLoading(true);
 
     let snaccMessage = "Item(s) added to cart successfully";
 
+    const cloneCart = new Map(cart);
+
     if(strictMode && originalCartArray) {
         // compare the new cart item count to old and send the difference as count to backend so as to
         // let negative value to be sent when user wants to decrease cart items
         for (var i = 0; i < originalCartArray.length; i ++) {
-            cart.set(originalCartArray[i].itemId!.toString(), cart.get(originalCartArray[i].itemId!.toString())! - originalCartArray[i].count );
+            if(originalCartArray[i] instanceof CartItem) {
+                // called from cart
+                if(originalCartArray[i].count !== 0 && cart.get(originalCartArray[i].itemId!.toString())) {
+                    cart.set(originalCartArray[i].itemId!.toString(), cart.get(originalCartArray[i].itemId!.toString())! - originalCartArray[i].count );
+                }
+            } else {
+                // called from items (explore)
+                if(originalCartArray[i].count !== 0 && cart.get(originalCartArray[i].item_id.toString())) {
+                    cart.set(originalCartArray[i].item_id!.toString(), cart.get(originalCartArray[i].item_id!.toString())! - originalCartArray[i].count );
+                }
+            }
         }
         snaccMessage = "Updated Cart Successfully!"
+    }
+
+
+    // final filter
+    for (const [id, count] of cart) {
+        if(count === 0) {
+            cart.delete(id);
+        }
     }
 
     const fetchLocation = getBackendLocation();
@@ -106,14 +125,26 @@ export async function addToCart(auth: string, cart: Map<string, number>, setIsLo
         showSnackBar(resJ.message, setSnackBarMessage);
     }
 
-    if(strictMode && originalCartArray) {
-        // set the difference map back to normal map for frontend heap reasons
-        for (var i = 0; i < originalCartArray.length; i ++) {
-            cart.set(originalCartArray[i].itemId!.toString(), cart.get(originalCartArray[i].itemId!.toString())! + originalCartArray[i].count );
+
+    if(setNoOfItems)
+        setNoOfItems(cloneCart);
+    if(updateOriginalCartArray && originalCartArray) {
+        // update the og array cart items state by iterating and setting from cloneCart
+
+        if(originalCartArray[0] instanceof CartItem) {
+            for (const [id, count] of cloneCart) {
+                originalCartArray.find((el) => {
+                    return el.itemId.toString() === id;
+                }).count = count;
+            }
+        } else {
+            for (const [id, count] of cloneCart) {
+                originalCartArray.find((el) => {
+                    return el.item_id.toString() === id;
+                }).count = count;
+            }
         }
-    } else {
-        if(setNoOfItems)
-           setNoOfItems(new Map());
+        updateOriginalCartArray(originalCartArray);
     }
 
     // stop loading icon
@@ -169,13 +200,13 @@ export const checkIfAlreadyCart =  async (itemId: string | undefined, setAlready
 
 }
 
-export function itemsToZeroCartItems(items: Array<Item>) {
-    console.log("in zeroing function rn");
-    const newCartItems: Array<CartItem> = [];
+
+export async function itemsToZeroCartItemObjects(items: Array<Item>) {
+    const newCartItems: Array<any> = [];
     for(var i = 0; i < items.length; i ++) {
         const item = items[i];
-        const cartItem = new CartItem(item.itemName, item.description, item.category, item.inStock, item.priceRs, item.dateAdded, item.image, item.video, item.itemId, 0, new Date(), undefined);
-        newCartItems.push(cartItem);
+        const cartItemObject = await CartItem.mapFromItem(item, 0, new Date(), 0);
+        newCartItems.push(cartItemObject);
     }
     return newCartItems;
 }

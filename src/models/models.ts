@@ -124,14 +124,14 @@ export class CartItem extends Item {
         this.cartAt = cartAt;
         this.orderId = orderId;
 
-    }
+    };
 
     public static fromMap(map: any) {
         // returns an item instance from map
         return new CartItem(map.item_name, map.description, map.category, map.in_stock === 1 ? true : false, map.price_rs, map.date_added, map.image, map.video, map.item_id, map.count, map.cart_at, map.order_id);
     }
 
-    public static fromItem(item: Item) {
+    public static async fromItem(item: Item) {
         // returns an item instance from map
         return new CartItem(item.itemName, item.description, item.category, item.inStock, item.priceRs, item.dateAdded, item.image, item.video, item.itemId, 0, new Date(), undefined);
     }
@@ -143,6 +143,16 @@ export class CartItem extends Item {
             "count": cartItem.count,
             "date_added": cartItem.dateAdded,
             "order_id": cartItem.orderId,
+        }
+    }
+
+    public static async mapFromItem(item: any, passedCount: number, passedDateAdded: Date, passedOrderId: number) {
+        // returns an object
+        return {
+            ...Item.toMap(item),
+            "count": passedCount,
+            "date_added": passedDateAdded,
+            "order_id": passedOrderId,
         }
     }
 }

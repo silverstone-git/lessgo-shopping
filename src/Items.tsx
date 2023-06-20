@@ -5,10 +5,9 @@ import { useState, useEffect } from 'react';
 import Forbidden from './Forbidden';
 import Snacc from './common/components/SnackBarComponent';
 import Loading from './common/components/Loading';
-import { CartItem, Item } from './models/models';
 import ShoppingCart from './cart/components/ShoppingCart';
-import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
-import { changeCount, getUserCart, itemsToZeroCartItems, listOfCartItemsToMap } from './cart/scripts/cart_repository';
+import { getFrontendLocation } from './common/scripts/urls';
+import { changeCount, getUserCart, itemsToZeroCartItemObjects, listOfCartItemsToMap } from './cart/scripts/cart_repository';
 import { checkJWTFromStorage, checkLoggedIn } from './common/scripts/auth_repository';
 import { getItems } from './common/scripts/items_repository';
 
@@ -17,7 +16,7 @@ import { getItems } from './common/scripts/items_repository';
 
 function Items(props: any) {
     
-    const initList: Array<CartItem> = [];
+    const initList: Array<any> = [];
     const [listOfItems, setListOfItems] = useState(initList);
 
 
@@ -33,23 +32,23 @@ function Items(props: any) {
 
     function ItemCard(props: any) {
         return (
-        <div id={props.itemId} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
+        <div id={props.item_id} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
             <div className=' border rounded border-slate-500 flex flex-col items-center justify-center'>
                 <div onClick={() => {
-                    window.location.href = `${getFrontendLocation()}/item/${props.itemId}`
+                    window.location.href = `${getFrontendLocation()}/item/${props.item_id}`
                 }} className="h-full w-11/12 mt-4 overflow-hidden flex justify-center align-center cursor-pointer">
                     <img className='object-cover' alt="" src={props.image}></img>
                 </div>
                 <div className="flex flex-col justify-between w-full">
-                    <div className='ml-5 mt-4 text-lg font-bold'>{`₹${props.priceRs}`}</div>
-                    <div className='ml-5 '>{props.itemName}</div>
-                    <div className='ml-5 '>{`${props.description.substring(0, 20)}...`}</div>
+                    <div className='ml-5 mt-4 text-lg font-bold'>{`₹${props.price_rs}`}</div>
+                    <div className='ml-5 text-xl '>{props.item_name}</div>
+                    <div className='ml-5 text-sm'>{`${props.description.substring(0, 20)}...`}</div>
                     <div className=' flex items-center mb-4 ml-4 mt-2'>
-                        <button className='subtractButton flex justify-center items-center bg-red-600 text-slate-100 dark:bg-red-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e, noOfItems, setNoOfItems)}>
+                        <button className='subtractButton flex justify-center items-center bg-red-600 text-slate-100 dark:bg-red-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.item_id} onClick={(e) => changeCount(e, props.noOfItems, props.setNoOfItems)}>
                             <FontAwesomeIcon icon={icon({name: 'minus', style: 'solid'})} />
                         </button>
                         <div className='px-2'>{props.thisCount}</div>
-                        <button className='addButton flex justify-center items-center bg-green-600 text-slate-100 dark:bg-green-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.itemId} onClick={(e) => changeCount(e, noOfItems, setNoOfItems)}>
+                        <button className='addButton flex justify-center items-center bg-green-600 text-slate-100 dark:bg-green-300 dark:text-slate-800 rounded-full w-8 h-8' value={props.item_id} onClick={(e) => changeCount(e, props.noOfItems, props.setNoOfItems)}>
                             <FontAwesomeIcon icon={icon({name: 'plus', style: 'solid'})} />
                         </button>
 
@@ -61,7 +60,7 @@ function Items(props: any) {
     }
 
     function ItemCards(props: any) {
-        const listOfItems: Array<CartItem> = props.listOfItems;
+        const listOfItems: Array<any> = props.listOfItems;
         const countMap: Map<string, number> = props.noOfItems;
         return (
             <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
@@ -70,17 +69,15 @@ function Items(props: any) {
                 <div className='flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-14 '>
                 {listOfItems.map(el => {
                     // map each object into component
-                    const thisId: string = el.itemId ? el.itemId.toString(): `${el.itemName}///${el.dateAdded}`;
+                    const thisId: string = el.item_id ? el.item_id.toString(): `${el.item_name}///${el.date_added}`;
                     var thisCount = countMap.get(thisId);
                     thisCount = thisCount !== undefined ? thisCount : 0;
-                    return <ItemCard {...{...el, "thisCount": thisCount, "key": thisId}} />
+                    return <ItemCard {...{...el, "thisCount": thisCount, "key": thisId, noOfItems: props.noOfItems, setNoOfItems: props.setNoOfItems}} />
                 })}
                 </div>
-                <ShoppingCart {...{"cart": noOfItems, setNoOfItems: setNoOfItems, "jwtToken": jwtToken, "setSnackBarMessage": setSnackBarMessage, "setIsLoading": setIsLoading, listOfItems: props.listOfItems}} />
+                <ShoppingCart {...{"cart": props.noOfItems, setNoOfItems: props.setNoOfItems, "jwtToken": props.jwtToken, "setSnackBarMessage": props.setSnackBarMessage, "setIsLoading": props.setIsLoading, listOfItems: props.listOfItems, setListOfItems: props.setListOfItems}} />
 
-                {/* <div className='self-center'> */}
                 <Snacc {...{"message": snackBarMessage}} />
-                {/* </div> */}
                 <Loading {...{"isLoading": isLoading}} />
             </div>
         )
@@ -95,29 +92,19 @@ function Items(props: any) {
 
         // long term plan -> get 10 items only
         const allItems = await getItems(jwtToken);
-        const allCartItems = allItems.map((el: any) => {
-            const cartItem = CartItem.fromItem(el)
-            console.log("cart item before: ");
-            console.log(cartItem);
-            cartItem.count = 0;
-            console.log("cart item after: ");
-            console.log(cartItem);
-            return cartItem;
-        });
+        const allCartItemObjects: Array<any> = await itemsToZeroCartItemObjects(allItems);
 
-        console.log(allCartItems);
-        // console.log("updating list with cart items ...");
-        
         // putting the value of count for items which dont have count 0, ie, cart added items
-        for(var i = 0; i < allCartItems.length; i ++) {
-            const cartItemIndex = listOfCartIds.indexOf(allCartItems[i].itemId);
+        for(var i = 0; i < allCartItemObjects.length; i ++) {
+            const cartItemIndex = listOfCartIds.indexOf(allCartItemObjects[i].item_id);
             if(cartItemIndex !== -1) {
-                allCartItems[i].count = curCart[cartItemIndex].count;
+                allCartItemObjects[i].count = curCart[cartItemIndex].count;
+            } else {
+                allCartItemObjects[i].count = 0;
             }
         }
-        // console.log(allCartItems);
 
-        setListOfItems(allCartItems);
+        setListOfItems(allCartItemObjects);
         setNoOfItems(listOfCartItemsToMap(curCart));
     }
 
@@ -132,7 +119,15 @@ function Items(props: any) {
         return (
             <>
             <div id='items'>
-                <ItemCards {...{"listOfItems": listOfItems, "noOfItems": noOfItems}} />
+                <ItemCards {...{
+                    listOfItems: listOfItems,
+                    noOfItems: noOfItems,
+                    setNoOfItems: setNoOfItems,
+                    setIsLoading: setIsLoading,
+                    setSnackBarMessage: setSnackBarMessage,
+                    jwtToken: jwtToken,
+                    setListOfItems: setListOfItems,
+                }} />
             </div>
             </>
         );

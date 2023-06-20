@@ -11,7 +11,6 @@ import { addToCart, getUserCart } from "../scripts/cart_repository";
 import { getFrontendLocation } from "../../common/scripts/urls";
 import YourCartButton from "../../dashboard/YourCartButton";
 import { checkLoggedIn } from "../../common/scripts/auth_repository";
-// import { checkJWTFromStorage } from "../../common/scripts/auth_repository";
 
 
 
@@ -80,7 +79,7 @@ export default function Cart(props: any) {
                     <YourCartButton auth={jwtToken} isVendor={isVendor} />
 
                     <button ref={updaterRef as unknown as LegacyRef<HTMLButtonElement> | undefined} onClick={async (e) => {
-                        await addToCart(jwtToken, noOfItems, setIsLoading, setSnackBarMessage, true, cartItems);
+                        await addToCart(jwtToken, noOfItems, setIsLoading, setSnackBarMessage, true, cartItems, setNoOfItems, setCartItems);
                         (e.target as HTMLElement).style.display = "none";
                         setEditModeOn(0);
                     }} className=" flex cursor-pointer justify-center items-center rounded-full h-12 w-12 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100">
