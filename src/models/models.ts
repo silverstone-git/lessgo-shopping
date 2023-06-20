@@ -6,8 +6,9 @@ export class User {
     isVendor: boolean;
     lastLogin: Date | undefined;
     joinedDt: Date | undefined;
+    address: string;
 
-    public constructor(username: string, email: string, password: string, isVendor: boolean, lastLogin: Date | undefined = undefined, joinedDt: Date | undefined = undefined,  userId: number | undefined = undefined) {
+    public constructor(username: string, email: string, password: string, isVendor: boolean, lastLogin: Date | undefined = undefined, joinedDt: Date | undefined = undefined,  userId: number | undefined = undefined, address: string) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -15,11 +16,12 @@ export class User {
         this.joinedDt = joinedDt;
         this.isVendor = isVendor;
         this.userId = userId;
+        this.address = address;
     }
 
     public static fromMap(map: any) {
         // returns a user instance
-        return new User(map.username, map.email, map.password, map.is_vendor === 1 ? true : false, map.last_login, map.joined_dt, map.user_id);
+        return new User(map.username, map.email, map.password, map.is_vendor === 1 ? true : false, map.last_login, map.joined_dt, map.user_id, map.address);
     }
 }
 
@@ -72,8 +74,9 @@ export class Item {
     dateAdded: Date;
     image: string;
     video: string;
+    hits: number;
 
-    public constructor(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: string, video: string, itemId: number | undefined) {
+    public constructor(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: string, video: string, itemId: number | undefined, hits: number) {
         this.itemName = itemName;
         this.description = description;
         this.category = category;
@@ -83,6 +86,7 @@ export class Item {
         this.image = image;
         this.video = video;
         this.itemId = itemId;
+        this.hits = hits;
     }
 
     public static toMap(item: Item) {
@@ -97,18 +101,23 @@ export class Item {
         "image" : item.image,
         "video" : item.video,
         "item_id": item.itemId,
+        "hits": item.hits,
         }
     }
 
     public static fromMap(map: any) {
         // returns an item instance from map
-        return new Item(map.item_name, map.description, map.category, map.in_stock === 1 ? true : false, map.price_rs, map.date_added, map.image, map.video, map.item_id);
+        return new Item(map.item_name, map.description, map.category, map.in_stock === 1 ? true : false, map.price_rs, map.date_added, map.image, map.video, map.item_id, map.hits);
     }
 
 
     public static fromMapCamelCase(map: any) {
         // returns an item instance from map
-        return new Item(map.itemName, map.description, map.category, map.inStock === 1 ? true : false, map.priceRs, map.dateAdded, map.image, map.video, map.itemId);
+        return new Item(map.itemName, map.description, map.category, map.inStock === 1 ? true : false, map.priceRs, map.dateAdded, map.image, map.video, map.itemId, map.hits);
+    }
+
+    public static johnDoe() {
+        return new Item('', '', Category.other, false, 0,new Date(), '', '', undefined, 0);
     }
 
 }
@@ -118,8 +127,8 @@ export class CartItem extends Item {
     cartAt: Date;
     orderId: number | undefined;
 
-    public constructor(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: string, video: string, itemId: number | undefined, count: number, cartAt: Date, orderId: number | undefined) {
-        super(itemName, description, category, inStock, priceRs, dateAdded, image, video, itemId);
+    public constructor(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: string, video: string, itemId: number | undefined, count: number, cartAt: Date, orderId: number | undefined, hits: number) {
+        super(itemName, description, category, inStock, priceRs, dateAdded, image, video, itemId, hits);
         this.count = count;
         this.cartAt = cartAt;
         this.orderId = orderId;
@@ -128,18 +137,13 @@ export class CartItem extends Item {
 
     public static fromMap(map: any) {
         // returns an item instance from map
-        return new CartItem(map.item_name, map.description, map.category, map.in_stock === 1 ? true : false, map.price_rs, map.date_added, map.image, map.video, map.item_id, map.count, map.cart_at, map.order_id);
-    }
-
-    public static async fromItem(item: Item) {
-        // returns an item instance from map
-        return new CartItem(item.itemName, item.description, item.category, item.inStock, item.priceRs, item.dateAdded, item.image, item.video, item.itemId, 0, new Date(), undefined);
+        return new CartItem(map.item_name, map.description, map.category, map.in_stock === 1 ? true : false, map.price_rs, map.date_added, map.image, map.video, map.item_id, map.count, map.cart_at, map.order_id, map.hits);
     }
 
     public static toMap(cartItem: CartItem) {
         // returns an object
         return {
-            ...super.toMap(new Item(cartItem.itemName, cartItem.description, cartItem.category, cartItem.inStock, cartItem.priceRs, cartItem.dateAdded, cartItem.image, cartItem.video, cartItem.itemId)),
+            ...super.toMap(new Item(cartItem.itemName, cartItem.description, cartItem.category, cartItem.inStock, cartItem.priceRs, cartItem.dateAdded, cartItem.image, cartItem.video, cartItem.itemId, cartItem.hits)),
             "count": cartItem.count,
             "date_added": cartItem.dateAdded,
             "order_id": cartItem.orderId,
@@ -167,8 +171,9 @@ export class Order {
     placedAt: Date | undefined;
     receivedAt: Date | undefined;
     listedAt: Date | undefined;
+    address: string;
 
-    public constructor(orderId: number, userId: number, itemId: number, status: number, count: number, cartAt: Date, placedAt: Date | undefined, receivedAt: Date | undefined, listedAt: Date | undefined) {
+    public constructor(orderId: number, userId: number, itemId: number, status: number, count: number, cartAt: Date, placedAt: Date | undefined, receivedAt: Date | undefined, listedAt: Date | undefined, address: string) {
         this.orderId = orderId;
         this.userId = userId;
         this.itemId = itemId;
@@ -178,6 +183,7 @@ export class Order {
         this.placedAt = placedAt;
         this.receivedAt = receivedAt;
         this.listedAt = listedAt;
+        this.address = address;
     }
 
     public static toMap(order: Order) {
@@ -191,13 +197,14 @@ export class Order {
             cartAt : order.cartAt,
             placedAt : order.placedAt,
             receivedAt : order.receivedAt,
-            listedAt : order.listedAt
+            listedAt : order.listedAt,
+            address : order.address
         }
     }
 
     public static fromMap(map: any) {
         // returns an order instance from map
-        return new Order(map.order_id, map.user_id, map.item_id, map.status, map.count, map.cart_at, map.placed_at, map.received_at, map.listed_at);
+        return new Order(map.order_id, map.user_id, map.item_id, map.status, map.count, map.cart_at, map.placed_at, map.received_at, map.listed_at, map.address);
     }
 
 }

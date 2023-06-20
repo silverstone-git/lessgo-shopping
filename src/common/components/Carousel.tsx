@@ -9,7 +9,7 @@ function CarouselDashboard(props: any) {
             {props.listOfImages.map((el: any) => {
                 return(
                 <div key={el[2]} className={`h-[${props.height ? props.height : 60}vh] w-full cursor-pointer flex justify-center items-center`} onClick={() => {
-                    window.location.href = `${getFrontendLocation()}/item/${el[2]}`
+                    window.location.href = `${getFrontendLocation()}/item/${el[2]}/`
                 }}>
                     <img src={el[0]} alt="" className=" object-contain h-full" />
                     <p className="legend">{el[1]}</p>

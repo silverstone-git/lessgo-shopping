@@ -11,11 +11,7 @@ function App() {
   useEffect(
     () => {
       if(loggedIn === 'true') {
-        if(window.location.href.search('localhost') === -1) {
-          window.location.href = `${getFrontendLocation()}/home`;
-        } else {
-          window.location.href = `${getFrontendLocation()}/home`;
-        }
+          window.location.href = `${getFrontendLocation()}/home/`;
       }
       setCarouselArray([
         ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],

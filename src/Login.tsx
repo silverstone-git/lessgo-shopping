@@ -15,7 +15,7 @@ function Login() {
 
     useEffect(() => {
         if(loggedIn === "true") {
-            window.location.href = `${getFrontendLocation()}/home`;
+            window.location.href = `${getFrontendLocation()}/home/`;
         }
     })
 
@@ -51,7 +51,7 @@ function Login() {
 
             localStorage.setItem("jwtToken", resJ.Authorization);
             localStorage.setItem("loggedIn", 'true');
-            window.location.href = `${getFrontendLocation()}/home`;
+            window.location.href = `${getFrontendLocation()}/home/`;
         } else {
             showSnackBar(resJ.message);
             console.log("Login Failure");

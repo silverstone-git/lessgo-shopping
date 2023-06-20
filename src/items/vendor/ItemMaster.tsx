@@ -13,7 +13,7 @@ function ItemMaster(props: any) {
   const [snackBarMessage, setSnackBarMessage] = useState("");
 	const [isVendor, setIsVendor] = useState(false);
 
-  const newItem: any = Item.toMap(new Item('', '', Category.other, true, 0, new Date(), '', '', undefined));
+  const newItem: any = Item.toMap(Item.johnDoe());
   newItem.image = new Blob([]);
   newItem.video = new Blob([]);
   const [item, setItem] = useState(newItem);

@@ -14,7 +14,7 @@ export default function SellerItems(props: any) {
                         <div key={el.itemId} id={el.itemId?.toString()} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
                             <div className=' border rounded border-slate-500 flex flex-col items-center justify-center'>
                                 <div className="h-full w-11/12 mt-4 overflow-hidden flex justify-center align-center cursor-pointer" onClick={() => {
-                                    window.location.href = `${getFrontendLocation()}/item/${el.itemId}`
+                                    window.location.href = `${getFrontendLocation()}/item/${el.itemId}/`
                                 }}>
                                     <img className='object-cover' alt="" src={el.image}></img>
                                 </div>

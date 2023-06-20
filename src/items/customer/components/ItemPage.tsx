@@ -10,7 +10,7 @@ import { showSnackBar } from "../../../common/scripts/snacc";
 import { checkIfAlreadyCart } from "../../../cart/scripts/cart_repository";
 
 function ItemPage(props:any) {
-    const initItem: Item = new Item('', '', Category.other, false, 0,new Date(), '', '', undefined);
+    const initItem: Item = Item.johnDoe();
     const [item, setItem] = useState(initItem);
     const [auth, setAuth] = useState(localStorage.jwtToken);
     const [loggedIn, setLoggedIn] = useState(localStorage.loggedIn);

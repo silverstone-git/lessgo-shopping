@@ -32,7 +32,7 @@ function Signup() {
 
     useEffect(() => {
         if(loggedIn === "true") {
-            window.location.href = `${getFrontendLocation()}/home`
+            window.location.href = `${getFrontendLocation()}/home/`
         }
     })
 
@@ -62,6 +62,8 @@ function Signup() {
         } else {
             showSnackBar(resJ.fail);
         }
+
+        window.location.href = `${getFrontendLocation()}/login/`
 
     }
 

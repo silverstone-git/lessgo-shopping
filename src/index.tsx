@@ -13,7 +13,7 @@ import Items from './Items';
 import ItemMaster from './items/vendor/ItemMaster';
 import Cart from './cart/components/Cart';
 import ItemPage from './items/customer/components/ItemPage';
-import Checkout from './checkout/Checkout';
+import Checkout from './checkout/CheckoutPage';
 
 
 const root = ReactDOM.createRoot(
