@@ -21,6 +21,20 @@ export const carouselItemsByCategory = async (categoryNameShort: string, jwt: st
 
 }
 
+
+export const getHotCarouselItems = async () => {
+    //
+    const res  = await fetch(`${getBackendLocation()}/api/items/get-hot-items/`, {
+        headers: {"Content-Type": "application/json"},
+    })
+    const resJ = await res.json();
+    if(resJ.succ) {
+        return JSON.parse(resJ.carouselArray);
+    } else {
+        return [[]];
+    }
+}
+
 export const addItemToCart = async (itemId: string, auth: string, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, setAlreadyCart: React.Dispatch<React.SetStateAction<any>>) =>  {
     const cartMap = (new Map<string, number>()).set(itemId.toString(), 1);
     const cartObj = Object.fromEntries(cartMap);

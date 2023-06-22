@@ -5,7 +5,7 @@ import DashboardVendor from "./DashboardVendor";
 import * as authRepo from '../common/scripts/auth_repository';
 import * as vendorRepo from '../common/scripts/vendor_repository';
 import DashboardCustomer from "./DasbhboardCustomer";
-import { carouselItemsByCategory } from "../common/scripts/items_repository";
+import { carouselItemsByCategory, getHotCarouselItems } from "../common/scripts/items_repository";
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
@@ -32,15 +32,8 @@ function Dashboard() {
       if(localStorage.carouselArray) {
         setCarouselArray(JSON.parse(localStorage.carouselArray));
       } else {
-        //
-        // TODO: get hot items if you dont have local items already
-        //
-        setCarouselArray([
-          ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
-          ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
-          ["https://picsum.photos/200", "Ah hell naw", "535754102"],
-          ["https://picsum.photos/200", "Ah hell naw", "535754102"],
-        ]);
+        const tempHotItemsCarouselArray: Array<Array<string>> = await getHotCarouselItems();
+        setCarouselArray(tempHotItemsCarouselArray);
 
       }
       setCategoriesCarousels({
@@ -64,12 +57,6 @@ function Dashboard() {
     )
   }
   else if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {
-    // const carouselArray1 = [
-    //   ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
-    //   ["https://picsum.photos/200/300", "Ah hell naw", "535754102"],
-    //   ["https://picsum.photos/200", "Ah hell naw", "535754102"],
-    //   ["https://picsum.photos/200", "Ah hell naw", "535754102"],
-    // ];
     return(
       <DashboardCustomer {...{carouselArray: carouselArray,
         electronicsCarousel: categoriesCarousels.elec,
