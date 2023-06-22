@@ -11,7 +11,7 @@ export function OrdersCards(props: any) {
                 }} className="flex md:flex-row flex-col-reverse cursor-pointer justify-between bg-opacity-30 bg-slate-400 rounded-md w-full my-8 py-4 px-4">
                     <div className="flex flex-col gap-2">
                         <div className="mt-4 md:mt-0">{el.item_name}</div>
-                        <div>{el.price_rs}</div>
+                        <div>₹{el.price_rs}</div>
                         <div>Quantity - {el.count}</div>
                         <div>{el.description.substring(0, 20)}...</div>
                     </div>

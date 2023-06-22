@@ -27,8 +27,8 @@ function ReviewItem(props: any) {
                     (e.target as HTMLFormElement).reset();
                     submitReview(rating, review, props.auth, props.itemId, props.setSnackBarMessage, props.setIsLoading);
                 }} className="flex flex-col mt-4">
-                <label htmlFor="rating-input">Rating (out of 10)</label>
-                <input required type="number" className="item-master-input mt-3" name="rating-input" id="rating-input" min={0} max={5} onChange={(e) => setRating(Number(e.target.value))}/>
+                <label htmlFor="rating-input">Rating (out of 5)</label>
+                <input required type="number" className="item-master-input mt-3" name="rating-input" id="rating-input" min={0.1} max={5} step="any" onChange={(e) => setRating(Number(e.target.value))}/>
                 <label htmlFor="review-input" className="mt-6">Review</label>
                 <textarea required onChange={(e) => setReview(e.target.value)} id="review-input" className=" item-master-input h-36 mt-3" maxLength={3000} minLength={10} />
                 <div className="flex justify-end">

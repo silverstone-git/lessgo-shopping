@@ -54,7 +54,7 @@ function ItemPage(props:any) {
             // checking if the received item is in cart and getting its reviews
             if(tempCheckLoggedInRes.isLoggedIn && !tempCheckLoggedInRes.isVendor) {
                 await checkIfAlreadyCart(passedId, setAlreadyAddedToCart, auth);
-                const tempUserReviewsList = await getUserReviewsList(auth, setIsLoading, receivedItem.itemId ? receivedItem.itemId : 0);
+                const tempUserReviewsList = await getUserReviewsList(setIsLoading, receivedItem.itemId ? receivedItem.itemId : 0);
                 setUserReviewsList(tempUserReviewsList)
             }
         } else {

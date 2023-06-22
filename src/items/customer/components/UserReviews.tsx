@@ -7,7 +7,7 @@ export default function UserReviews(props: any) {
         return (
         <div className="flex flex-col items-start bg-opacity-30 bg-slate-400 rounded-md w-full my-8 pt-4 pb-2 px-4">
             <div className="flex gap-4">
-                <div id={`username-${el.review_id}`} className="font-bold text-sm">{el.user_name}</div>
+                <div id={`username-${el.review_id}`} className="font-bold text-sm">{el.username}</div>
 
                 {'*'.repeat(el.rating).split('').map((star) => {return(
                 <div className="flex">

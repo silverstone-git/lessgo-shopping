@@ -15,7 +15,7 @@ export async function isAlreadyOrdered(jwtToken: string, itemId: number, setIsLo
 export async function submitReview(rating: number, review: string, jwtToken: string, itemId: number, setSnackBarMessage: any, setIsLoading: any) {
     setIsLoading(true);
     const res = await fetch(`${getBackendLocation()}/api/reviews/`, {headers: {"Content-Type": "application/json"}, method: "POST", body: JSON.stringify({
-        jwtToken: jwtToken,
+        Authorization: jwtToken,
         itemId: itemId,
         rating: rating,
         review: review,
@@ -28,12 +28,12 @@ export async function submitReview(rating: number, review: string, jwtToken: str
         showSnackBar("Some Error Occured", setSnackBarMessage);
 }
 
-export async function getUserReviewsList(jwtToken: string, setIsLoading: any, itemId: number) {
-    if(jwtToken === '' || itemId === 0)
+export async function getUserReviewsList(setIsLoading: any, itemId: number) {
+    if(itemId === 0)
         return [];
     setIsLoading(true);
-    const res = await fetch(`${getBackendLocation()}/api/reviews/`, {headers: {"Content-Type": "application/json", Authorization: jwtToken, item_id: itemId.toString()}});
+    const res = await fetch(`${getBackendLocation()}/api/reviews/`, {headers: {"Content-Type": "application/json", item_id: itemId.toString()}});
     const resJ = await res.json();
     setIsLoading(false);
-    return resJ.result;
+    return JSON.parse(resJ.result);
 }
