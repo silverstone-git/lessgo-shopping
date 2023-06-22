@@ -824,10 +824,6 @@ video {
   height: 100vh;
 }
 
-.h-\[60vh\] {
-  height: 60vh;
-}
-
 .w-10\/12 {
   width: 83.333333%;
 }
@@ -1043,28 +1039,9 @@ video {
   background-color: rgb(241 245 249 / var(--tw-bg-opacity));
 }
 
-.bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-slate-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
-}
-
-.bg-slate-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
-}
-
 .bg-slate-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(148 163 184 / var(--tw-bg-opacity));
-}
-
-.bg-opacity-50 {
-  --tw-bg-opacity: 0.5;
 }
 
 .bg-opacity-30 {
@@ -1139,11 +1116,6 @@ video {
   padding-bottom: 0.5rem;
 }
 
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -1152,11 +1124,6 @@ video {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-.py-8 {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 .pb-14 {
@@ -1191,16 +1158,16 @@ video {
   padding-top: 6rem;
 }
 
-.pt-\[20vh\] {
-  padding-top: 20vh;
+.pt-6 {
+  padding-top: 1.5rem;
 }
 
 .pt-\[12vh\] {
   padding-top: 12vh;
 }
 
-.pt-6 {
-  padding-top: 1.5rem;
+.pt-\[20vh\] {
+  padding-top: 20vh;
 }
 
 .text-2xl {
@@ -1669,11 +1636,6 @@ input:not(.dont-pad-this-input) {
 :is(.dark .dark\:bg-slate-900) {
   --tw-bg-opacity: 1;
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
-}
-
-:is(.dark .dark\:bg-slate-700) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
 }
 
 :is(.dark .dark\:bg-white) {

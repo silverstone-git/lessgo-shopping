@@ -1,6 +1,6 @@
-import { getFrontendLocation } from "../common/scripts/urls";
-import { deleteFromListing } from "../common/scripts/vendor_repository";
-import { CartItem, } from "../models/models";
+import { getFrontendLocation } from "../../common/scripts/urls";
+import { deleteFromListing } from "../../common/scripts/vendor_repository";
+import { CartItem, } from "../../models/models";
 
 export default function SellerItems(props: any) {
 

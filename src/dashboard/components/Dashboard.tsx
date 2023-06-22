@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Forbidden from "../Forbidden";
-import { Item, initCategoryCarousels } from "../models/models";
+import Forbidden from "../../Forbidden";
+import { Item, initCategoryCarousels } from "../../models/models";
 import DashboardVendor from "./DashboardVendor";
-import * as authRepo from '../common/scripts/auth_repository';
-import * as vendorRepo from '../common/scripts/vendor_repository';
+import * as authRepo from '../../common/scripts/auth_repository';
+import * as vendorRepo from '../../common/scripts/vendor_repository';
 import DashboardCustomer from "./DasbhboardCustomer";
-import { carouselItemsByCategory, getHotCarouselItems } from "../common/scripts/items_repository";
+import { carouselItemsByCategory, getHotCarouselItems } from "../../common/scripts/items_repository";
 
 function Dashboard() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);

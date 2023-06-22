@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { getFrontendLocation } from "../common/scripts/urls"
+import { getFrontendLocation } from "../../common/scripts/urls"
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";

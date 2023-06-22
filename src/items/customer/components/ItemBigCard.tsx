@@ -20,7 +20,7 @@ function ItemBigCard(props: any) {
                 <div className="text-md">{props.item.description}</div>
                 <div className="font-bold"> In {props.item.category}</div>
                 <AddItemToCart {...{itemId: props.item.itemId, auth: props.auth, setSnackBarMessage: props.setSnackBarMessage, isVendor: props.isVendor ? true : false, alreadyAddedToCart: props.alreadyAddedToCart, setAlreadyAddedToCart: props.setAlreadyAddedToCart}} />
-                <ReviewItem {...{"auth": props.auth, setIsLoading: props.setIsLoading}} />
+                <ReviewItem {...{"auth": props.auth, setIsLoading: props.setIsLoading, itemId: props.item.itemId}} />
             </div>
         </div>
         </div>

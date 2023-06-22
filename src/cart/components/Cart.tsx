@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { addToCart, getUserCart } from "../scripts/cart_repository";
 import { getFrontendLocation } from "../../common/scripts/urls";
-import YourCartButton from "../../dashboard/YourCartButton";
+import YourCartButton from "../../dashboard/components/YourCartButton";
 import { checkLoggedIn } from "../../common/scripts/auth_repository";
 
 

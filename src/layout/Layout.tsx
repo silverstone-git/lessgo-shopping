@@ -9,7 +9,7 @@ import LogOutRoute from '../routes/LogOutRoute';
 import AppRoute from '../routes/AppRoute';
 import { checkJWTFromStorage, checkLoggedIn } from "../common/scripts/auth_repository";
 import ProfileDropDown from "./ProfileDropDown";
-import YourCartButton from "../dashboard/YourCartButton";
+import YourCartButton from "../dashboard/components/YourCartButton";
 
 function Layout() {
   // On page load or when changing themes, best to add inline in `head` to avoid FOUC

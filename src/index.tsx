@@ -7,7 +7,7 @@ import App from './App';
 import './output_style/output.css';
 import Login from './Login';
 import Signup from './Signup';
-import Dashboard from './dashboard/Dashboard';
+import Dashboard from './dashboard/components/Dashboard';
 import LogOut from './Logout';
 import Items from './Items';
 import ItemMaster from './items/vendor/ItemMaster';

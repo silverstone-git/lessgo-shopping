@@ -1,8 +1,8 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CarouselDashboard from "../common/components/Carousel";
-import Snacc from "../common/components/SnackBarComponent";
-import Loading from "../common/components/Loading";
+import CarouselDashboard from "../../common/components/Carousel";
+import Snacc from "../../common/components/SnackBarComponent";
+import Loading from "../../common/components/Loading";
 import YourCartButton from "./YourCartButton";
 
 export default function DashboardCustomer(props: any) {

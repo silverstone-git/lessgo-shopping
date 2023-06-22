@@ -1,7 +1,7 @@
-import Loading from "../common/components/Loading";
+import Loading from "../../common/components/Loading";
 import SellerItems from "./SellerItems";
 
-import Snacc from "../common/components/SnackBarComponent";
+import Snacc from "../../common/components/SnackBarComponent";
 export default function DashboardVendor(props: any) {
     return(
 
