@@ -5,10 +5,11 @@ export async function getMyOrders(jwtToken: string, setSnackBarMessage: any, set
     const res = await fetch(`${getBackendLocation()}/api/orders/your-orders/`, {
         headers: {"Content-Type": "application/json", "Authorization": jwtToken}
     });
-    const resJ: any= res.json();
+    const resJ: any= await res.json();
     setIsLoading(false);
-    if(resJ.snacc) {
-        return resJ.orders;
+    if(resJ.succ) {
+        const parsedOrders = JSON.parse(resJ.orders);
+        return parsedOrders;
     } else {
         setSnackBarMessage("Some Error Occurred");
         return [];

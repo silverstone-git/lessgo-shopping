@@ -22,9 +22,10 @@ export function YourOrders(props: any) {
         await authRepo.checkJWTFromStorage(setLoggedIn, setJwtToken);
         const tempIsVendor = (await authRepo.checkLoggedIn(jwtToken, setLoggedIn, undefined, setIsVendor, setSnackBarMessage)).isVendor;
         setIsLoading(false);
+        let tempMyOrders = [];
         if(!tempIsVendor)
-            setMyOrders(await getMyOrders(jwtToken, setSnackBarMessage, setIsLoading));
-        console.log(myOrders);
+            tempMyOrders = await getMyOrders(jwtToken, setSnackBarMessage, setIsLoading);
+        setMyOrders(tempMyOrders);
     }
     useEffect(() => {
         yourOrdersSetup(jwtToken);
