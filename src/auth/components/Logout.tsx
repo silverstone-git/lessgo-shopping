@@ -1,4 +1,4 @@
-import { getFrontendLocation } from "./common/scripts/urls";
+import { getFrontendLocation } from "../../common/scripts/urls";
 
 function LogOut() {
     localStorage.setItem("loggedIn", 'false');

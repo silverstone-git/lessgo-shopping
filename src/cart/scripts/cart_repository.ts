@@ -2,7 +2,7 @@ import { showSnackBar } from "../../common/scripts/snacc";
 import { getBackendLocation } from "../../common/scripts/urls";
 import { CartItem, Item } from "../../models/models";
 
-export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>) {
+export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) {
     // gets user cart by getting from backend
     setIsLoading(true);
     const fetchLocation = getBackendLocation();
@@ -20,7 +20,8 @@ export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch
             itemsArr.push(CartItem.fromMap(resJ.itemsObjectList[i]));
         }
     } else {
-        showSnackBar(resJ.message, setSnackBarMessage);
+        if(setSnackBarMessage)
+            showSnackBar(resJ.message, setSnackBarMessage);
     }
     setIsLoading(false);
     return itemsArr;
@@ -70,11 +71,6 @@ export async function addToCart(auth: string, cart: Map<string, number>, setIsLo
     //send a place order post request to backend
 
     // show loading icono
-    console.log("cart received: ");
-    console.log(cart);
-    console.log("original array: ");
-    console.log(originalCartArray);
-
     setIsLoading(true);
 
     let snaccMessage = "Item(s) added to cart successfully";
@@ -154,7 +150,7 @@ export async function addToCart(auth: string, cart: Map<string, number>, setIsLo
 
 
 export function listOfCartItemsToMap(cartItems: Array<CartItem>) {
-    const newMap = new Map<string, number>;
+    const newMap = new Map<string, number>();
     for(var i = 0; i < cartItems.length; i ++) {
         newMap.set(cartItems[i].itemId!.toString(), cartItems[i].count);
     }

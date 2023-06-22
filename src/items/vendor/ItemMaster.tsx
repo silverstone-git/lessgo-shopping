@@ -129,6 +129,7 @@ function ItemMaster(props: any) {
               </div>
                 <form className=" flex justify-center w-full" action="" method="POST" onSubmit={async (e) => {
                   e.preventDefault();
+                  (e.target as HTMLFormElement).reset();
                   await addItem(item);
                 }}>
               <div className=" flex flex-col gap-8 mt-6 md:w-1/2 w-10/12">

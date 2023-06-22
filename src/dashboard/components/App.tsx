@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import CarouselDashboard from './common/components/Carousel';
-import { getFrontendLocation } from './common/scripts/urls';
-import { getHotCarouselItems } from './common/scripts/items_repository';
-// require('dotenv').config()
-// import './output_style/output.css';
+import CarouselDashboard from '../../common/components/Carousel';
+import { getFrontendLocation } from '../../common/scripts/urls';
+import { getHotCarouselItems } from '../../common/scripts/items_repository';
 
 function App() {
 

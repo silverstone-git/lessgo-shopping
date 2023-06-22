@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Snacc from './common/components/SnackBarComponent';
-import Loading from './common/components/Loading';
-import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
+import Snacc from '../../common/components/SnackBarComponent';
+import Loading from '../../common/components/Loading';
+import { getBackendLocation, getFrontendLocation } from '../../common/scripts/urls';
 
 
 function Signup() {
@@ -63,8 +63,6 @@ function Signup() {
             showSnackBar(resJ.fail);
         }
 
-        window.location.href = `${getFrontendLocation()}/login/`
-
     }
 
     return (
@@ -76,6 +74,7 @@ function Signup() {
             <div className=' px-4 sm:px-8 md:px-0 w-full md:w-auto'>
                 <form className='flex flex-col gap-4' onSubmit={async (e) => {
                     e.preventDefault();
+                    (e.target as HTMLFormElement).reset();
                     await createMyAccount();
                 }}>
                     <label htmlFor="name-input">Enter Name</label>

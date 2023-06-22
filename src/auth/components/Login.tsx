@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Snacc from './common/components/SnackBarComponent';
-import Loading from './common/components/Loading';
-import { getBackendLocation, getFrontendLocation } from './common/scripts/urls';
+import Snacc from '../../common/components/SnackBarComponent';
+import Loading from '../../common/components/Loading';
+import { getBackendLocation, getFrontendLocation } from '../../common/scripts/urls';
 
 
 
@@ -91,6 +91,7 @@ function Login() {
             <div>
                 <form className='flex flex-col gap-4' action='' onSubmit={async (e) => {
                   e.preventDefault();
+                  (e.target as HTMLFormElement).reset();
                   await logMeIn();
                 }}>
                     <label htmlFor="email-input">Email</label>

@@ -37,7 +37,7 @@ export function YourOrders(props: any) {
                 navigate(-1);
             }} className=" cursor-pointer self-start pl-8 flex items-center text-md md:text-xl gap-4"><FontAwesomeIcon icon={icon({name: 'arrow-left', style: 'solid'})} /><div className=" font-bold text-sm sm:text-md md:text-xl">Back</div></div>
             <div className="flex flex-col items-center w-full pt-6">
-                <div className=" w-full px-8">
+                <div className=" w-full px-8  bg-slate-100 dark:bg-slate-800 pb-14 md:pb-0">
                     <OrdersCards {...{myOrders: myOrders}} />
                 </div>
             </div>
