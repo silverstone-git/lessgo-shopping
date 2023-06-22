@@ -3,22 +3,25 @@ import Snacc from "../../../common/components/SnackBarComponent";
 import Loading from "../../../common/components/Loading";
 import { useParams } from "react-router-dom";
 import ItemBigCard from "./ItemBigCard";
-import { Category, Item } from "../../../models/models";
+import { Item } from "../../../models/models";
 import { checkJWTFromStorage, checkLoggedIn } from "../../../common/scripts/auth_repository";
 import { getItem } from "../../../common/scripts/items_repository";
 import { showSnackBar } from "../../../common/scripts/snacc";
 import { checkIfAlreadyCart } from "../../../cart/scripts/cart_repository";
+import { getUserReviewsList } from "../scripts/reviews";
 
 function ItemPage(props:any) {
     const initItem: Item = Item.johnDoe();
     const [item, setItem] = useState(initItem);
     const [auth, setAuth] = useState(localStorage.jwtToken);
+    // eslint-disable-next-line
     const [loggedIn, setLoggedIn] = useState(localStorage.loggedIn);
     const [isVendor, setIsVendor] = useState(false);
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     let { passedId } = useParams();
     const [alreadyAddedToCart, setAlreadyAddedToCart] = useState(false);
+    const [userReviewsList, setUserReviewsList] = useState([]);
 
     async function setupItemPage() {
         await checkJWTFromStorage(setLoggedIn, setAuth);
@@ -47,6 +50,13 @@ function ItemPage(props:any) {
             } else {
                 localStorage.setItem('carouselArray', JSON.stringify(newArr));
             }
+
+            // checking if the received item is in cart and getting its reviews
+            if(tempCheckLoggedInRes.isLoggedIn && !tempCheckLoggedInRes.isVendor) {
+                await checkIfAlreadyCart(passedId, setAlreadyAddedToCart, auth);
+                const tempUserReviewsList = await getUserReviewsList(auth, setIsLoading, receivedItem.itemId ? receivedItem.itemId : 0);
+                setUserReviewsList(tempUserReviewsList)
+            }
         } else {
             // the received item id doesnt exist / is deleted
             const localArrayString = localStorage.getItem('carouselArray');
@@ -59,9 +69,6 @@ function ItemPage(props:any) {
             }
             showSnackBar('Item doesn\'t exist', setSnackBarMessage);
         }
-        if(tempCheckLoggedInRes.isLoggedIn) {
-            await checkIfAlreadyCart(passedId, setAlreadyAddedToCart, auth);
-        }
     }
 
     // eslint-disable-next-line
@@ -71,7 +78,15 @@ function ItemPage(props:any) {
     }, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
-            <ItemBigCard  {...{item: item, auth: auth, setSnackBarMessage: setSnackBarMessage, isVendor: isVendor, alreadyAddedToCart: alreadyAddedToCart, setAlreadyAddedToCart: setAlreadyAddedToCart, setIsLoading: setIsLoading}}/>
+            <ItemBigCard  {...{item: item, auth: auth,
+                setSnackBarMessage: setSnackBarMessage,
+                isVendor: isVendor,
+                alreadyAddedToCart: alreadyAddedToCart,
+                setAlreadyAddedToCart: setAlreadyAddedToCart,
+                setIsLoading: setIsLoading,
+                userReviewsList: userReviewsList,
+                setUserReviewsList: setUserReviewsList,
+                }}/>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />
         </div>

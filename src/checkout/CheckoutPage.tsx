@@ -23,6 +23,7 @@ export default function Checkout(props: any) {
     // price quantity array is like =>  [[price, quantity, odd/eve, order id, name]]
     const [priceQuantity, setPriceQuantity] = useState(initPriceQuantity);
     const [grandTotal, setGrandTotal] = useState(0);
+    const [cartExist, setCartExist] = useState(true);
     let navigate = useNavigate();
 
     function toggleAddressDefault() {
@@ -58,23 +59,44 @@ export default function Checkout(props: any) {
 
         // fetch cart, add prices
         const cart = await getUserCart(jwtToken, setIsLoading, setSnackBarMessage);
-        const newPriceQuantity = priceQuantity.slice();
-        let s = 0;
-        for(var i = 0; i < cart.length; i ++) {
-            if(!isAlreadyTallied(newPriceQuantity, cart[i].orderId)) {
-                newPriceQuantity.push([cart[i].priceRs, cart[i].count, cart[i]!.orderId!, i % 2, cart[i].itemName]);
-                console.log("to be added: ", (cart[i]!.priceRs * cart[i]!.count));
-                s += (cart[i]!.priceRs * cart[i]!.count);
+        if(cart.length > 0) {
+            //
+            const newPriceQuantity = priceQuantity.slice();
+            let s = 0;
+            for(var i = 0; i < cart.length; i ++) {
+                if(!isAlreadyTallied(newPriceQuantity, cart[i].orderId)) {
+                    newPriceQuantity.push([cart[i].priceRs, cart[i].count, cart[i]!.orderId!, i % 2, cart[i].itemName]);
+                    console.log("to be added: ", (cart[i]!.priceRs * cart[i]!.count));
+                    s += (cart[i]!.priceRs * cart[i]!.count);
+                }
             }
+            setGrandTotal(s);
+            setPriceQuantity(newPriceQuantity);
+        } else {
+            setCartExist(false);
         }
-        setGrandTotal(s);
-        setPriceQuantity(newPriceQuantity);
     }
     useEffect(() => {
         CheckoutSetup(priceQuantity, jwtToken, getUserCart);
         // eslint-disable-next-line
     }, [jwtToken])
-    if(loggedIn && !isVendor) {
+    if(isVendor) {
+        return(<div id="checkout">
+            <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
+                <div className=" text-green-600 dark:text-green-300 text-3xl mb-6">
+                    Please login as a Customer
+                </div>
+            </div>
+        </div>);
+    } else if(loggedIn && !cartExist) {
+        return(<div id="checkout">
+            <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
+                <div className=" text-green-600 dark:text-green-300 text-3xl mb-6">
+                    No Items in Cart!
+                </div>
+            </div>
+        </div>);
+    } else if(loggedIn) {
         return (
             <div id="checkout">
                 <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
@@ -128,14 +150,6 @@ export default function Checkout(props: any) {
                 <Loading {...{"isLoading": isLoading}} />
             </div>
         );
-    } else if(loggedIn) {
-        return(<div id="checkout">
-            <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
-                <div className=" text-green-600 dark:text-green-300 text-3xl mb-6">
-                    Please login as a Customer
-                </div>
-            </div>
-        </div>);
     } else {
         return < Forbidden />
     }

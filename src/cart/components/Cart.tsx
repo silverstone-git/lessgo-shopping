@@ -76,7 +76,7 @@ export default function Cart(props: any) {
                 <Snacc {...{"message": snackBarMessage}} />
                 <Loading {...{"isLoading": isLoading}} />
                 <div className="flex items-center justify-center gap-4 fixed bottom-[5vh] right-[2vw]">
-                    <YourCartButton auth={jwtToken} isVendor={isVendor} />
+                    <YourCartButton auth={jwtToken} isVendor={isVendor} cart={cartItems} />
 
                     <button ref={updaterRef as unknown as LegacyRef<HTMLButtonElement> | undefined} onClick={async (e) => {
                         await addToCart(jwtToken, noOfItems, setIsLoading, setSnackBarMessage, true, cartItems, setNoOfItems, setCartItems);

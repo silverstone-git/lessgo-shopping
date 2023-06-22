@@ -8,6 +8,8 @@ export default function YourCartButton(props: any) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // an empty use effect hook with navigate as dependency means that
+    // it rerenders each time react-router-dom catches location change 
   }, [navigate]);
 
     if(props.auth && window.location.href.search('cart') === -1 && !props.isVendor) {
