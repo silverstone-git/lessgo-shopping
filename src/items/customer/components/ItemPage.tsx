@@ -22,8 +22,8 @@ function ItemPage(props:any) {
 
     async function setupItemPage() {
         await checkJWTFromStorage(setLoggedIn, setAuth);
-        await checkLoggedIn(auth, setLoggedIn, undefined, setIsVendor, undefined)
-        const receivedItem = await getItem(passedId ? passedId : 'undefined', setIsLoading, setSnackBarMessage);
+        const tempCheckLoggedInRes = await checkLoggedIn(auth, setLoggedIn, undefined, setIsVendor, undefined)
+        const receivedItem = await getItem(passedId ? passedId : 'undefined', setIsLoading, setSnackBarMessage, auth);
         if(receivedItem !== null) {
             setItem (receivedItem);
             // caching item to local storage
@@ -59,7 +59,9 @@ function ItemPage(props:any) {
             }
             showSnackBar('Item doesn\'t exist', setSnackBarMessage);
         }
-        await checkIfAlreadyCart(passedId, setAlreadyAddedToCart, auth);
+        if(tempCheckLoggedInRes.isLoggedIn) {
+            await checkIfAlreadyCart(passedId, setAlreadyAddedToCart, auth);
+        }
     }
 
     // eslint-disable-next-line
@@ -69,7 +71,7 @@ function ItemPage(props:any) {
     }, [passedId,]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
-            <ItemBigCard  {...{item: item, auth: auth, setSnackBarMessage: setSnackBarMessage, isVendor: isVendor, alreadyAddedToCart: alreadyAddedToCart, setAlreadyAddedToCart: setAlreadyAddedToCart}}/>
+            <ItemBigCard  {...{item: item, auth: auth, setSnackBarMessage: setSnackBarMessage, isVendor: isVendor, alreadyAddedToCart: alreadyAddedToCart, setAlreadyAddedToCart: setAlreadyAddedToCart, setIsLoading: setIsLoading}}/>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />
         </div>

@@ -27,6 +27,7 @@ export const checkLoggedIn = async (jwtToken: String, setLoggedIn: React.Dispatc
     if(setSnackBarMessage)
       showSnackBar("Unhandled Exception", setSnackBarMessage);
   }
+  // res J contains => { isLoggedIn, username, isVendor }
   return resJ
 };
 

@@ -38,11 +38,11 @@ export const addItemToCart = async (itemId: string, auth: string, setSnackBarMes
     setAlreadyCart(true);
 }
 
-export async function getItem(passedId: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>) {
+export async function getItem(passedId: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, jwtToken: string ) {
     // returns the Item item from the passed id to set the state
     setIsLoading(true);
     const options = {
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json", "Authorization": jwtToken},
     }
     const fetchLocation = getBackendLocation();
     const res = await fetch(`${fetchLocation}/api/items/get-item/${passedId}/`, options);
