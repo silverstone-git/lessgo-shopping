@@ -10,6 +10,7 @@ import AppRoute from '../routes/AppRoute';
 import { checkJWTFromStorage, checkLoggedIn } from "../common/scripts/auth_repository";
 import ProfileDropDown from "./ProfileDropDown";
 import YourCartButton from "../dashboard/components/YourCartButton";
+import OrdersRoute from "../routes/OrdersRoute";
 
 function Layout() {
   // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -54,6 +55,7 @@ function Layout() {
         <nav className="routenav hidden md:flex top-8 left-8 list-none flex-row gap-8 absolute text-slate-800 dark:text-slate-100">
             <AppRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
             <ItemMasterRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, "isVendor": isVendor}} />
+            <OrdersRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, isVendor: isVendor}} />
             <LogOutRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
         </nav>
     <div className=' absolute right-8 top-8 flex items-center '>
