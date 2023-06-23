@@ -1,6 +1,8 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getFrontendLocation } from "../../common/scripts/urls";
 import { deleteFromListing } from "../../common/scripts/vendor_repository";
 import { CartItem, } from "../../models/models";
+import { icon } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 export default function SellerItems(props: any) {
 
@@ -19,13 +21,16 @@ export default function SellerItems(props: any) {
                                     <img className='object-cover' alt="" src={el.image}></img>
                                 </div>
                                 <div className="flex flex-col justify-between ml-6 w-full">
-                                    <div className='my-2 ml-2'>{`${el.itemName}, ₹${el.priceRs}`}</div>
-                                    <div className="ml-2">{`${el.description.substring(0, 20)}...`}</div>
+                                    <div className="mt-2 ml-2 text-lg font-bold">₹{el.priceRs}</div>
+                                    <div className='mt-2 ml-2'>{el.itemName}</div>
+                                    <div className="mt-2 ml-2">{`${el.description.substring(0, 20)}...`}</div>
                                     <div className="flex justify-between my-3">
                                         <button onClick={() => {
                                             // send delete command to orders table given the order id with status  column 0
                                             deleteFromListing(el.itemId, props.setIsLoading, props.setListedItems, props.soldItems, props.jwtToken, props.setSnackBarMessage);
-                                        }} className="p-4 dark:bg-red-300 dark:text-slate-800 text-slate-100 bg-red-600 rounded-full border border-white mr-3">Delete</button>
+                                        }} className="h-8 w-8 dark:bg-red-300 dark:text-slate-800 text-slate-100 bg-red-600 rounded-full border border-white">
+                                            <FontAwesomeIcon icon={icon({name: 'trash', style: 'solid'})} />
+                                        </button>
                                     </div>
                                 </div>
                             </div>

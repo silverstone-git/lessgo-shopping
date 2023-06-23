@@ -583,10 +583,6 @@ video {
   position: absolute;
 }
 
-.relative {
-  position: relative;
-}
-
 .bottom-0 {
   bottom: 0px;
 }
@@ -633,10 +629,6 @@ video {
 
 .top-8 {
   top: 2rem;
-}
-
-.bottom-4 {
-  bottom: 1rem;
 }
 
 .z-10 {
@@ -836,6 +828,10 @@ video {
   height: 100vh;
 }
 
+.h-5 {
+  height: 1.25rem;
+}
+
 .w-10\/12 {
   width: 83.333333%;
 }
@@ -888,6 +884,10 @@ video {
 
 .w-full {
   width: 100%;
+}
+
+.w-5 {
+  width: 1.25rem;
 }
 
 .cursor-pointer {
@@ -1154,6 +1154,10 @@ video {
   padding-bottom: 3.5rem;
 }
 
+.pb-2 {
+  padding-bottom: 0.5rem;
+}
+
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -1182,6 +1186,10 @@ video {
   padding-top: 6rem;
 }
 
+.pt-4 {
+  padding-top: 1rem;
+}
+
 .pt-6 {
   padding-top: 1.5rem;
 }
@@ -1192,14 +1200,6 @@ video {
 
 .pt-\[20vh\] {
   padding-top: 20vh;
-}
-
-.pb-2 {
-  padding-bottom: 0.5rem;
-}
-
-.pt-4 {
-  padding-top: 1rem;
 }
 
 .text-2xl {
@@ -1239,6 +1239,11 @@ video {
   font-weight: 100;
 }
 
+.text-gray-100 {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity));
+}
+
 .text-green-100 {
   --tw-text-opacity: 1;
   color: rgb(220 252 231 / var(--tw-text-opacity));
@@ -1276,25 +1281,6 @@ video {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-slate-400 {
-  --tw-text-opacity: 1;
-  color: rgb(148 163 184 / var(--tw-text-opacity));
-}
-
-.text-gray-500 {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity));
-}
-
-.text-gray-100 {
-  --tw-text-opacity: 1;
-  color: rgb(243 244 246 / var(--tw-text-opacity));
-}
-
-.text-opacity-50 {
-  --tw-text-opacity: 0.5;
 }
 
 .opacity-0 {
@@ -1693,11 +1679,6 @@ input:not(.dont-pad-this-input) {
   background-color: rgb(15 23 42 / var(--tw-bg-opacity));
 }
 
-:is(.dark .dark\:bg-white) {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 :is(.dark .dark\:text-green-300) {
   --tw-text-opacity: 1;
   color: rgb(134 239 172 / var(--tw-text-opacity));
@@ -1731,10 +1712,6 @@ input:not(.dont-pad-this-input) {
 :is(.dark .dark\:text-slate-800) {
   --tw-text-opacity: 1;
   color: rgb(30 41 59 / var(--tw-text-opacity));
-}
-
-:is(.dark .dark\:opacity-80) {
-  opacity: 0.8;
 }
 
 :is(.dark .dark\:after\:bg-neutral-400)::after {
@@ -1881,11 +1858,6 @@ input:not(.dont-pad-this-input) {
 
   .md\:text-xl {
     font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .md\:text-lg {
-    font-size: 1.125rem;
     line-height: 1.75rem;
   }
 

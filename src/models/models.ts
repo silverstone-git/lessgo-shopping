@@ -23,6 +23,10 @@ export class User {
         // returns a user instance
         return new User(map.username, map.email, map.password, map.is_vendor === 1 ? true : false, map.last_login, map.joined_dt, map.user_id, map.address);
     }
+
+    public static johnDoe() {
+        return new User('', '', '', false, undefined, undefined, undefined, '');
+    }
 }
 
 
@@ -76,7 +80,7 @@ export class Item {
     video: string;
     hits: number;
 
-    public constructor(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: string, video: string, itemId: number | undefined, hits: number) {
+    public constructor(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: string, video: string, itemId: number | undefined, hits: number = 0) {
         this.itemName = itemName;
         this.description = description;
         this.category = category;
@@ -127,7 +131,7 @@ export class CartItem extends Item {
     cartAt: Date;
     orderId: number | undefined;
 
-    public constructor(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: string, video: string, itemId: number | undefined, count: number, cartAt: Date, orderId: number | undefined, hits: number) {
+    public constructor(itemName: string, description: string, category: Category, inStock: boolean, priceRs: number, dateAdded: Date, image: string, video: string, itemId: number | undefined, count: number, cartAt: Date, orderId: number | undefined, hits: number = 0) {
         super(itemName, description, category, inStock, priceRs, dateAdded, image, video, itemId, hits);
         this.count = count;
         this.cartAt = cartAt;
@@ -140,7 +144,7 @@ export class CartItem extends Item {
         return new CartItem(map.item_name, map.description, map.category, map.in_stock === 1 ? true : false, map.price_rs, map.date_added, map.image, map.video, map.item_id, map.count, map.cart_at, map.order_id, map.hits);
     }
 
-    public static toMap(cartItem: CartItem) {
+    public static toMap(cartItem: CartItem): any {
         // returns an object
         return {
             ...super.toMap(new Item(cartItem.itemName, cartItem.description, cartItem.category, cartItem.inStock, cartItem.priceRs, cartItem.dateAdded, cartItem.image, cartItem.video, cartItem.itemId, cartItem.hits)),
@@ -148,6 +152,14 @@ export class CartItem extends Item {
             "date_added": cartItem.dateAdded,
             "order_id": cartItem.orderId,
         }
+    }
+
+    public static toMaps(cartItems: Array<CartItem>): Array<any> {
+        const cartObjs: Array<any> = [];
+        for( var i = 0; i < cartItems.length; i ++) {
+            cartObjs.push(CartItem.toMap(cartItems[i]));
+        }
+        return cartObjs;
     }
 
     public static async mapFromItem(item: any, passedCount: number, passedDateAdded: Date, passedOrderId: number) {

@@ -54,13 +54,6 @@ function ItemMaster(props: any) {
     item.image = await blobToBase64( item.image);
     item.video = await blobToBase64( item.video);
     
-    //
-    
-    // item.image = JSON.stringify(item.image);
-    // item.video = JSON.stringify(item.video);
-
-    // console.log("sending image: ");
-    // console.log(item.image);
 
     const fetchLocation = getBackendLocation();
     clearAllFields();
@@ -155,7 +148,7 @@ function ItemMaster(props: any) {
                 </div>
                 <div>
                   <label htmlFor="itemVideo">Video demonstrating the product</label>
-                  <input onChange={(e) => {setItem({ ...item, "video": new Blob([e.target.files != null ? e.target.files[0] : ''], {type: 'video/*'})})}} name="itemVideo" type="file" className="w-full item-master-input" required />
+                  <input onChange={(e) => {setItem({ ...item, "video": new Blob([e.target.files != null ? e.target.files[0] : ''], {type: 'video/*'})})}} name="itemVideo" type="file" className="w-full item-master-input" />
                 </div>
                 <button className="bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700 mb-12 ">Submit</button>
             </div>

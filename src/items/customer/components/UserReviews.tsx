@@ -1,5 +1,6 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { mysqlToJsDateUtc } from "../scripts/reviews"
 
 export default function UserReviews(props: any) {
     return(
@@ -16,7 +17,7 @@ export default function UserReviews(props: any) {
                 )})}
             </div>
             <div id={`content-${el.review_id}`} className="text-md mt-4">{el.content}</div>
-            <div id={`date-${el.review_id}`} className=" self-end text-gray-100 text-sm ">{el.date_added}</div>
+            <div id={`date-${el.review_id}`} className=" self-end text-gray-100 text-sm mt-4 ">{(new Date(mysqlToJsDateUtc(Number(el.date_added)))).toLocaleString()}</div>
 
         </div>)}
         )
