@@ -1,6 +1,6 @@
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { mysqlToJsDateUtc } from "../scripts/reviews"
+import { mysqlToJsDateUtc } from "../../../common/scripts/date";
 
 export default function UserReviews(props: any) {
     return(

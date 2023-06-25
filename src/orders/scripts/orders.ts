@@ -32,3 +32,12 @@ export async function getVendorOrders(jwtToken: string, setSnackBarMessage: any,
         return [];
     }
 }
+
+export async function receivedPaymentFunc(orderId: number, auth: string) {
+    const res = await fetch(`${getBackendLocation()}/api/orders/received-payment/`, {headers: { "Content-Type": "application/json"}, method: "POST", body: JSON.stringify({
+        Authorization: auth,
+        orderId: orderId,
+    })});
+    const resJ = await res.json();
+    return resJ.succ;
+}

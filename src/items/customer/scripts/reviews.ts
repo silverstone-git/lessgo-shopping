@@ -37,13 +37,3 @@ export async function getUserReviewsList(setIsLoading: any, itemId: number) {
     setIsLoading(false);
     return JSON.parse(resJ.result);
 }
-
-export function mysqlToJsDateUtc(passedDate: number) {
-
-    const d = new Date();
-    // since js gives -330 offset for, say, +5:30, minus minus becomes plus
-    const utcMillis = passedDate - d.getTimezoneOffset()*60*1000;
-
-    return utcMillis;
-
-}

@@ -16,6 +16,7 @@ export default function CartItemCards(props: any) {
 
     useEffect(() => {
         setupCartItemCart(props.cartItems);
+        // eslint-disable-next-line
     }, [props.cartItems])
 
     return(

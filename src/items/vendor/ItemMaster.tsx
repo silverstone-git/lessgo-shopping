@@ -40,8 +40,6 @@ function ItemMaster(props: any) {
 
   async function addItem(item: any) {
     setIsLoading(true);
-    console.log("image before: ");
-    console.log(item.image);
     
     function blobToBase64(blob: Blob) {
       return new Promise((resolve, _) => {
