@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ReviewItem from "./ItemReview";
 import { AddItemToCart } from "./AddItemToCart";
 import UserReviews from "./UserReviews";
+import { ItemPageVideo } from "./ItemPageVideo";
 
 function ItemBigCard(props: any) {
     let navigate = useNavigate();
@@ -21,6 +22,7 @@ function ItemBigCard(props: any) {
                 <div className="text-lg">{props.item.itemName}</div>
                 <div className="text-md">{props.item.description}</div>
                 <div className="font-bold"> In {props.item.category}</div>
+                <ItemPageVideo video={props.item.video} />
                 <AddItemToCart {...{itemId: props.item.itemId, auth: props.auth, setSnackBarMessage: props.setSnackBarMessage, isVendor: props.isVendor ? true : false, alreadyAddedToCart: props.alreadyAddedToCart, setAlreadyAddedToCart: props.setAlreadyAddedToCart}} />
                 <ReviewItem {...{"auth": props.auth, setIsLoading: props.setIsLoading, itemId: props.item.itemId, setSnackBarMessage: props.setSnackBarMessage}} />
                 <UserReviews reviews={props.userReviewsList}  />
