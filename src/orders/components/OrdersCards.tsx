@@ -44,6 +44,7 @@ export function OrdersCards(props: any) {
                         <div>Order #{el.order_id}</div>
                         <div>By {el.user_id}</div>
                         <div>{el.description.substring(0, 27)}...</div>
+                        <div>Delivery Address - {el.address}</div>
                         <div className={`${el.received_at? 'block' : 'hidden'}`}> Completed {mysqlToJsDateStringToString(el.received_at)}</div>
                         <CompleteOrder receivedPayment={el.received_at} orderId={el.order_id} auth={props.auth} setIsLoading={props.setIsLoading} />
                     </div>

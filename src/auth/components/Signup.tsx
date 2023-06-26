@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Snacc from '../../common/components/SnackBarComponent';
 import Loading from '../../common/components/Loading';
 import { getBackendLocation, getFrontendLocation } from '../../common/scripts/urls';
+import SnaccSignup from './SnaccWithCallBack';
 
 
 function Signup() {
@@ -27,7 +27,7 @@ function Signup() {
         setSnackBarMessage(message);
         setTimeout(() => {
             setSnackBarMessage("");
-        }, 3000)
+        }, 6000)
     }
 
     useEffect(() => {
@@ -58,7 +58,7 @@ function Signup() {
         const resJ = await res.json();
         setIsLoading(false);
         if(resJ.succ) {
-            showSnackBar(resJ.message);
+            showSnackBar("Account Created!, click here to go to login");
         } else {
             showSnackBar(resJ.fail);
         }
@@ -98,7 +98,7 @@ function Signup() {
                     </button>
                 </form>
             </div>
-            <Snacc {...{"message": snackBarMessage}} />
+            <SnaccSignup message={snackBarMessage} />
             <Loading {...{"isLoading": isLoading}} />
         </div>
     )
