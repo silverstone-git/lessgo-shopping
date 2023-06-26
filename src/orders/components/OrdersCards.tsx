@@ -21,6 +21,7 @@ export function OrdersCards(props: any) {
                         <div>Quantity - {el.count}</div>
                         <div>{el.description.substring(0, 20)}...</div>
                         <div className={`${el.received_at? 'block' : 'hidden'}`}> Completed {mysqlToJsDateStringToString(el.received_at)}</div>
+                        <div className={`${!el.received_at && el.placed_at ? 'block' : 'hidden'}`}> Placed {mysqlToJsDateStringToString(el.placed_at)}</div>
                     </div>
                     <div className="flex flex-col">
                         <div className="w-36 h-36 flex justify-center items-center overflow-hidden">
@@ -33,6 +34,7 @@ export function OrdersCards(props: any) {
     } else if(props.myOrders.length > 0) {
     return(
         props.myOrders.map((el: any) => {
+            // console.log(el);
             return(
                 <div id={el.order_id} onClick={() => {
                     window.location.href = `${getFrontendLocation()}/item/${el.item_id}`
@@ -44,6 +46,7 @@ export function OrdersCards(props: any) {
                         <div>Order #{el.order_id}</div>
                         <div>By {el.user_id}</div>
                         <div>{el.description.substring(0, 27)}...</div>
+                        <div className={`${el.received_at? 'block' : 'hidden'}`}> Completed {mysqlToJsDateStringToString(el.received_at)}</div>
                         <CompleteOrder receivedPayment={el.received_at} orderId={el.order_id} auth={props.auth} setIsLoading={props.setIsLoading} />
                     </div>
                     <div className="flex flex-col">

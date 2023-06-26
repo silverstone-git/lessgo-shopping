@@ -6,6 +6,8 @@ import Loading from "../../../common/components/Loading";
 import { changeCount } from "../../../cart/scripts/cart_repository";
 import { getFrontendLocation } from "../../../common/scripts/urls";
 import MoreButton from "./MoreButton";
+import { categoryIcons } from "../../../models/models";
+import { CategoryIconFromString } from "./CategoryIconFromString";
 
 function ItemCard(props: any) {
     return (
@@ -45,6 +47,18 @@ export default function ItemCards(props: any) {
         h-screen w-full text-slate-800 dark:text-slate-100'>
             <div className='my-4 text-md md:text-xl font-bold'>All Items</div>
             <div className='flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-14 '>
+                <div className="w-full py-4 flex justify-center">
+                    <div className="flex gap-4 justify-center">
+                    {Array.from(categoryIcons()).map((el) => {
+                        // console.log(props.category, el)
+                        return(
+                            <div>
+                                < CategoryIconFromString icon={el[1]} text={el[0]} category={props.category} setCategory={props.setCategory} setListOfItems={props.setListOfItems} />
+                            </div>
+                        );
+                    })}
+                    </div>
+                </div>
             {listOfItems.map(el => {
                 // map each object into component
                 const thisId: string = el.item_id ? el.item_id.toString(): `${el.item_name}///${el.date_added}`;

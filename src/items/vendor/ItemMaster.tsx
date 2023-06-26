@@ -34,9 +34,6 @@ function ItemMaster(props: any) {
     checkLoggedIn(jwtToken, setLoggedIN, undefined, setIsVendor, setSnackBarMessage);
 
   }, [jwtToken])
-  function clearAllFields() {
-    // pass till you figure out refs
-  }
 
   async function addItem(item: any) {
     setIsLoading(true);
@@ -54,7 +51,6 @@ function ItemMaster(props: any) {
     
 
     const fetchLocation = getBackendLocation();
-    clearAllFields();
     const res = await fetch(`${fetchLocation}/api/items/add-item/`, {
       headers: {
         "Content-Type": "application/json"

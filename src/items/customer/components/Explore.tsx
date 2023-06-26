@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Forbidden from '../../../Forbidden';
 import ItemCards from './ExploreItemCards';
 import { setupExplore } from '../scripts/explore';
+import { Category } from '../../../models/models';
 
 
 function Items(props: any) {
@@ -22,6 +23,7 @@ function Items(props: any) {
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [showCart, setShowCart] = useState(false);
+    const [category, setCategory] = useState(Category.other);
     
 
 
@@ -52,6 +54,8 @@ function Items(props: any) {
                     page: page,
                     setPage: setPage,
                     setLoggedIN: setLoggedIN,
+                    category: category,
+                    setCategory: setCategory,
                 }} />
             </div>
             </>
