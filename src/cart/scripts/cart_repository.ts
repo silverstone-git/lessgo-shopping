@@ -5,8 +5,7 @@ import { CartItem, Item } from "../../models/models";
 export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) {
     // gets user cart by getting from backend
     setIsLoading(true);
-    const fetchLocation = getBackendLocation();
-    const res = await fetch(`${fetchLocation}/api/orders/cart/`, {
+    const res = await fetch(`${getBackendLocation()}/api/orders/cart/`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({

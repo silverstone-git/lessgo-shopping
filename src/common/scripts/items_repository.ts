@@ -71,7 +71,7 @@ export async function getItem(passedId: string, setIsLoading: React.Dispatch<Rea
 }
 
 
-export async function getItems(jwtToken: String) {
+export async function getItems(jwtToken: String, page: number) {
 
     const fetchLocation = getBackendLocation();
     const res = await fetch(`${fetchLocation}/api/items/get-items/`, {
@@ -81,12 +81,19 @@ export async function getItems(jwtToken: String) {
         },
         "body": JSON.stringify({
             "Authorization": jwtToken,
+            "page": page,
         })
     });
     const resJ = await res.json();
 
+    let objArr: Array<any>;
+    try {
+        objArr = JSON.parse(resJ.itemList);
+    } catch(e) {
+        objArr = [];
+    }
+
     const itemsArr: Array<Item> = [];
-    const objArr: Array<any> = JSON.parse(resJ.itemList);
     for(var i = 0; i < objArr.length; i ++) {
         itemsArr.push(Item.fromMap(objArr[i]));
     }

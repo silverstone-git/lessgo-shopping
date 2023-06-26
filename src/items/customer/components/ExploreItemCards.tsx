@@ -5,6 +5,7 @@ import Snacc from "../../../common/components/SnackBarComponent";
 import Loading from "../../../common/components/Loading";
 import { changeCount } from "../../../cart/scripts/cart_repository";
 import { getFrontendLocation } from "../../../common/scripts/urls";
+import MoreButton from "./MoreButton";
 
 function ItemCard(props: any) {
     return (
@@ -52,6 +53,20 @@ export default function ItemCards(props: any) {
                 return <ItemCard {...{...el, "thisCount": thisCount, "key": thisId, noOfItems: props.noOfItems, setNoOfItems: props.setNoOfItems, showCart: props.showCart, setShowCart: props.setShowCart}} />
             })}
             </div>
+            <MoreButton {...{
+                    listOfItems: listOfItems,
+                    noOfItems: props.noOfItems,
+                    snackBarMessage: props.snackBarMessage,
+                    isLoading: props.isLoading,
+                    setNoOfItems: props.setNoOfItems,
+                    setIsLoading: props.setIsLoading,
+                    setSnackBarMessage: props.setSnackBarMessage,
+                    setLoggedIN: props.setLoggedIN,
+                    jwtToken: props.jwtToken,
+                    setListOfItems: props.setListOfItems,
+                    page: props.page,
+                    setPage: props.setPage,
+}} />
             <ShoppingCart {...{"cart": props.noOfItems, setNoOfItems: props.setNoOfItems, "jwtToken": props.jwtToken, "setSnackBarMessage": props.setSnackBarMessage, "setIsLoading": props.setIsLoading, listOfItems: props.listOfItems, setListOfItems: props.setListOfItems, showCart: props.showCart, setShowCart: props.setShowCart}} />
 
             <Snacc {...{"message": props.snackBarMessage}} />
