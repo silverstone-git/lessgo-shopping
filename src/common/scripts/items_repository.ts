@@ -71,7 +71,7 @@ export async function getItem(passedId: string, setIsLoading: React.Dispatch<Rea
 }
 
 
-export async function getItems(jwtToken: String, page: number) {
+export async function getItems(jwtToken: String, page: number, category: string) {
 
     const fetchLocation = getBackendLocation();
     const res = await fetch(`${fetchLocation}/api/items/get-items/`, {
@@ -82,6 +82,7 @@ export async function getItems(jwtToken: String, page: number) {
         "body": JSON.stringify({
             "Authorization": jwtToken,
             "page": page,
+            "category": category,
         })
     });
     const resJ = await res.json();

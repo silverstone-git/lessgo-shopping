@@ -45,7 +45,10 @@ export default function ItemCards(props: any) {
     return (
         <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
         h-screen w-full text-slate-800 dark:text-slate-100'>
-            <div className='my-4 text-md md:text-xl font-bold'>All Items</div>
+            <div className='my-4 text-md md:text-xl font-bold flex items-center'>
+                <FontAwesomeIcon icon={icon({name: 'fire', style: 'solid'})} />
+                <div className="ml-4">Trending</div>
+            </div>
             <div className='flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-14 '>
                 <div className="w-full py-4 flex justify-center">
                     <div className="flex gap-4 justify-center">
@@ -53,7 +56,7 @@ export default function ItemCards(props: any) {
                         // console.log(props.category, el)
                         return(
                             <div>
-                                < CategoryIconFromString icon={el[1]} text={el[0]} category={props.category} setCategory={props.setCategory} setListOfItems={props.setListOfItems} />
+                                < CategoryIconFromString icon={el[1]} text={el[0]} category={props.category} setCategory={props.setCategory} setListOfItems={props.setListOfItems} setPage={props.setPage} />
                             </div>
                         );
                     })}
@@ -80,6 +83,7 @@ export default function ItemCards(props: any) {
                     setListOfItems: props.setListOfItems,
                     page: props.page,
                     setPage: props.setPage,
+                    category: props.category
 }} />
             <ShoppingCart {...{"cart": props.noOfItems, setNoOfItems: props.setNoOfItems, "jwtToken": props.jwtToken, "setSnackBarMessage": props.setSnackBarMessage, "setIsLoading": props.setIsLoading, listOfItems: props.listOfItems, setListOfItems: props.setListOfItems, showCart: props.showCart, setShowCart: props.setShowCart}} />
 

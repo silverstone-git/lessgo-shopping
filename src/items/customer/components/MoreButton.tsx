@@ -17,7 +17,7 @@ export default function MoreButton(props: any) {
         <button onClick={() => {
             const tempPage = props.page + 1;
             props.setPage(tempPage);
-            setupExplore(props.jwtToken, props.listOfItems, tempPage, props.setPage, props.setIsLoading, props.setSnackBarMessage, props.setLoggedIN, props.setJwtToken, props.setListOfItems, props.setNoOfItems)
+            setupExplore(props.jwtToken, props.listOfItems, tempPage, props.setPage, props.setIsLoading, props.setSnackBarMessage, props.setLoggedIN, props.setJwtToken, props.setListOfItems, props.setNoOfItems, props.category)
         }} className="p-4 rounded-full bg-green-500 text-slate-100 dark:bg-green-300 dark:text-slate-800">
             Load More
         </button>

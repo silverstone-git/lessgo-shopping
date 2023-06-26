@@ -29,9 +29,9 @@ function Items(props: any) {
 
 	useEffect(() => {
 	// run a command only once
-        setupExplore(jwtToken, listOfItems, page, setPage, setIsLoading, setSnackBarMessage, setLoggedIN, setJwtToken, setListOfItems, setNoOfItems)
+        setupExplore(jwtToken, listOfItems, page, setPage, setIsLoading, setSnackBarMessage, setLoggedIN, setJwtToken, setListOfItems, setNoOfItems, category)
         // eslint-disable-next-line
-    }, [jwtToken]);
+    }, [jwtToken, category]);
 
     
     if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {

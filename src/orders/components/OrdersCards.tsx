@@ -9,7 +9,6 @@ export function OrdersCards(props: any) {
     return(
 
         props.myOrders.map((el: any) => {
-            console.log(el);
             return(
                 <div id={el.order_id} onClick={() => {
                     window.location.href = `${getFrontendLocation()}/item/${el.item_id}`
@@ -34,7 +33,6 @@ export function OrdersCards(props: any) {
     } else if(props.myOrders.length > 0) {
     return(
         props.myOrders.map((el: any) => {
-            // console.log(el);
             return(
                 <div id={el.order_id} onClick={() => {
                     window.location.href = `${getFrontendLocation()}/item/${el.item_id}`

@@ -3,14 +3,14 @@ import { checkJWTFromStorage, checkLoggedIn } from "../../../common/scripts/auth
 import { getItems } from "../../../common/scripts/items_repository";
 import { pageLength } from "../../../models/models";
 
-export async function setupExplore(jwtToken: string, listOfItems: any[], page: number, setPage: any, setIsLoading: any, setSnackBarMessage: any, setLoggedIN: any, setJwtToken: any, setListOfItems: any, setNoOfItems: any) {
+export async function setupExplore(jwtToken: string, listOfItems: any[], page: number, setPage: any, setIsLoading: any, setSnackBarMessage: any, setLoggedIN: any, setJwtToken: any, setListOfItems: any, setNoOfItems: any, category: string) {
     await checkJWTFromStorage(setLoggedIN, setJwtToken);
     await checkLoggedIn(jwtToken, setLoggedIN, undefined, undefined, setSnackBarMessage);
 
     const curCart = await getUserCart(jwtToken, setIsLoading, undefined);
     const listOfCartIds: Array<number | undefined> = curCart.map((el) => {return el.itemId});
 
-    const newItems = await getItems(jwtToken, page);
+    const newItems = await getItems(jwtToken, page, category);
 
     const tempListOfItems = listOfItems;
 

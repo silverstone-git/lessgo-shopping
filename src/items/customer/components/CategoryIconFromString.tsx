@@ -6,22 +6,20 @@ export function CategoryIconFromString(props: any) {
     const text = props.text;
     const categories = Category;
     let category: keyof typeof categories = text;
-    console.log(props.category === categories[category]);
+    const categoryIconOnclick = () => {
+        props.setListOfItems([]);
+        props.setCategory(categories[category]);
+        props.setPage(0);
+    }
     if(props.category === categories[category])
     return (
-        <div onClick={() => {
-            props.setListOfItems([]);
-            props.setCategory(categories[category]);
-            }} className='underline text-green-500'>
+        <div onClick={categoryIconOnclick} className='underline text-green-500 dark:text-green-300 cursor-pointer'>
             <FontAwesomeIcon icon={iconn} />
         </div>)
     else {
         return (
             //
-            <div onClick={() => {
-                props.setListOfItems([]);
-                props.setCategory(categories[category]);
-                }} className='text-slate-100'>
+            <div onClick={categoryIconOnclick} className='cursor-pointer'>
                 <FontAwesomeIcon icon={iconn} />
             </div>
         );
