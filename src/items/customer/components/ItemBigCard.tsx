@@ -9,6 +9,8 @@ import { ItemPageVideo } from "./ItemPageVideo";
 function ItemBigCard(props: any) {
     let navigate = useNavigate();
 
+    // console.log("item to be rendered -> ", props.item);
+
     return(
         <div className=" flex justify-center w-full bg-slate-100 dark:bg-slate-800 pb-20">
         <div className="flex flex-col md:w-11/12 w-full">

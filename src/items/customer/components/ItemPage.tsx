@@ -51,7 +51,7 @@ function ItemPage(props:any) {
                 localStorage.setItem('carouselArray', JSON.stringify(newArr));
             }
 
-            // checking if the received item is in cart and getting its reviews
+            // checking if the received item is in placed orders and getting its reviews
             if(tempCheckLoggedInRes.isLoggedIn && !tempCheckLoggedInRes.isVendor) {
                 await checkIfAlreadyCart(passedId, setAlreadyAddedToCart, auth);
                 const tempUserReviewsList = await getUserReviewsList(setIsLoading, receivedItem.itemId ? receivedItem.itemId : 0);

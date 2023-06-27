@@ -38,7 +38,7 @@ function Dashboard() {
       }
       setCategoriesCarousels({
         ...categoriesCarousels,
-        fmcg: await carouselItemsByCategory("fmcg", jwtToken),
+        pkd: await carouselItemsByCategory("pkd", jwtToken),
         veh: await carouselItemsByCategory("veh", jwtToken),
         elec: await carouselItemsByCategory("elec", jwtToken),
         mat: await carouselItemsByCategory("mat", jwtToken),
@@ -60,7 +60,7 @@ function Dashboard() {
     return(
       <DashboardCustomer {...{carouselArray: carouselArray,
         electronicsCarousel: categoriesCarousels.elec,
-        fmcgCarousel: categoriesCarousels.fmcg,
+        pkdCarousel: categoriesCarousels.pkd,
         vehiclesCarousel: categoriesCarousels.veh,
         materialCarousel: categoriesCarousels.mat,
         snackBarMessage: snackBarMessage,

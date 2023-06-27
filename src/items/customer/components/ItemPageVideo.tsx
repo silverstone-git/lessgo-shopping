@@ -1,6 +1,9 @@
 export function ItemPageVideo(props: any) {
-    if(props.video !== 'data:' || props.video) {
+    console.log("video is: ", props.video);
+    if(props.video === 'data:' || !props.video) {
         //
+        return null;
+    } else {
         return(
             <div className="flex flex-col gap-4">
                 <div>Seller's Showcase</div>
@@ -9,7 +12,5 @@ export function ItemPageVideo(props: any) {
                 </div>
             </div>
         );
-    } else {
-        return null
     }
 }

@@ -26,8 +26,8 @@ export default function DashboardCustomer(props: any) {
             <CarouselDashboard {...{listOfImages: props.electronicsCarousel, height: 40}}/>
           </div>
           <div id="fmcg" className="flex flex-col items-center gap-4 p-4 md:w-1/2 w-full mt-14">
-            <div>Fresh Home Products from Lessgo</div>
-            <CarouselDashboard {...{listOfImages: props.fmcgCarousel, height: 40}}/>
+            <div>Food at Lessgo</div>
+            <CarouselDashboard {...{listOfImages: props.pkdCarousel, height: 40}}/>
           </div>
           <div id="vehicles" className="flex flex-col items-center gap-4 p-4 md:w-1/2 w-full mt-14">
             <div>Hot Wheels for long rides</div>
