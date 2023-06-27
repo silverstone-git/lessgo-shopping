@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Snacc from '../../common/components/SnackBarComponent';
 import Loading from '../../common/components/Loading';
 import { getBackendLocation, getFrontendLocation } from '../../common/scripts/urls';
+import { GoogleLogin } from '@react-oauth/google';
+import { loginSucc, setProfileFromUser } from '../scripts/google_login';
 
 
 
@@ -12,12 +14,23 @@ function Login() {
     const [submitButtonDark, setSubmitButtonDark] = useState(0);
     const [loggedIn, ] = useState(localStorage.loggedIn);
     const [isLoading, setIsLoading] = useState(false);
+    let breh: any = undefined;
+    const [googleUser, setGoogleUser] = useState(breh);
+    const [googleProfile, setGoogleProfile] = useState(breh);
 
     useEffect(() => {
         if(loggedIn === "true") {
             window.location.href = `${getFrontendLocation()}/home/`;
+        } else {
+            //
         }
-    })
+        if(googleUser) {
+            console.log("google user exists!", googleUser);
+            console.log("setting profile..");
+            setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
+        }
+        // loadScript('https://accounts.google.com/gsi/client');
+    }, [googleUser])
 
     function showSnackBar(message: string) {
         setSnackBarMessage(message)
@@ -80,7 +93,7 @@ function Login() {
         }
     }
 
-
+    console.log(googleProfile);
 
     return (
         <div className='flex justify-center items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
@@ -99,6 +112,31 @@ function Login() {
                     <label htmlFor="password-input">Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} type="password" />
                     <SubmitButton {...{"isDark": submitButtonDark}} />
+                    {/* <button onClick={() => {}} className='p-4 dark:bg-green-300 dark:text-slate-800 bg-green-500 text-slate-100 rounded-full '>Login / Signup with google</button> */}
+                    <GoogleLogin theme={localStorage.getItem('theme') === 'dark' ? 'filled_black' : 'filled_blue'} onSuccess={(val) => loginSucc(val, setGoogleUser)} onError={() => console.log("error while login")} useOneTap />
+                    {/*
+
+                    COMMENTED BECAUSE IT REQUIRES A GLOBAL HANDLER FUNCTION
+
+
+                     <div id="g_id_onload"
+                        data-client_id={process.env.REACT_APP_GOAUTH_CLID}
+                        data-context="signin"
+                        data-ux_mode="popup"
+                        data-callback="handleAuthentication"
+                        data-nonce=""
+                        data-auto_select="true"
+                        data-itp_support="true">
+                    </div>
+
+                    <div className="g_id_signin"
+                        data-type="standard"
+                        data-shape="rectangular"
+                        data-theme={`filled_${localStorage.getItem('theme') === 'dark'? 'black': 'blue'}`}
+                        data-text="signin_with"
+                        data-size="large"
+                        data-logo_alignment="left">
+                    </div> */}
                 </form>
                 <div className=' mt-8 text-sm text-slate-500 '>Create a new account <a className='text-green-600 dark:text-green-300 hover:opacity-80' href='/signup'>here</a></div>
             </div>

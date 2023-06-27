@@ -16,6 +16,7 @@ import ItemPage from './items/customer/components/ItemPage';
 import Checkout from './checkout/CheckoutPage';
 import Thankyou from './thankyou/thankyou';
 import { YourOrders } from './orders/components/YourOrders';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 
 const root = ReactDOM.createRoot(
@@ -24,6 +25,7 @@ const root = ReactDOM.createRoot(
 
 
 root.render(
+  <GoogleOAuthProvider clientId={process.env.REACT_APP_GOAUTH_CLID!}>
   <React.StrictMode>
     <BrowserRouter>
     <Routes>
@@ -45,4 +47,5 @@ root.render(
     </Routes>
     </BrowserRouter>
   </React.StrictMode>
+  </GoogleOAuthProvider>
 );

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Loading from '../../common/components/Loading';
-import { getBackendLocation, getFrontendLocation } from '../../common/scripts/urls';
+import { getFrontendLocation } from '../../common/scripts/urls';
 import SnaccSignup from './SnaccWithCallBack';
+import { createMyAccount } from '../../common/scripts/auth_repository';
 
 
 function Signup() {
@@ -23,47 +24,12 @@ function Signup() {
         }
     }
 
-    function showSnackBar(message: string) {
-        setSnackBarMessage(message);
-        setTimeout(() => {
-            setSnackBarMessage("");
-        }, 6000)
-    }
-
     useEffect(() => {
         if(loggedIn === "true") {
             window.location.href = `${getFrontendLocation()}/home/`
         }
     })
 
-    async function createMyAccount() {
-        // POST the form creds to the api for account creation
-
-        setIsLoading(true);
-        const fetchLocation = getBackendLocation();
-        const res = await fetch(`${fetchLocation}/api/auth/create`, {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json",
-            },
-            "body": JSON.stringify({
-                "username": username,
-                "email": email,
-                "password": password,
-                "password2": password2,
-                "vendorReq": vendorReq,
-                "Authorization": localStorage.getItem('jwtToken'),
-            })
-        });
-        const resJ = await res.json();
-        setIsLoading(false);
-        if(resJ.succ) {
-            showSnackBar("Account Created!, click here to go to login");
-        } else {
-            showSnackBar(resJ.fail);
-        }
-
-    }
 
     return (
         <div className='flex justify-center items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
@@ -75,7 +41,7 @@ function Signup() {
                 <form className='flex flex-col gap-4' onSubmit={async (e) => {
                     e.preventDefault();
                     (e.target as HTMLFormElement).reset();
-                    await createMyAccount();
+                    await createMyAccount(setIsLoading, setSnackBarMessage, username, email, password, password2, vendorReq);
                 }}>
                     <label htmlFor="name-input">Enter Name</label>
                     <input onChange={(e) => setUserName(e.target.value)} id="name-input" type="text" />

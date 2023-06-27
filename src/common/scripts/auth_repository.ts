@@ -56,3 +56,36 @@ export async function getUserAddress(jwtToken:string) {
   const resJ = await res.json();
   return resJ.address;
 }
+
+
+
+export async function createMyAccount(setIsLoading: any, setSnackBarMessage: any, username: string, email: string, password: string, password2: string, vendorReq: string, authtype: string = "argon", dp: string = '') {
+  // POST the form creds to the api for account creation
+
+  setIsLoading(true);
+  const fetchLocation = getBackendLocation();
+  const res = await fetch(`${fetchLocation}/api/auth/create`, {
+      "method": "POST",
+      "headers": {
+          "Content-Type": "application/json",
+      },
+      "body": JSON.stringify({
+          "username": username,
+          "email": email,
+          "password": password,
+          "password2": password2,
+          "vendorReq": vendorReq,
+          "Authorization": localStorage.getItem('jwtToken'),
+          "type": authtype,
+          "dp": dp,
+      })
+  });
+  const resJ = await res.json();
+  setIsLoading(false);
+  if(resJ.succ) {
+      showSnackBar("Account Created!, click here to go to login", setSnackBarMessage);
+  } else {
+      showSnackBar(resJ.fail, setSnackBarMessage);
+  }
+
+  }
