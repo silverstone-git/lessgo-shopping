@@ -35,6 +35,7 @@ root.render(
         <Route path="/item/:passedId" element={<ItemPage />} />
         <Route path="item-master" element={<ItemMaster />} />
         <Route path="login" element={<Login />} />
+        <Route path="/login/:exitCode" element={<Login />} />
         <Route path="signup" element={<Signup />} />
         <Route path="home" element={<Dashboard />} />
         <Route path="cart" element={<Cart />} />

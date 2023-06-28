@@ -17,6 +17,7 @@ function Signup() {
     const [isLoading, setIsLoading] = useState(false);
     let breh: any = undefined;
     const [googleUser, setGoogleUser] = useState(breh);
+    // eslint-disable-next-line
     const [googleProfile, setGoogleProfile] = useState(breh);
 
     const [loggedIn, ] = useState(localStorage.loggedIn);
@@ -36,7 +37,7 @@ function Signup() {
         if(googleUser) {
             setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
         }
-    })
+    }, [loggedIn, googleUser])
 
 
     return (
@@ -48,8 +49,12 @@ function Signup() {
             <div className=' px-4 sm:px-8 md:px-0 w-full md:w-auto'>
                 <form className='flex flex-col gap-4' onSubmit={async (e) => {
                     e.preventDefault();
-                    (e.target as HTMLFormElement).reset();
-                    await createMyAccount(setIsLoading, setSnackBarMessage, username, email, password, password2, vendorReq);
+                    const succ = await createMyAccount(setIsLoading, setSnackBarMessage, username, email, password, password2, vendorReq);
+                    if(succ) {
+                        (e.target as HTMLFormElement).reset();
+                        window.location.href = `${getFrontendLocation()}/login/201`;
+                    }
+                    
                 }}>
                     <label htmlFor="name-input">Enter Name</label>
                     <input onChange={(e) => setUserName(e.target.value)} id="name-input" type="text" />

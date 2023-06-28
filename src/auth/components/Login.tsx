@@ -4,6 +4,8 @@ import Loading from '../../common/components/Loading';
 import { getBackendLocation, getFrontendLocation } from '../../common/scripts/urls';
 import { GoogleLogin } from '@react-oauth/google';
 import { loginSucc, setProfileFromUser } from '../scripts/google_login';
+import { useParams } from "react-router-dom";
+import { showSnackBar } from '../../common/scripts/snacc';
 
 
 
@@ -17,8 +19,10 @@ function Login() {
     let breh: any = undefined;
     const [googleUser, setGoogleUser] = useState(breh);
     const [googleProfile, setGoogleProfile] = useState(breh);
+    let { exitCode } = useParams();
 
     useEffect(() => {
+        showSnackBar(exitCode === '201' ? 'Account Successfully Created' : '', setSnackBarMessage);
         if(loggedIn === "true") {
             window.location.href = `${getFrontendLocation()}/home/`;
         } else {
@@ -28,14 +32,7 @@ function Login() {
             setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
         }
         // loadScript('https://accounts.google.com/gsi/client');
-    }, [googleUser, loggedIn])
-
-    function showSnackBar(message: string) {
-        setSnackBarMessage(message)
-        setTimeout(() => {
-            setSnackBarMessage("");
-        }, 3000)
-    }
+    }, [googleUser, loggedIn, exitCode])
 
     async function logMeIn() {
 
@@ -64,11 +61,11 @@ function Login() {
             localStorage.setItem("loggedIn", 'true');
             window.location.href = `${getFrontendLocation()}/home/`;
         } else {
-            showSnackBar(resJ.message);
-            console.log("Login Failure");
-            console.log(`message to be shown is: ${resJ.message}`)
+            showSnackBar(resJ.message, setSnackBarMessage);
         }
         setSubmitButtonDark(0);
+
+        return resJ.succ ? true : false;
 
     }
 
@@ -102,7 +99,6 @@ function Login() {
             <div>
                 <form className='flex flex-col gap-4' action='' onSubmit={async (e) => {
                   e.preventDefault();
-                  (e.target as HTMLFormElement).reset();
                   await logMeIn();
                 }}>
                     <label htmlFor="email-input">Email</label>

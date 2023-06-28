@@ -92,6 +92,6 @@ export async function createMyAccount(setIsLoading: any, setSnackBarMessage: any
       showSnackBar(resJ.fail, setSnackBarMessage);
   }
   localStorage.setItem('carouselArray', '');
-  return;
+  return resJ.succ ? true : false;
 
   }
