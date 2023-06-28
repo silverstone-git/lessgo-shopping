@@ -134,9 +134,11 @@ export async function addToCart(auth: string, cart: Map<string, number>, setIsLo
             }
         } else {
             for (const [id, count] of cloneCart) {
-                originalCartArray.find((el) => {
+                const foundCartItemObj: any = originalCartArray.find((el) => {
                     return el.item_id.toString() === id;
-                }).count = count;
+                });
+                if(foundCartItemObj)
+                    foundCartItemObj.count = count;
             }
         }
         updateOriginalCartArray(originalCartArray);

@@ -82,7 +82,7 @@ export default function Cart(props: any) {
                         await addToCart(jwtToken, noOfItems, setIsLoading, setSnackBarMessage, true, cartItems, setNoOfItems, setCartItems);
                         (e.target as HTMLElement).style.display = "none";
                         setEditModeOn(0);
-                    }} className=" flex cursor-pointer justify-center items-center rounded-full h-12 w-12 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100">
+                    }} className=" flex relative md:static bottom-6 md:bottom-0 cursor-pointer justify-center items-center rounded-full h-12 w-12 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100">
                         <FontAwesomeIcon icon={icon({name: 'check', style: 'solid'})} />
                     </button>
                 </div>

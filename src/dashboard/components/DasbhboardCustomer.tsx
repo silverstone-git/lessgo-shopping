@@ -13,7 +13,7 @@ export default function DashboardCustomer(props: any) {
         <div className='font-bold text-xl md:text-3xl text-green-600 dark:text-green-300'>
           Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{props.username.split(' ')[0]}</div>
         </div>
-        <div className="md:hidden block">
+        <div className="md:hidden inline mt-14">
         < YourCartButton auth={props.jwt} isVendor={props.isVendor} />
         </div>
         <div className=" bg-slate-100 dark:bg-slate-800 pb-14 w-full flex flex-col items-center justify-center">

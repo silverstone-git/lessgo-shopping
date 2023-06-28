@@ -25,8 +25,6 @@ function Login() {
             //
         }
         if(googleUser) {
-            console.log("google user exists!", googleUser);
-            console.log("setting profile..");
             setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
         }
         // loadScript('https://accounts.google.com/gsi/client');

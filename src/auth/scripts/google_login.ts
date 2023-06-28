@@ -25,7 +25,7 @@ export async function setProfileFromUser(user: any, setProfile: any, setIsLoadin
     const breh: any = jwt_decode(user.credential);
 
     if(breh && (await googleUserExists(breh))) {
-        console.log("jwt decoded", breh);
+        // pass
     } else {
         await createMyAccount(setIsLoading, setSnackBarMessage, breh.name, breh.email, '', '', 'user', 'google', breh.picture);
     }

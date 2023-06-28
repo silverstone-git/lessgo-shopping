@@ -2,7 +2,7 @@ import { showSnackBar } from "./snacc";
 import { getBackendLocation } from "./urls";
 
 
-export const checkLoggedIn = async (jwtToken: String, setLoggedIn: React.Dispatch<React.SetStateAction<any>>, setUsername: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setIsVendor: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) => {
+export const checkLoggedIn = async (jwtToken: String, setLoggedIn: React.Dispatch<React.SetStateAction<any>>, setUsername: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setIsVendor: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, setDp: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) => {
   // to check if logged in at every render
   const fetchLocation = getBackendLocation();
   const res = await fetch(`${fetchLocation}/api/auth/isLoggedIn/`,
@@ -17,12 +17,15 @@ export const checkLoggedIn = async (jwtToken: String, setLoggedIn: React.Dispatc
   )
   const resJ = await res.json();
 
+
   if(res.status === 403 || res.status === 200) {
     setLoggedIn(resJ.isLoggedIn);
     if(setUsername)
       setUsername(resJ.username);
     if(setIsVendor)
       setIsVendor(resJ.isVendor);
+    if(setDp && resJ.dp)
+      setDp(resJ.dp);
   } else {
     if(setSnackBarMessage)
       showSnackBar("Unhandled Exception", setSnackBarMessage);
@@ -76,7 +79,8 @@ export async function createMyAccount(setIsLoading: any, setSnackBarMessage: any
           "password2": password2,
           "vendorReq": vendorReq,
           "Authorization": localStorage.getItem('jwtToken'),
-          "type": authtype,
+          // "Authorization": authtype !== 'argon' ? '' : localStorage.getItem('jwtToken'),
+          "auth_type": authtype,
           "dp": dp,
       })
   });
@@ -87,5 +91,6 @@ export async function createMyAccount(setIsLoading: any, setSnackBarMessage: any
   } else {
       showSnackBar(resJ.fail, setSnackBarMessage);
   }
+  return;
 
   }

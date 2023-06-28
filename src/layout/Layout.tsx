@@ -41,12 +41,13 @@ function Layout() {
   const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
 	const [loggedIn, setLoggedIN] = useState(localStorage.loggedIn);
 	const [username, setUsername] = useState("");
+	const [dp, setDp] = useState("");
   const [isVendor, setIsVendor] = useState(false);
 
   // checkJWTFromStorage();
 	useEffect(() => {
     checkJWTFromStorage(setLoggedIN, setJwtToken);
-    checkLoggedIn(localStorage.jwtToken, setLoggedIN, setUsername, setIsVendor, undefined);
+    checkLoggedIn(localStorage.jwtToken, setLoggedIN, setUsername, setIsVendor, undefined, setDp);
   }, []);
 
 
@@ -65,13 +66,15 @@ function Layout() {
   role="switch" onChange={toggleDarkMode} checked={darkMode} />
   <FontAwesomeIcon className='text-white hidden dark:inline' icon={icon({name: 'moon', style: 'solid'})} />
   <FontAwesomeIcon className='text-slate-800 inline dark:hidden' icon={icon({name: 'sun', style: 'solid'})} />
-  <ProfileDropDown {...{loggedIn: loggedIn, isVendor: isVendor, username: username}}/>
-  <div className="hidden md:block">
-  <YourCartButton auth={jwtToken} isVendor={isVendor} />
+  <div className="hidden md:block ml-4">
+    <YourCartButton auth={jwtToken} isVendor={isVendor} />
+  </div>
+  <div className="z-20">
+  <ProfileDropDown {...{loggedIn: loggedIn, isVendor: isVendor, username: username, dp: dp}}/>
   </div>
     </div>
         <Outlet />
-        <nav className=" fixed py-4 px-8 bg-green-600 dark:bg-green-300 text-slate-100 dark:text-slate-800 bottom-0 flex justify-between w-full md:hidden list-none flex-row">
+        <nav className=" fixed py-4 px-8 bg-green-600 dark:bg-green-300 text-slate-100 dark:text-slate-800 bottom-0 flex justify-between w-full md:hidden list-none flex-row z-10">
             <AppRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
             <ItemMasterRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, "isVendor": isVendor}} />
             <LogOutRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />

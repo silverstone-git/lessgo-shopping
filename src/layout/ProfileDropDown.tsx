@@ -26,9 +26,13 @@ export default function ProfileDropDown(props: any) {
     if(props.loggedIn && props.isVendor) {
         return (
             <div className="self-center justify-self-center flex flex-col items-center justify-center">
-            <div onClick={() => showDropDown(optionsMenuRef)} className=" text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer">{props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}</div>
+            <div onClick={() => showDropDown(optionsMenuRef)} className=" text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer flex">
+                {props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}
+                {props.dp ? <img src={props.dp} alt="" className="rounded-full" /> : null }
+ 
+            </div>
 
-            <div ref={optionsMenuRef} className=" absolute top-10 right-32 w-48 px-3 py-6 gap-6 shadow-md hidden opacity-0 transition-opacity dark:bg-green-300 dark:text-slate-800 border-slate-800 dark:border-slate-100 bg-green-100  text-slate-800 border rounded-xl flex-col items-start">
+            <div ref={optionsMenuRef} className=" absolute top-10 md:top-18 right-1 w-48 px-3 py-6 gap-6 shadow-md hidden opacity-0 transition-opacity dark:bg-green-300 dark:text-slate-800 border-slate-800 dark:border-slate-100 bg-green-100  text-slate-800 border rounded-xl flex-col items-start">
                 <div onClick={() => {
                     window.location.href = `${getFrontendLocation()}/your-orders/`;
                 }} className="flex gap-2 w-full items-center cursor-pointer">
@@ -41,12 +45,14 @@ export default function ProfileDropDown(props: any) {
 
         )
     } else if(props.loggedIn){
-        //
         return (
             <div className="self-center justify-self-center flex flex-col items-center justify-center">
-            <div onClick={() => showDropDown(optionsMenuRef)} className=" text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer">{props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}</div>
+            <div onClick={() => showDropDown(optionsMenuRef)} className=" text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer flex items-center">
+                {!props.dp ? <div className="hidden md:block">{props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}</div> : null}
+                {props.dp ? <img src={props.dp} alt="" className="rounded-full h-8 w-8 ml-2" /> : null }
+            </div>
 
-            <div ref={optionsMenuRef} className=" absolute top-10 right-32 w-48 px-3 py-6 gap-6 shadow-md hidden opacity-0 transition-opacity dark:bg-green-300 dark:text-slate-800 border-slate-800 dark:border-slate-100 bg-green-100  text-slate-800 border rounded-xl flex-col items-start">
+            <div ref={optionsMenuRef} className=" absolute top-10 md:top-18 right-1 w-48 px-3 py-6 gap-6 shadow-md hidden opacity-0 transition-opacity dark:bg-green-300 dark:text-slate-800 border-slate-800 dark:border-slate-100 bg-green-100  text-slate-800 border rounded-xl flex-col items-start">
                 <div className="flex items-center gap-2 w-full cursor-pointer" onClick={() => {
                     window.location.href = `${getFrontendLocation()}/your-orders/`;
                 }}>
