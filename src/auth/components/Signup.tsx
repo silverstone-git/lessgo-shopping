@@ -3,6 +3,8 @@ import Loading from '../../common/components/Loading';
 import { getFrontendLocation } from '../../common/scripts/urls';
 import SnaccSignup from './SnaccWithCallBack';
 import { createMyAccount } from '../../common/scripts/auth_repository';
+import { GoogleLogin } from '@react-oauth/google';
+import { loginSucc, setProfileFromUser } from '../scripts/google_login';
 
 
 function Signup() {
@@ -13,6 +15,9 @@ function Signup() {
     const [vendorReq, setVendor ] = useState("user");
     const [snackBarMessage, setSnackBarMessage] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    let breh: any = undefined;
+    const [googleUser, setGoogleUser] = useState(breh);
+    const [googleProfile, setGoogleProfile] = useState(breh);
 
     const [loggedIn, ] = useState(localStorage.loggedIn);
 
@@ -27,6 +32,9 @@ function Signup() {
     useEffect(() => {
         if(loggedIn === "true") {
             window.location.href = `${getFrontendLocation()}/home/`
+        }
+        if(googleUser) {
+            setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
         }
     })
 
@@ -59,9 +67,12 @@ function Signup() {
                         <label htmlFor="vendor-input">Lessgo Seller Account</label>
                         <input className='inline' onClick={(e) => toggleVendor(vendorReq)} id="vendor-input" type="checkbox" />
                     </div>
-                    <button type='submit' className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700  '>
+                    <div className='w-full flex flex-col gap-4 items-center'>
+                    <button type='submit' className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700 w-[300px] '>
                         Submit
                     </button>
+                    <GoogleLogin theme={localStorage.getItem('theme') === 'dark' ? 'filled_black' : 'filled_blue'} onSuccess={(val) => loginSucc(val, setGoogleUser)} onError={() => console.log("error while login")} width={'300px'} useOneTap />
+                    </div>
                 </form>
             </div>
             <SnaccSignup message={snackBarMessage} />

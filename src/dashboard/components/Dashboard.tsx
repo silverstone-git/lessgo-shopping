@@ -18,6 +18,7 @@ function Dashboard() {
   const [soldItems, setListedItems] = useState(initListedItems)
   const [noOfItems, setNoOfItems] = useState(0);
   const initCarouselArray: Array<Array<string>> = [];
+  const [ newUser, setNewUser ] = useState(true);
   const [carouselArray, setCarouselArray]= useState(initCarouselArray);
   const [categoriesCarousels, setCategoriesCarousels] = useState(initCategoryCarousels);
 
@@ -30,11 +31,12 @@ function Dashboard() {
       setIsVendor(true);
     } else {
       if(localStorage.carouselArray) {
+        setNewUser(false);
         setCarouselArray(JSON.parse(localStorage.carouselArray));
       } else {
+        setNewUser(true);
         const tempHotItemsCarouselArray: Array<Array<string>> = await getHotCarouselItems();
         setCarouselArray(tempHotItemsCarouselArray);
-
       }
       setCategoriesCarousels({
         ...categoriesCarousels,
@@ -68,6 +70,7 @@ function Dashboard() {
         username: username,
         jwt: jwtToken,
         isVendor: isVendor,
+        newUser: newUser,
       }}/>
     )
   } else {
