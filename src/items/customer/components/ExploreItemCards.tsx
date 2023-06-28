@@ -56,7 +56,7 @@ export default function ItemCards(props: any) {
                         // console.log(props.category, el)
                         return(
                             <div>
-                                < CategoryIconFromString icon={el[1]} text={el[0]} category={props.category} setCategory={props.setCategory} setListOfItems={props.setListOfItems} setPage={props.setPage} />
+                                < CategoryIconFromString icon={el[1]} text={el[0]} category={props.category} setCategory={props.setCategory} setListOfItems={props.setListOfItems} setPage={props.setPage} setNoOfItems={props.setNoOfItems} />
                             </div>
                         );
                     })}

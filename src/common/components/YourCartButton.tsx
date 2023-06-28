@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { getFrontendLocation } from "../../common/scripts/urls"
+import { getFrontendLocation } from "../scripts/urls"
 import { icon } from "@fortawesome/fontawesome-svg-core/import.macro"
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +19,7 @@ export default function YourCartButton(props: any) {
             <button onClick={() => {
                 window.location.href = `${getFrontendLocation()}/cart/`
             }
-            } className=" flex justify-center items-center p-5 md:p-3 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100 md:font-normal font-thin rounded-full md:border-white border md:border-0">
+            } className=" flex justify-center items-center p-4 md:p-3 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100 md:font-normal rounded-full border md:border-0">
                 <div className="mr-4"><FontAwesomeIcon icon={icon({name: 'cart-shopping', style: 'solid'})} /></div>
                 <div>Your Cart</div>
             </button>

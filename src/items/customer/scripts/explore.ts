@@ -7,7 +7,7 @@ export async function setupExplore(jwtToken: string, listOfItems: any[], page: n
     await checkJWTFromStorage(setLoggedIN, setJwtToken);
     await checkLoggedIn(jwtToken, setLoggedIN, undefined, undefined, setSnackBarMessage);
 
-    const curCart = await getUserCart(jwtToken, setIsLoading, undefined);
+    const curCart = await getUserCart(jwtToken, setIsLoading, undefined, category);
     const listOfCartIds: Array<number | undefined> = curCart.map((el) => {return el.itemId});
 
     const newItems = await getItems(jwtToken, page, category);

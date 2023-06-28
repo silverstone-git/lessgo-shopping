@@ -28,7 +28,7 @@ function Login() {
             setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
         }
         // loadScript('https://accounts.google.com/gsi/client');
-    }, [googleUser])
+    }, [googleUser, loggedIn])
 
     function showSnackBar(message: string) {
         setSnackBarMessage(message)

@@ -9,7 +9,7 @@ import LogOutRoute from '../routes/LogOutRoute';
 import AppRoute from '../routes/AppRoute';
 import { checkJWTFromStorage, checkLoggedIn } from "../common/scripts/auth_repository";
 import ProfileDropDown from "./ProfileDropDown";
-import YourCartButton from "../dashboard/components/YourCartButton";
+import YourCartButton from "../common/components/YourCartButton";
 import OrdersRoute from "../routes/OrdersRoute";
 
 function Layout() {

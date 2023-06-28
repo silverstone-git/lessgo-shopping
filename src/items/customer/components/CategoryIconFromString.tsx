@@ -8,6 +8,7 @@ export function CategoryIconFromString(props: any) {
     let category: keyof typeof categories = text;
     const categoryIconOnclick = () => {
         props.setListOfItems([]);
+        props.setNoOfItems(new Map());
         props.setCategory(categories[category]);
         props.setPage(0);
     }

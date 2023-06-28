@@ -2,7 +2,7 @@ import { showSnackBar } from "../../common/scripts/snacc";
 import { getBackendLocation } from "../../common/scripts/urls";
 import { CartItem, Item } from "../../models/models";
 
-export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) {
+export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, category: string | undefined = undefined) {
     // gets user cart by getting from backend
     setIsLoading(true);
     const res = await fetch(`${getBackendLocation()}/api/orders/cart/`, {
@@ -10,6 +10,7 @@ export async function getUserCart(jwtToken: string, setIsLoading: React.Dispatch
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             "Authorization": jwtToken,
+            "category": category,
         })
     });
     const resJ = await res.json();
@@ -35,12 +36,10 @@ export async function deleteFromCart(id: number, setIsLoading: React.Dispatch<Re
     const newCartItems: Array<CartItem> = cartItems.slice();
     console.log("scanning for id : ", id, typeof id);
     for(var i = 0; i < newCartItems.length; i ++) {
-        console.log("current id : ", newCartItems[i].orderId, typeof newCartItems[i].orderId);
         if(newCartItems[i].orderId === id) {
             newCartItems.splice(i, 1);
         }
     }
-    console.log("changed array is - ", newCartItems);
     // setCardCartItems(newCartItems);
     setCartItems(newCartItems);
 

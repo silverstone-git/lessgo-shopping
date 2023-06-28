@@ -3,14 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CarouselDashboard from "../../common/components/Carousel";
 import Snacc from "../../common/components/SnackBarComponent";
 import Loading from "../../common/components/Loading";
-import YourCartButton from "./YourCartButton";
+import YourCartButton from "../../common/components/YourCartButton";
 
 export default function DashboardCustomer(props: any) {
     return (
     <div id='dashboard'>
 
       <div className='flex flex-col pt-[20vh] items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
-        <div className='font-bold text-xl md:text-3xl text-green-600 dark:text-green-300'>
+        <div className='font-bold text-2xl md:text-3xl text-green-600 dark:text-green-300'>
           Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{props.username.split(' ')[0]}</div>
         </div>
         <div className="md:hidden inline mt-14">

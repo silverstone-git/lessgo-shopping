@@ -26,9 +26,9 @@ export default function ProfileDropDown(props: any) {
     if(props.loggedIn && props.isVendor) {
         return (
             <div className="self-center justify-self-center flex flex-col items-center justify-center">
-            <div onClick={() => showDropDown(optionsMenuRef)} className=" text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer flex">
-                {props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}
-                {props.dp ? <img src={props.dp} alt="" className="rounded-full" /> : null }
+            <div onClick={() => showDropDown(optionsMenuRef)} className=" text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer flex items-center">
+                {!props.dp ? <div>{props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}</div> : null}
+                {props.dp ? <img src={props.dp} alt="" className="rounded-full h-8 w-8 ml-2" /> : null }
  
             </div>
 
@@ -48,7 +48,7 @@ export default function ProfileDropDown(props: any) {
         return (
             <div className="self-center justify-self-center flex flex-col items-center justify-center">
             <div onClick={() => showDropDown(optionsMenuRef)} className=" text-slate-800 dark:text-slate-100 ml-4 font-bold cursor-pointer flex items-center">
-                {!props.dp ? <div className="hidden md:block">{props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}</div> : null}
+                {!props.dp ? <div>{props.username.split(' ')[0].length < 10 ? props.username.split(' ')[0] : `${props.username.split(' ')[0]}...`}</div> : null}
                 {props.dp ? <img src={props.dp} alt="" className="rounded-full h-8 w-8 ml-2" /> : null }
             </div>
 
