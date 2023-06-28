@@ -83,7 +83,9 @@ export default function ItemCards(props: any) {
                     setListOfItems: props.setListOfItems,
                     page: props.page,
                     setPage: props.setPage,
-                    category: props.category
+                    category: props.category,
+                    exploreEnd: props.exploreEnd,
+                    setExploreEnd: props.setExploreEnd,
 }} />
             <ShoppingCart {...{"cart": props.noOfItems, setNoOfItems: props.setNoOfItems, "jwtToken": props.jwtToken, "setSnackBarMessage": props.setSnackBarMessage, "setIsLoading": props.setIsLoading, listOfItems: props.listOfItems, setListOfItems: props.setListOfItems, showCart: props.showCart, setShowCart: props.setShowCart}} />
 

@@ -16,6 +16,7 @@ function Items(props: any) {
 
     const newItemCount: Map<string, number> = new Map();
     const [noOfItems, setNoOfItems] = useState(newItemCount);
+    const [exploreEnd, setExploreEnd] = useState(false);
 
 
     const [jwtToken, setJwtToken] = useState(localStorage.jwtToken);
@@ -56,6 +57,8 @@ function Items(props: any) {
                     setLoggedIN: setLoggedIN,
                     category: category,
                     setCategory: setCategory,
+                    exploreEnd: exploreEnd,
+                    setExploreEnd: setExploreEnd,
                 }} />
             </div>
             </>

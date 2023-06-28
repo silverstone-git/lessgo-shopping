@@ -71,7 +71,7 @@ function Signup() {
                     <button type='submit' className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700 w-[300px] '>
                         Submit
                     </button>
-                    <GoogleLogin theme={localStorage.getItem('theme') === 'dark' ? 'filled_black' : 'filled_blue'} onSuccess={(val) => loginSucc(val, setGoogleUser)} onError={() => console.log("error while login")} width={'300px'} useOneTap />
+                    {vendorReq === 'vendor' ? null : <GoogleLogin theme={localStorage.getItem('theme') === 'dark' ? 'filled_black' : 'filled_blue'} onSuccess={(val) => loginSucc(val, setGoogleUser)} onError={() => console.log("error while login")} width={'300px'} useOneTap />}
                     </div>
                 </form>
             </div>
