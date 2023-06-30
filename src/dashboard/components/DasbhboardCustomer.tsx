@@ -4,23 +4,19 @@ import CarouselDashboard from "../../common/components/Carousel";
 import Snacc from "../../common/components/SnackBarComponent";
 import Loading from "../../common/components/Loading";
 import YourCartButton from "../../common/components/YourCartButton";
-import { categoryIcons } from "../../models/models";
-import { CategoryIconFromString } from "../../items/customer/components/CategoryIconFromString";
 
 export default function DashboardCustomer(props: any) {
     return (
     <div id='dashboard'>
 
-      <div className='flex flex-col items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
-        {/* <div className='font-bold text-2xl md:text-3xl text-green-600 dark:text-green-300'>
-          Welcome back <div className=" inline font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-500">{props.username.split(' ')[0]}</div>
-        </div> */}
+      <div className='flex flex-col items-center pt-24 md:pt-0 bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
+        <div className="hidden md:flex">
         <CarouselDashboard {...{"listOfImages": [
-          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "Aeroplane Tickets", ""],
-          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "Aeroplane Tickets", ""],
-          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "Aeroplane Tickets", ""],
-          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "Aeroplane Tickets", ""],
-        ], height: 30, width: 100}} />
+          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", ""],
+          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", ""],
+          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", ""],
+          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", ""],
+        ], height: 30}} /></div>
         <div className="md:hidden inline mt-14">
         < YourCartButton auth={props.jwt} isVendor={props.isVendor} />
         </div>
@@ -60,8 +56,6 @@ export default function DashboardCustomer(props: any) {
           </div>
         </div>
       </div>
-
-      <div className="hidden h-[30vh] w-[100vw]"></div>
 
       <Snacc {...{"message": props.snackBarMessage}} />
       <Loading {...{"isLoading": props.isLoading}} />

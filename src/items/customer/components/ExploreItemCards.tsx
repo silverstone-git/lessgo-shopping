@@ -43,7 +43,7 @@ export default function ItemCards(props: any) {
     const listOfItems: Array<any> = props.listOfItems;
     const countMap: Map<string, number> = props.noOfItems;
     return (
-        <div className='flex flex-col pt-7 items-center bg-slate-100 dark:bg-slate-800
+        <div className='flex flex-col md:pt-7 pt-20 items-center bg-slate-100 dark:bg-slate-800
         h-screen w-full text-slate-800 dark:text-slate-100'>
             <div className='my-4 text-md md:text-xl font-bold flex items-center'>
                 <FontAwesomeIcon icon={icon({name: 'fire', style: 'solid'})} />

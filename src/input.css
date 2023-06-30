@@ -27,6 +27,9 @@ input:not(.dont-pad-this-input) {
 .h-\[60vh\] {
     height: 60vh;
 }
+.h-\[30vh\] {
+    height: 30vh;
+}
 
 .lds-ring {
   display: inline-block;
@@ -68,4 +71,8 @@ input:not(.dont-pad-this-input) {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.w-\[100vh\] {
+  width: '100vh';
 }

@@ -37,7 +37,7 @@ export function YourOrders(props: any) {
     }, [jwtToken])
     if(loggedIn && !isVendor) {
         return(
-        <div className='flex flex-col pt-7 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
+        <div className='flex flex-col md:pt-7 pt-20 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
             <div onClick={() => {
                 navigate(-1);
             }} className=" cursor-pointer self-start pl-8 flex items-center text-md md:text-xl gap-4"><FontAwesomeIcon icon={icon({name: 'arrow-left', style: 'solid'})} /><div className=" font-bold text-sm sm:text-md md:text-xl">Back</div></div>
