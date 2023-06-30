@@ -1,6 +1,6 @@
 export function ItemPageVideo(props: any) {
     console.log("video is: ", props.video);
-    if(props.video === 'data:' || !props.video) {
+    if(props.video === 'data:' || props.video === 'data:application/octet-stream;base64,' || !props.video || props.video.length < 100) {
         //
         return null;
     } else {

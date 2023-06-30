@@ -22,11 +22,15 @@ export function OrdersCards(props: any) {
     return(
     
 
-        props.myOrders.map((el: any) => {
-            return(
+        Array.from(myOrdersMap).map((cartEls: any) => {
+            return(<div className=" bg-opacity-40 mb-20 bg-slate-500 rounded-lg">
+            {/* <div className="bg-slate-500 w-full p-7 rounded-lg">Cart #{cartEls[0]}</div> */}
+            <div className="bg-green-300 text-slate-800 w-full p-7 rounded-lg">Cart #{cartEls[0]}</div>
+
+            {cartEls[1].map((el: any) => {return(
                 <div id={el.order_id} onClick={() => {
                     window.location.href = `${getFrontendLocation()}/item/${el.item_id}`
-                }} className="flex md:flex-row flex-col-reverse cursor-pointer justify-between bg-opacity-30 bg-slate-400 rounded-md w-full my-8 py-4 px-4">
+                }} className="flex md:flex-row flex-col-reverse cursor-pointer justify-between w-full my-8 py-4 px-4">
                     <div className="flex flex-col gap-2">
                         <div className="mt-4 md:mt-0">{el.item_name}</div>
                         <div className="font-bold text-lg">₹{el.price_rs}</div>
@@ -42,7 +46,9 @@ export function OrdersCards(props: any) {
                         </div>
                     </div>
                 </div>
-            );
+            );})}
+
+            </div>);
         }))
     } else if(props.myOrders.length > 0) {
     return(
