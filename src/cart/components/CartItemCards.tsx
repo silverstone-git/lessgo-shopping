@@ -10,7 +10,7 @@ import { useEffect } from "react";
 export default function CartItemCards(props: any) {
 
     async function setupCartItemCart(cartItems: any) {
-        await props.setNoOfItems(listOfCartItemsToMap(props.cartItems));
+        await props.setNoOfItems(listOfCartItemsToMap(cartItems));
     }
 
 

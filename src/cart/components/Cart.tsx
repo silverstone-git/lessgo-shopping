@@ -83,6 +83,8 @@ export default function Cart(props: any) {
                         (e.target as HTMLElement).style.display = "none";
                         setEditModeOn(0);
                     }} className=" flex relative md:static bottom-6 md:bottom-0 cursor-pointer justify-center items-center rounded-full h-12 w-12 bg-green-600 dark:bg-green-300 dark:text-slate-800 text-slate-100">
+                        
+                        <div className=" h-3 w-3 rounded-full bg-orange-700 absolute top-0 right-0"></div>
                         <FontAwesomeIcon icon={icon({name: 'check', style: 'solid'})} />
                     </button>
                 </div>

@@ -571,10 +571,6 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.invisible {
-  visibility: hidden;
-}
-
 .static {
   position: static;
 }
@@ -631,6 +627,10 @@ video {
   right: 0.25rem;
 }
 
+.right-2 {
+  right: 0.5rem;
+}
+
 .right-8 {
   right: 2rem;
 }
@@ -649,10 +649,6 @@ video {
 
 .top-8 {
   top: 2rem;
-}
-
-.right-2 {
-  right: 0.5rem;
 }
 
 .z-10 {
@@ -883,6 +879,10 @@ video {
   width: 2rem;
 }
 
+.w-\[300px\] {
+  width: 300px;
+}
+
 .w-\[70vw\] {
   width: 70vw;
 }
@@ -899,14 +899,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[40px\] {
-  width: 40px;
-}
-
-.w-\[300px\] {
-  width: 300px;
 }
 
 .cursor-pointer {
@@ -1810,14 +1802,6 @@ input:not(.dont-pad-this-input) {
 
   .md\:bottom-\[5vh\] {
     bottom: 5vh;
-  }
-
-  .md\:top-20 {
-    top: 5rem;
-  }
-
-  .md\:top-16 {
-    top: 4rem;
   }
 
   .md\:top-14 {
