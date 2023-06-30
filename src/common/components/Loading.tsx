@@ -5,9 +5,13 @@ export default function Loading(props: any) {
     // works on property - isLoading: true
     if(props.isLoading) {
         return(
-            <div className="w-full h-full opacity-70 font-extrabold text-3xl text-slate-800 dark:text-slate-200 z-10">
-                <div className="z-20"> Loading ...</div>
+            <>
+            {/* <div className="fixed h-screen w-screen top-0 left-0 opacity-30 bg-slate-800 dark:bg-slate-200 z-10">
+            </div> */}
+            <div className="fixed h-screen w-screen top-0 left-0 mt-[47vh] ml-[47vw] font-extrabold text-3xl z-20 text-slate-950 dark:text-slate-50">
+                <div className="lds-ring"><div className="lds-ring-div dark:lds-ring-dark-div"></div><div></div><div></div><div></div></div>
             </div>
+            </>
         )
     } else {
         return null;

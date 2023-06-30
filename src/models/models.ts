@@ -81,12 +81,16 @@ export const initCategoryCarousels: {
     mat: Array<Array<string>>, 
     other: Array<Array<string>>, 
     mach: Array<Array<string>>, 
+    groc: Array<Array<string>>, 
+    laptop: Array<Array<string>>, 
   } = {
     elec: [],
     veh: [],
     mat: [],
     pkd: [],
     mach: [],
+    groc: [],
+    laptop: [],
     other: [],
 }
 

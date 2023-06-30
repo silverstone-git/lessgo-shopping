@@ -5,7 +5,11 @@ module.exports = {
 
   ],
   theme: {
-    extend: {},
+    extend: {
+    },
+    fontFamily: {
+      'fasthand': ['FastHand'],
+    }
   },
   plugins: [],
 darkMode: 'class',

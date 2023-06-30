@@ -11,7 +11,7 @@ function ItemMasterRoute(props: any) {
 	if(props.isVendor) {
 		//
 		return(
-			<li className="routeli">
+			<li className="routeli flex items-center">
                 <Link to="/item-master"  className="flex items-center gap-2">
                         <FontAwesomeIcon icon={icon({name: 'square-plus', style: 'solid'})} />
                         <div className="hidden md:block">Add Item</div>
@@ -21,7 +21,7 @@ function ItemMasterRoute(props: any) {
 		);
 	} else if((typeof props.loggedIn === 'string' && props.loggedIn === 'true') || (typeof props.loggedIn === 'boolean' && props.loggedIn)) {
 		return(
-			<li className="routeli">
+			<li className="routeli flex items-center">
                 <Link to="/items"  className="flex items-center gap-2">
 					<FontAwesomeIcon icon={icon({name: 'magnifying-glass', style: 'solid'})} />
 					<div className="md:block hidden">Explore</div>
@@ -30,7 +30,7 @@ function ItemMasterRoute(props: any) {
 		);
 	} else {
 		return(
-			<li className="routeli">
+			<li className="routeli flex items-center">
                 <Link to="/login"  className="flex items-center gap-2">
 					<FontAwesomeIcon icon={icon({name: 'right-to-bracket', style: 'solid'})} />
 					<div className="md:block hidden">Log In</div>

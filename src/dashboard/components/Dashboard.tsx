@@ -44,6 +44,8 @@ function Dashboard() {
         veh: await carouselItemsByCategory("veh", jwtToken),
         elec: await carouselItemsByCategory("elec", jwtToken),
         mat: await carouselItemsByCategory("mat", jwtToken),
+        laptop: await carouselItemsByCategory("laptop", jwtToken),
+        groc: await carouselItemsByCategory("groc", jwtToken),
       })
     }
   }
@@ -65,6 +67,8 @@ function Dashboard() {
         pkdCarousel: categoriesCarousels.pkd,
         vehiclesCarousel: categoriesCarousels.veh,
         materialCarousel: categoriesCarousels.mat,
+        groceryCarousel: categoriesCarousels.groc,
+        laptopCarousel: categoriesCarousels.laptop,
         snackBarMessage: snackBarMessage,
         isLoading: isLoading,
         username: username,

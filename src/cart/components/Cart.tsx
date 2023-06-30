@@ -48,7 +48,7 @@ export default function Cart(props: any) {
     }
     if(loggedIn) {
         return(
-            <div className='flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800
+            <div className='flex flex-col pt-7 items-center bg-slate-100 dark:bg-slate-800
             h-screen w-full text-slate-800 dark:text-slate-100'>
                 <div className="flex justify-between w-full">
                 <div onClick={() => {
