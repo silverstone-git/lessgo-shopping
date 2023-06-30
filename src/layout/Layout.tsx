@@ -79,7 +79,7 @@ function Layout() {
         <div className="hidden md:block ml-4">
           <YourCartButton auth={jwtToken} isVendor={isVendor} />
         </div>
-        <div className="z-20">
+        <div className="z-20 text-slate-800 dark:text-slate-100">
           <ProfileDropDown {...{loggedIn: loggedIn, isVendor: isVendor, username: username, dp: dp}}/>
         </div>
       </div>

@@ -20,6 +20,14 @@ export async function changeItemPrice(itemId: number, setIsloading: any, setList
     setIsloading(false);
     if(resJ.succ) {
         showSnackBar("Price Updated Successfully", setSnackBarMessage);
+        const newSoldItems = soldItems.slice();
+        newSoldItems.forEach((val) => {
+            if(val.itemId === itemId) {
+                val.oldPrice = val.priceRs;
+                val.priceRs = newPrice;
+            }
+        })
+        setListedItems(newSoldItems);
     } else {
         showSnackBar("Error updating the price", setSnackBarMessage);
     }

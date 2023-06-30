@@ -20,6 +20,7 @@ function ItemBigCard(props: any) {
             <div id="item-image" className=" self-center mt-7 h-[40vh] md:w-1/2 w-full flex justify-center"><img src={props.item.image} alt="" className=" w-full object-contain" /></div>
             <div className="flex flex-col gap-6 md:pl-6 px-4 mt-4 md:mt-0">
 
+                {props.item.oldPrice? <div className=" text-md text-opacity-70 line-through translate-y-2">{`₹${props.item.oldPrice}`}</div>: null }
                 <div className=" text-xl font-bold">{`₹${props.item.priceRs}`}</div>
                 <div className="text-lg">{props.item.itemName}</div>
                 <div className="text-md">{props.item.description}</div>
