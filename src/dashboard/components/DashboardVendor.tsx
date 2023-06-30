@@ -16,7 +16,7 @@ export default function DashboardVendor(props: any) {
         <div className="bold text-md mt-4">
           {props.noOfItems === 0 ? "" : "Your Listings"}
         </div>
-        <SellerItems {...{"soldItems": props.soldItems, "setIsLoading": props.setIsLoading, "setListedItems": props.setListedItems, "jwtToken": props.jwtToken, "setSnackBarMessage": props.setSnackBarMessage}} />
+        <SellerItems {...{"soldItems": props.soldItems, "setIsLoading": props.setIsLoading, "setListedItems": props.setListedItems, "jwtToken": props.jwtToken, "setSnackBarMessage": props.setSnackBarMessage, itemPriceEditMode: props.itemPriceEditMode, setItemPriceEditMode: props.setItemPriceEditMode}} />
         <Snacc {...{"message": props.snackBarMessage}} />
       </div>
       <Loading {...{"isLoading": props.isLoading}} />

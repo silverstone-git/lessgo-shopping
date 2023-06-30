@@ -21,6 +21,7 @@ function Dashboard() {
   const [ newUser, setNewUser ] = useState(true);
   const [carouselArray, setCarouselArray]= useState(initCarouselArray);
   const [categoriesCarousels, setCategoriesCarousels] = useState(initCategoryCarousels);
+  const [itemPriceEditMode, setItemPriceEditMode] = useState(0);
 
 
   async function dashboardSetup(jwtToken: string) {
@@ -57,7 +58,7 @@ function Dashboard() {
   if(isVendor) {
     // rendering the vendor dashboard if the user is a vendor
     return (
-      <DashboardVendor {...{noOfItems: noOfItems, soldItems: soldItems, setIsLoading: setIsLoading, username: username, jwtToken: jwtToken, snackBarMessage: snackBarMessage, setSnackBarMessage: setSnackBarMessage, setListedItems: setListedItems}} />
+      <DashboardVendor {...{noOfItems: noOfItems, soldItems: soldItems, setIsLoading: setIsLoading, username: username, jwtToken: jwtToken, snackBarMessage: snackBarMessage, setSnackBarMessage: setSnackBarMessage, setListedItems: setListedItems, itemPriceEditMode: itemPriceEditMode, setItemPriceEditMode}} />
     )
   }
   else if((typeof loggedIn === 'string' && loggedIn === 'true') || (typeof loggedIn === 'boolean' && loggedIn)) {
