@@ -11,7 +11,8 @@ export function loginSucc(codeRes: any, setUser: any) {
 
 async function googleUserExists(profileObj: any) {
     const res = await fetch(`${getBackendLocation()}/api/auth/google-finduser/`, {headers: {"Content-Type": "application/json"}, method: "POST", body: JSON.stringify({
-        email: profileObj.email
+        email: profileObj.email,
+        oauth: 'google',
     })});
     const resJ = await res.json();
     if(resJ.exists)

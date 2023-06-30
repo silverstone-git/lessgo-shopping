@@ -6,7 +6,21 @@ export function OrdersCards(props: any) {
     
     
     if(props.myOrders.length > 0 && !props.isVendor) {
+    const myOrdersMap = new Map<number, Array<any>>();
+    for(var i = 0; i < props.myOrders.length; i ++) {
+        if(myOrdersMap.has(props.myOrders[i].cart_id)) {
+            const prevArr : any[] = myOrdersMap.get(props.myOrders[i].cart_id) as any[];
+            prevArr.push(props.myOrders[i]);
+            myOrdersMap.set(
+                props.myOrders[i].cart_id,
+                prevArr
+            )
+        } else {
+            myOrdersMap.set(props.myOrders[i].cart_id, [props.myOrders[i],]);
+        }
+    }
     return(
+    
 
         props.myOrders.map((el: any) => {
             return(

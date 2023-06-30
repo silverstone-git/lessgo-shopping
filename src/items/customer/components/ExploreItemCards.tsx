@@ -19,7 +19,7 @@ function ItemCard(props: any) {
                 <img className='object-cover' alt="" src={props.image}></img>
             </div>
             <div className="flex flex-col justify-between w-full">
-                {props.item.oldPrice? <div className=" text-md text-opacity-70 line-through translate-y-2">{`₹${props.item.oldPrice}`}</div>: null }
+                {props.old_price? <div className=" text-md text-opacity-70 line-through translate-y-2">{`₹${props.item.oldPrice}`}</div>: null }
                 <div className='ml-5 mt-4 text-lg font-bold'>{`₹${props.price_rs}`}</div>
                 <div className='ml-5 text-xl '>{props.item_name}</div>
                 <div className='ml-5 text-sm'>{`${props.description.substring(0, 20)}...`}</div>

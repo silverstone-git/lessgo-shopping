@@ -65,15 +65,15 @@ function Layout() {
         <div className="gap-4 flex items-center">
           <FontAwesomeIcon className=' hidden dark:inline relative right-2 cursor-pointer' icon={icon({name: 'moon', style: 'solid'})} onClick={toggleDarkMode} />
           <FontAwesomeIcon className='inline dark:hidden relative right-2 cursor-pointer' icon={icon({name: 'sun', style: 'solid'})} onClick={toggleDarkMode} />
-          <div className="hidden md:block ml-4">
+          {loggedIn ? <div className="hidden md:block ml-4">
             <YourCartButton auth={jwtToken} isVendor={isVendor} />
-          </div>
-          <div className="z-20">
+          </div> : null}
+          {loggedIn ? <div className="z-20">
             <ProfileDropDown {...{loggedIn: loggedIn, isVendor: isVendor, username: username, dp: dp}}/>
-          </div>
+          </div> : null}
         </div>
       </nav>
-      <div className=' absolute right-8 top-8 md:hidden flex items-center '>
+      <div className=' absolute right-8 top-8 md:hidden flex items-center'>
         <FontAwesomeIcon className='text-white hidden dark:inline relative right-2 cursor-pointer' icon={icon({name: 'moon', style: 'solid'})} onClick={toggleDarkMode} />
         <FontAwesomeIcon className='text-slate-800 inline dark:hidden relative right-2 cursor-pointer' icon={icon({name: 'sun', style: 'solid'})} onClick={toggleDarkMode} />
         <div className="hidden md:block ml-4">
