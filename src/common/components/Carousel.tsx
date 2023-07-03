@@ -1,15 +1,15 @@
 // import { Carousel } from "react-responsive-carousel";
 // import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { getFrontendLocation } from "../scripts/urls";
 
 function CarouselDashboard(props: any) {
 
-    const carouselParentRef = useRef<HTMLDivElement>(null);
+    // const carouselParentRef = useRef<HTMLDivElement>(null);
     const [curSlide, setCurSlide] = useState(0);
 
     function slide(slideTo: number) {
-        const parent = (carouselParentRef.current as HTMLDivElement)
+        // const parent = (carouselParentRef.current as HTMLDivElement)
         const newPos = curSlide + slideTo;
         if(newPos < 0)
         setCurSlide(props.listOfImages.length);
@@ -39,9 +39,9 @@ function CarouselDashboard(props: any) {
         </Carousel>
         */
         <div
-    id="carouselExampleCaptions"
-    className="relative"
-    >
+          id="carouselExampleCaptions"
+          className="relative w-full"
+        >
   {/* <!--Carousel indicators--> */}
   <div
     className="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
@@ -51,6 +51,7 @@ function CarouselDashboard(props: any) {
     return <button
     onClick={() => {
         console.log("button carousel clickk");
+        setCurSlide((props.listOfImages as Array<Array<string>>).findIndex((val) => {return val === el}));
     }}
       type="button"
       className={` ${el[2] === props.listOfImages[curSlide][2] ? 'opacity-90' : 'opacity-50'} mx-[3px] box-content h-[3px] w-[30px] flex-initial cursor-pointer border-0 border-y-[10px] border-solid border-transparent bg-white bg-clip-padding p-0 -indent-[999px] transition-opacity duration-[600ms] ease-[cubic-bezier(0.25,0.1,0.25,1.0)] motion-reduce:transition-none`}
@@ -62,7 +63,7 @@ function CarouselDashboard(props: any) {
   {/* <!--Carousel items--> */}
   <div
   id="carousel-parent"
-  ref={carouselParentRef}
+  // ref={carouselParentRef}
     className="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
     {/* <!--First item--> */}
 
@@ -90,10 +91,10 @@ function CarouselDashboard(props: any) {
 
   {/* <!--Carousel controls - prev item--> */}
   <button
-    className="prev absolute bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+    className="absolute hover:bg-black hover:bg-opacity-20 bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-250 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
     type="button"
-    onClick={(e) => {
-        slide((e.target as HTMLElement).classList[0] === 'prev' ? -1 : 1);
+    onClick={() => {
+        slide(-1);
     }}
     
     >
@@ -118,10 +119,10 @@ function CarouselDashboard(props: any) {
   </button>
   {/* <!--Carousel controls - next item--> */}
   <button
-    className="absolute bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+    className="absolute hover:bg-black hover:bg-opacity-20 bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
     type="button"
-    onClick={(e) => {
-        slide((e.target as HTMLElement).classList[0] === 'prev' ? -1 : 1);
+    onClick={() => {
+        slide(1);
     }}
     >
     <span className="inline-block h-8 w-8">

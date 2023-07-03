@@ -12,10 +12,10 @@ export default function DashboardCustomer(props: any) {
       <div className='flex flex-col items-center pt-24 md:pt-0 bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100'>
         <div className="hidden md:flex">
         <CarouselDashboard {...{"listOfImages": [
-          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", ""],
-          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", ""],
-          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", ""],
-          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", ""],
+          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", 1],
+          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", 2],
+          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", 3],
+          ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/a1d93b6bc446790d.jpg?q=20", "", 4],
         ], height: 30}} /></div>
         <div className="md:hidden inline mt-14">
         < YourCartButton auth={props.jwt} isVendor={props.isVendor} />
