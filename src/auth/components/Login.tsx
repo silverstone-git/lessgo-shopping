@@ -21,13 +21,11 @@ function Login() {
     const [googleProfile, setGoogleProfile] = useState(breh);
     let { exitCode } = useParams();
 
-    async function setupLogin(googleUser: any, loggedIn: string, exitCode: string) {
+    async function setupLogin(googleUser: any, loggedIn: string, exitCode: string | undefined) {
         showSnackBar(exitCode === '201' ? 'Account Successfully Created' : '', setSnackBarMessage);
         if(loggedIn === "true") {
             window.location.href = `${getFrontendLocation()}/home/`;
-        } else {
-            //
-        }
+        } else {}
         if(googleUser) {
             await setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
             exitCode === '404' ? await getCartFromLocal(setIsLoading) : void 0;
@@ -36,7 +34,7 @@ function Login() {
     }
 
     useEffect(() => {
-        // loadScript('https://accounts.google.com/gsi/client');
+        setupLogin(googleUser, loggedIn, exitCode);
     }, [googleUser, loggedIn, exitCode])
 
     async function logMeIn() {
@@ -81,26 +79,25 @@ function Login() {
             //
             return (
                 <button type='submit' className='bg-green-900 dark:bg-green-700 hover:bg-green-800 hover:dark:bg-green-100  rounded-md p-3 mt-4 text-lg text-slate-100 dark:text-slate-700'>
-                    Submit
+                    Login
                 </button>
             )
         } else {
             // show a nice colorful submit button
             return (
                 <button type='submit' className='bg-green-600 dark:bg-green-300 hover:bg-green-800 hover:dark:bg-green-100  rounded-md p-3 mt-4 text-lg text-slate-100 dark:text-slate-700'>
-                    Submit
+                    Login
                 </button>
             )
         }
     }
 
-    console.log(googleProfile);
-
     return (
-        <div className='flex justify-center items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
-            <div className=' mr-24 flex-col items-center md:flex hidden'>
-                <div className='text-3xl font-bold text-green-600 dark:text-green-300'>Welcome Back</div>
-                <div className='text-slate-600 dark:text-slate-200'>Log back into your Account</div>
+        <div className='flex justify-center items-center h-[90vh] w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
+            <div className=' mr-24 md:block hidden  text-8xl font-logo text-green-600 dark:text-green-300'>
+                {/* <div className=''> */}
+                    Lessgo
+                {/* <div className='text-slate-600 dark:text-slate-200'>Log back into your Account</div> */}
             </div>
             <div>
                 <form className='flex flex-col gap-4' action='' onSubmit={async (e) => {
@@ -114,31 +111,9 @@ function Login() {
                     <SubmitButton {...{"isDark": submitButtonDark}} />
                     {/* <button onClick={() => {}} className='p-4 dark:bg-green-300 dark:text-slate-800 bg-green-500 text-slate-100 rounded-full '>Login / Signup with google</button> */}
                     <GoogleLogin theme={localStorage.getItem('theme') === 'dark' ? 'filled_black' : 'filled_blue'} onSuccess={(val) => loginSucc(val, setGoogleUser)} onError={() => console.log("error while login")} useOneTap />
-                    {/*
-
-                    COMMENTED BECAUSE IT REQUIRES A GLOBAL HANDLER FUNCTION
-
-
-                     <div id="g_id_onload"
-                        data-client_id={process.env.REACT_APP_GOAUTH_CLID}
-                        data-context="signin"
-                        data-ux_mode="popup"
-                        data-callback="handleAuthentication"
-                        data-nonce=""
-                        data-auto_select="true"
-                        data-itp_support="true">
-                    </div>
-
-                    <div className="g_id_signin"
-                        data-type="standard"
-                        data-shape="rectangular"
-                        data-theme={`filled_${localStorage.getItem('theme') === 'dark'? 'black': 'blue'}`}
-                        data-text="signin_with"
-                        data-size="large"
-                        data-logo_alignment="left">
-                    </div> */}
                 </form>
-                <div className=' mt-8 text-sm text-slate-500 '>Create a new account <a className='text-green-600 dark:text-green-300 hover:opacity-80' href='/signup'>here</a></div>
+                <div className=' mt-8 text-sm text-slate-500 '>New to Lessgo? <a className='text-green-600 dark:text-green-300 hover:opacity-80' href='/signup'>Create an account</a></div>
+                <div onClick={() => {showSnackBar("This feature is being worked on rn", setSnackBarMessage)}} className=' mt-8 text-sm text-green-600 dark:text-green-300 hover:opacity-80 cursor-pointer'>Forgot Password?</div>
             </div>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />

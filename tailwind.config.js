@@ -8,7 +8,7 @@ module.exports = {
     extend: {
     },
     fontFamily: {
-      'fasthand': ['FastHand'],
+      'logo': ['FastHand'],
     }
   },
   plugins: [],

@@ -888,6 +888,10 @@ video {
   height: 24rem;
 }
 
+.h-\[10vh\]{
+  height: 10vh;
+}
+
 .h-\[3px\]{
   height: 3px;
 }
@@ -902,6 +906,10 @@ video {
 
 .h-\[70vh\]{
   height: 70vh;
+}
+
+.h-\[90vh\]{
+  height: 90vh;
 }
 
 .h-full{
@@ -1448,7 +1456,7 @@ video {
   text-indent: -999px;
 }
 
-.font-fasthand{
+.font-logo{
   font-family: FastHand;
 }
 
@@ -1465,6 +1473,11 @@ video {
 .text-4xl{
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-8xl{
+  font-size: 6rem;
+  line-height: 1;
 }
 
 .text-lg{

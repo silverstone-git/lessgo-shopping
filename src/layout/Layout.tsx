@@ -11,6 +11,7 @@ import { checkJWTFromStorage, checkLoggedIn } from "../common/scripts/auth_repos
 import ProfileDropDown from "./ProfileDropDown";
 import YourCartButton from "../common/components/YourCartButton";
 import OrdersRoute from "../routes/OrdersRoute";
+import { getFrontendLocation } from "../common/scripts/urls";
 
 function Layout() {
   // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -52,11 +53,12 @@ function Layout() {
 
 
   return (
-    <>
-
-      <nav className="hidden p-8 md:flex top-0 left-0 justify-between bg-green-300 text-slate-800">
+    <div>
+      <nav className="hidden px-8 h-[10vh] md:flex top-0 left-0 justify-between bg-green-300 text-slate-800">
         <div className="flex gap-8">
-          <div className="text-4xl font-fasthand font-extrabold">Lessgo</div>
+          <div className="text-4xl font-logo font-extrabold flex items-center cursor-pointer" onClick={() => {
+            window.location.href = `${getFrontendLocation()}/`;
+          }}>Lessgo</div>
           <AppRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
           <ItemMasterRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, "isVendor": isVendor}} />
           <OrdersRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, isVendor: isVendor}} />
@@ -89,7 +91,7 @@ function Layout() {
             <ItemMasterRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, "isVendor": isVendor}} />
             <LogOutRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
       </nav>
-    </>
+    </div>
 
     )
 }

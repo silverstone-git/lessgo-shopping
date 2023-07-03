@@ -41,10 +41,10 @@ function Signup() {
 
 
     return (
-        <div className='flex justify-center items-center h-screen w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
+        <div className='flex justify-center items-center h-[90vh] w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
             <div className=' mr-24 md:flex hidden flex-col items-center'>
                 <div className='text-3xl font-bold text-green-600 dark:text-green-300'>Sign In to Create an Account</div>
-                <div className='text-slate-600 dark:text-slate-200'>Keep your head strong and your password stronger</div>
+                <div className='text-slate-600 dark:text-slate-200'></div>
             </div>
             <div className=' px-4 sm:px-8 md:px-0 w-full md:w-auto'>
                 <form className='flex flex-col gap-4' onSubmit={async (e) => {
@@ -74,10 +74,11 @@ function Signup() {
                     </div>
                     <div className='w-full flex flex-col gap-4 items-center'>
                     <button type='submit' className='bg-green-600 dark:bg-green-300 hover:bg-green-900 hover:dark:bg-green-100  rounded-md mt-4 p-3 text-lg text-slate-100 dark:text-slate-700 w-[300px] '>
-                        Submit
+                        Signup
                     </button>
                     {vendorReq === 'vendor' ? null : <GoogleLogin theme={localStorage.getItem('theme') === 'dark' ? 'filled_black' : 'filled_blue'} onSuccess={(val) => loginSucc(val, setGoogleUser)} onError={() => console.log("error while login")} width={'300px'} useOneTap />}
                     </div>
+                    <div className=' text-sm text-slate-500 '>Keep your head strong and your password stronger</div>
                 </form>
             </div>
             <SnaccSignup message={snackBarMessage} />
