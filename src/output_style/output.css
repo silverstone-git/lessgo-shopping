@@ -1992,6 +1992,10 @@ input:not(.dont-pad-this-input) {
     margin-top: 0px;
   }
 
+  .md\:mt-7{
+    margin-top: 1.75rem;
+  }
+
   .md\:block{
     display: block;
   }

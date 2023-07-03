@@ -23,7 +23,6 @@ export const carouselItemsByCategory = async (categoryNameShort: string, jwt: st
 
 
 export const getHotCarouselItems = async () => {
-    //
     const res  = await fetch(`${getBackendLocation()}/api/items/get-hot-items/`, {
         headers: {"Content-Type": "application/json"},
     })
@@ -39,16 +38,25 @@ export const addItemToCart = async (itemId: string, auth: string, setSnackBarMes
     const cartMap = (new Map<string, number>()).set(itemId.toString(), 1);
     const cartObj = Object.fromEntries(cartMap);
 
-    const res = await fetch(`${getBackendLocation()}/api/orders/add-to-cart`, {
-        headers: {"Content-Type": "application/json"},
-        method: "POST",
-        body: JSON.stringify({
-            Authorization: auth,
-            cart: cartObj,
-        })
-    });
-    const resJ = await res.json();
-    resJ.succ ? setSnackBarMessage("Item added to cart successfully") : setSnackBarMessage(resJ.message);
+    if(auth === '') {
+        let localCart: any = JSON.parse(localStorage.getItem('anonymousCart') ?? '');
+        // parse function already handles the empty object case
+        localCart = {...localCart, ...cartObj};
+        localStorage.setItem('anonymousCart', JSON.stringify(localCart));
+        setSnackBarMessage("Added to Cart");
+    } else {
+        const res = await fetch(`${getBackendLocation()}/api/orders/add-to-cart`, {
+            headers: {"Content-Type": "application/json"},
+            method: "POST",
+            body: JSON.stringify({
+                Authorization: auth,
+                cart: cartObj,
+            })
+        });
+        const resJ = await res.json();
+        resJ.succ ? setSnackBarMessage("Item added to cart successfully") : setSnackBarMessage(resJ.message);
+    }
+
     setAlreadyCart(true);
 }
 
@@ -70,42 +78,6 @@ export async function getItem(passedId: string, setIsLoading: React.Dispatch<Rea
     }
 }
 
-/*
-function turnOffLoading(setLoading: any) {
-    return new Promise<void>(async (res, rej) => {
-
-        await console.log("in the promise, before starting the timeout");
-        setTimeout(async () => {
-            await console.log("timeout done, callinf set isload");
-        }, 5000);
-        console.log("resolving back to parent promise");
-        res();
-    })
-}
-
-export function getItem(passedId: string, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, jwtToken: string ) {
-    // returns the Item item from the passed id to set the state
-    return new Promise<Item | null>(async (res, rej) =>{
-        //
-        setIsLoading(true);
-        const options = {
-            headers: {"Content-Type": "application/json", "Authorization": jwtToken},
-        }
-        const fetchLocation = getBackendLocation();
-        const fetchRes = await fetch(`${fetchLocation}/api/items/get-item/${passedId}/`, options);
-        const resJ = await fetchRes.json();
-        setTimeout(() => {
-            setIsLoading(false);
-            if(resJ.succ) {
-                res(Item.fromMap(JSON.parse(resJ.itemObjStr)));
-            } else {
-                showSnackBar(resJ.message, setSnackBarMessage);
-                res( null);
-            }
-        }, 5000);
-    });
-}
-*/
 
 
 export async function getItems(jwtToken: String, page: number, category: string) {

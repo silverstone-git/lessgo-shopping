@@ -19,21 +19,6 @@ function CarouselDashboard(props: any) {
 
 
     return (
-        /*
-        <Carousel interval={3000} autoPlay={true} infiniteLoop={true} showThumbs={props.showThumbs !== undefined ? props.showThumbs : false} showStatus={props.showStatus !== undefined ? props.showStatus : true } showIndicators className='w-full' >
-            {props.listOfImages.map((el: any) => {
-                return(
-                <div key={el[2]} className={`h-[${props.height ? props.height : 60}vh]  w-full cursor-pointer flex justify-center items-center`} onClick={() => {
-                    window.location.href = `${getFrontendLocation()}/item/${el[2]}/`
-                }}>
-                    <img src={el[0]} alt="" className=" object-contain h-full" />
-                    {el[1] ? <p className="legend">{el[1]}</p> : null}
-                </div>
-                )
-            }
-            )}
-        </Carousel>
-        */
         <div
           id="carouselExampleCaptions"
           className="relative w-full"
@@ -80,7 +65,7 @@ function CarouselDashboard(props: any) {
       <div
         className={` ${el[1] ? 'flex' : 'hidden'} absolute inset-x-[15%] -translate-y-4 bottom-5 p-2  text-center justify-center `}>
           <div className="rounded-full bg-black bg-opacity-50 text-white w-fit py-2 px-3 ">
-            <p className="text-lg">{el[1]}</p>
+            <p className="text-md">{el[1]}</p>
           </div>
       </div>
     </div>)
@@ -101,12 +86,12 @@ function CarouselDashboard(props: any) {
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        stroke-width="1.5"
+        strokeWidth="1.5"
         stroke="currentColor"
         className="h-6 w-6">
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M15.75 19.5L8.25 12l7.5-7.5" />
       </svg>
     </span>
@@ -128,12 +113,12 @@ function CarouselDashboard(props: any) {
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        stroke-width="1.5"
+        strokeWidth="1.5"
         stroke="currentColor"
         className="h-6 w-6">
         <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           d="M8.25 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </span>

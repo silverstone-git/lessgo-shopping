@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { addItemToCart } from "../../../common/scripts/items_repository";
 
 export function AddItemToCart(props: any) {
-    if(props.auth && !props.isVendor) {
+    if(!props.isVendor) {
         if(props.alreadyAddedToCart) {
             return <div className=" opacity-50 cursor-pointer flex gap-4 bg-green-500 dark:bg-green-300 text-slate-100 dark:text-slate-800 p-3 rounded-full w-fit items-center">
                     <FontAwesomeIcon icon={icon({name: 'check', style: 'solid'})} />

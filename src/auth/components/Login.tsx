@@ -23,6 +23,7 @@ function Login() {
 
     async function setupLogin(googleUser: any, loggedIn: string, exitCode: string | undefined) {
         showSnackBar(exitCode === '201' ? 'Account Successfully Created' : '', setSnackBarMessage);
+        showSnackBar(exitCode === '404' ? 'Please login to proceed to checkout!' : '', setSnackBarMessage);
         if(loggedIn === "true") {
             window.location.href = `${getFrontendLocation()}/home/`;
         } else {}

@@ -47,11 +47,11 @@ export default function DashboardCustomer(props: any) {
             <CarouselDashboard {...{listOfImages: props.materialCarousel, height: 30}}/>
           </div>
           <div id="laptops" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">
-            <div>Craft something new with Lessgo</div>
+            <div>Laptops</div>
             <CarouselDashboard {...{listOfImages: props.laptopCarousel, height: 30}}/>
           </div>
           <div id="grocery" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">
-            <div>Craft something new with Lessgo</div>
+            <div>Fresh Organic Grocery for home</div>
             <CarouselDashboard {...{listOfImages: props.groceryCarousel, height: 30}}/>
           </div>
         </div>

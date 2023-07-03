@@ -20,14 +20,14 @@ export default function CartItemCards(props: any) {
     }, [props.cartItems])
 
     return(
-        <div className="flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-20 w-full">
+        <div className="flex justify-center items-center flex-wrap bg-slate-100 dark:bg-slate-800 pb-20 w-full md:mt-7">
             {props.cartItems.map((el: CartItem) => {
                 return(
-                    <div key={el.itemId ? el.itemId.toString() : "" + el.count} id={el.itemId?.toString()}  className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
-                        <div className=' border rounded border-slate-500 flex flex-col items-center justify-center w-full'>
+                    <div key={el.itemId ? el.itemId.toString() : "" + el.count} id={el.itemId?.toString()}  className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden my-8 px-8 h-96'>
+                        <div className=' border rounded border-slate-500 flex flex-col items-center justify-center w-full h-full'>
                             <div onClick={() => {
                                 window.location.href = `${getFrontendLocation()}/item/${el.itemId}/`
-                            }} className="h-full w-11/12 mt-4 overflow-hidden flex justify-center align-center cursor-pointer">
+                            }} className="h-full w-11/12 mt-4 flex justify-center align-center cursor-pointer">
                                 <img className='object-cover' alt="" src={el.image}></img>
                             </div>
                             <div className="flex flex-col justify-between w-full ml-6">

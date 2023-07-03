@@ -66,7 +66,6 @@ export default function Checkout(props: any) {
             for(var i = 0; i < cart.length; i ++) {
                 if(!isAlreadyTallied(newPriceQuantity, cart[i].orderId)) {
                     newPriceQuantity.push([cart[i].priceRs, cart[i].count, cart[i]!.orderId!, i % 2, cart[i].itemName]);
-                    console.log("to be added: ", (cart[i]!.priceRs * cart[i]!.count));
                     s += (cart[i]!.priceRs * cart[i]!.count);
                 }
             }

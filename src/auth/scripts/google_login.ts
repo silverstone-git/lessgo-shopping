@@ -41,11 +41,13 @@ export async function getCartFromLocal(setIsLoading: any) {
     // cart string is stringified version of ->
     /*
     {
-        cartMap: [[123567, 4], [1234568, 1], [321456, 1], [8184142, 2]],
+        '123414214': 2,
+        '761273517': 1,
     }
     */
     const cart = JSON.parse(localStorage.getItem('anonymousCart') ?? '');
     if(JSON.stringify(cart) !== JSON.stringify({})) {
-        addToCart(localStorage.getItem('jwtToken')!, new Map(cart.cartMap), setIsLoading, undefined, true, undefined, undefined, undefined)
+        await addToCart(localStorage.getItem('jwtToken')!, new Map(Object.entries(cart)), setIsLoading, undefined, true, undefined, undefined, undefined)
+        localStorage.setItem('anonymousCart', '');
     }
 }

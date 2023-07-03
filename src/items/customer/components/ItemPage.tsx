@@ -57,6 +57,9 @@ function ItemPage(props:any) {
                 await checkIfAlreadyCart(passedId, setAlreadyAddedToCart, auth);
                 const tempUserReviewsList = await getUserReviewsList(setIsLoading, receivedItem.itemId ? receivedItem.itemId : 0);
                 setUserReviewsList(tempUserReviewsList)
+            } else {
+                const localCart: Object = JSON.parse(localStorage.getItem('anonymousCart') ?? '');
+                setAlreadyAddedToCart(localCart.hasOwnProperty(passedId ?? ''));
             }
         } else {
             // the received item id doesnt exist / is deleted
