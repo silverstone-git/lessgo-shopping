@@ -8,11 +8,13 @@ import { getFrontendLocation } from "../../../common/scripts/urls";
 import MoreButton from "./MoreButton";
 import { categoryIcons } from "../../../models/models";
 import { CategoryIconFromString } from "./CategoryIconFromString";
+import { getScrollPosition } from "../../../common/scripts/dom";
+import { useState } from "react";
 
 function ItemCard(props: any) {
     return (
-    <div id={props.item_id} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 overflow-hidden p-8'>
-        <div className=' border rounded border-slate-500 flex flex-col items-center justify-center'>
+    <div id={props.item_id} className=' w-full sm:w-1/2 md:w-1/3 lg:w-1/4 h-96 overflow-hidden p-8'>
+        <div className='h-full border rounded border-slate-500 flex flex-col items-center justify-center'>
             <div onClick={() => {
                 window.location.href = `${getFrontendLocation()}/item/${props.item_id}/`
             }} className="h-full w-11/12 mt-4 overflow-hidden flex justify-center align-center cursor-pointer">
@@ -43,6 +45,13 @@ function ItemCard(props: any) {
 export default function ItemCards(props: any) {
     const listOfItems: Array<any> = props.listOfItems;
     const countMap: Map<string, number> = props.noOfItems;
+    const [getMoreVis, setMoreVis] = useState(false);
+    window.addEventListener('scroll', (e) => {
+        const scrollPercent = getScrollPosition();
+        if (scrollPercent.relative > 0.9) {
+            setMoreVis(true);
+        }
+    })
     return (
         <div className='flex flex-col md:pt-7 pt-20 items-center bg-slate-100 dark:bg-slate-800
         h-screen w-full text-slate-800 dark:text-slate-100'>
@@ -57,7 +66,7 @@ export default function ItemCards(props: any) {
                         // console.log(props.category, el)
                         return(
                             <div>
-                                < CategoryIconFromString icon={el[1]} text={el[0]} category={props.category} setCategory={props.setCategory} setListOfItems={props.setListOfItems} setPage={props.setPage} setNoOfItems={props.setNoOfItems} />
+                                < CategoryIconFromString icon={el[1]} text={el[0]} category={props.category} setCategory={props.setCategory} setListOfItems={props.setListOfItems} setPage={props.setPage} setNoOfItems={props.setNoOfItems} setExploreEnd={props.setExploreEnd} setMoreVis={setMoreVis} />
                             </div>
                         );
                     })}
@@ -87,6 +96,8 @@ export default function ItemCards(props: any) {
                     category: props.category,
                     exploreEnd: props.exploreEnd,
                     setExploreEnd: props.setExploreEnd,
+                    getMoreVis: getMoreVis,
+                    setMoreVis: setMoreVis,
 }} />
             <ShoppingCart {...{"cart": props.noOfItems, setNoOfItems: props.setNoOfItems, "jwtToken": props.jwtToken, "setSnackBarMessage": props.setSnackBarMessage, "setIsLoading": props.setIsLoading, listOfItems: props.listOfItems, setListOfItems: props.setListOfItems, showCart: props.showCart, setShowCart: props.setShowCart}} />
 

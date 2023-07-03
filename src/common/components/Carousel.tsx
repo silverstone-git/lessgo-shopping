@@ -1,5 +1,3 @@
-// import { Carousel } from "react-responsive-carousel";
-// import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { useState } from "react";
 import { getFrontendLocation } from "../scripts/urls";
 
@@ -12,15 +10,13 @@ function CarouselDashboard(props: any) {
         // const parent = (carouselParentRef.current as HTMLDivElement)
         const newPos = curSlide + slideTo;
         if(newPos < 0)
-        setCurSlide(props.listOfImages.length);
+        setCurSlide(props.listOfImages.length-1);
         else if(newPos > props.listOfImages.length-1)
         setCurSlide(0);
         else
         setCurSlide(newPos);
     }
 
-    console.log("carousel index: ");
-    console.log(curSlide);
 
     return (
         /*
@@ -44,8 +40,8 @@ function CarouselDashboard(props: any) {
         >
   {/* <!--Carousel indicators--> */}
   <div
-    className="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center p-0"
-    data-te-carousel-indicators>
+    className="absolute bottom-0 left-0 right-0 z-[2] mx-[15%] mb-4 flex list-none justify-center transition-colors hover:bg-black hover:bg-opacity-30 rounded-full"
+    >
 
     {props.listOfImages.map((el: any) => {
     return <button
@@ -82,8 +78,10 @@ function CarouselDashboard(props: any) {
         className="block w-full cursor-pointer"
         alt="..." />
       <div
-        className={` ${el[1] ? 'block' : 'hidden'} absolute inset-x-[15%] -translate-y-4 bottom-5 p-3 rounded-full text-center bg-black bg-opacity-50 text-white `}>
-        <p className="text-lg">{el[1]}</p>
+        className={` ${el[1] ? 'flex' : 'hidden'} absolute inset-x-[15%] -translate-y-4 bottom-5 p-2  text-center justify-center `}>
+          <div className="rounded-full bg-black bg-opacity-50 text-white w-fit py-2 px-3 ">
+            <p className="text-lg">{el[1]}</p>
+          </div>
       </div>
     </div>)
     })}
@@ -91,7 +89,7 @@ function CarouselDashboard(props: any) {
 
   {/* <!--Carousel controls - prev item--> */}
   <button
-    className="absolute hover:bg-black hover:bg-opacity-20 bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-250 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+    className="absolute from-[#0000005d] to-transparent hover:bg-gradient-to-r hover:bg-opacity-20 bottom-0 left-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-250 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
     type="button"
     onClick={() => {
         slide(-1);
@@ -119,7 +117,7 @@ function CarouselDashboard(props: any) {
   </button>
   {/* <!--Carousel controls - next item--> */}
   <button
-    className="absolute hover:bg-black hover:bg-opacity-20 bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
+    className="absolute from-transparent to-[#0000005d] hover:bg-gradient-to-r hover:bg-opacity-20 bottom-0 right-0 top-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-[cubic-bezier(0.25,0.1,0.25,1.0)] hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none motion-reduce:transition-none"
     type="button"
     onClick={() => {
         slide(1);

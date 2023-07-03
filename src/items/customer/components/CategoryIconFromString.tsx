@@ -11,6 +11,8 @@ export function CategoryIconFromString(props: any) {
         props.setNoOfItems(new Map());
         props.setCategory(categories[category]);
         props.setPage(0);
+        props.setExploreEnd(false);
+        props.setMoreVis(false);
     }
     if(props.category === categories[category])
     return (
@@ -26,16 +28,3 @@ export function CategoryIconFromString(props: any) {
         );
     }
 }
-
-/*
-    const iconStr = props.text as IconName;
-    const options = {name: iconStr};
-    return <FontAwesomeIcon icon={icon(options as {name: IconName})} />
-*/
-/*
-    const camelCaseIcon = (str1: string) => 'fa' + str1.at(0)?.toUpperCase() + str1.substring(1);
-    const iconStr = props.text as IconName;
-    const Icon = React.lazy(() => import(`@fortawesome/free-solid-svg-icons/${camelCaseIcon(iconStr)}`).then(({definition}) => ({default: () => <FontAwesomeIcon icon={definition} />})));
-    
-    return <React.Suspense><Icon /></React.Suspense>;
-*/
