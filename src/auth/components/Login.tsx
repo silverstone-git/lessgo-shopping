@@ -3,7 +3,7 @@ import Snacc from '../../common/components/SnackBarComponent';
 import Loading from '../../common/components/Loading';
 import { getBackendLocation, getFrontendLocation } from '../../common/scripts/urls';
 import { GoogleLogin } from '@react-oauth/google';
-import { loginSucc, setProfileFromUser } from '../scripts/google_login';
+import { getCartFromLocal, loginSucc, setProfileFromUser } from '../scripts/google_login';
 import { useParams } from "react-router-dom";
 import { showSnackBar } from '../../common/scripts/snacc';
 
@@ -21,7 +21,7 @@ function Login() {
     const [googleProfile, setGoogleProfile] = useState(breh);
     let { exitCode } = useParams();
 
-    useEffect(() => {
+    async function setupLogin(googleUser: any, loggedIn: string, exitCode: string) {
         showSnackBar(exitCode === '201' ? 'Account Successfully Created' : '', setSnackBarMessage);
         if(loggedIn === "true") {
             window.location.href = `${getFrontendLocation()}/home/`;
@@ -29,8 +29,13 @@ function Login() {
             //
         }
         if(googleUser) {
-            setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
+            await setProfileFromUser(googleUser, setGoogleProfile, setIsLoading, setSnackBarMessage);
+            exitCode === '404' ? await getCartFromLocal(setIsLoading) : void 0;
+            window.location.href = `${getFrontendLocation()}/${exitCode === '404' ? 'cart' : 'home'}/`;
         }
+    }
+
+    useEffect(() => {
         // loadScript('https://accounts.google.com/gsi/client');
     }, [googleUser, loggedIn, exitCode])
 
@@ -59,7 +64,8 @@ function Login() {
 
             localStorage.setItem("jwtToken", resJ.Authorization);
             localStorage.setItem("loggedIn", 'true');
-            window.location.href = `${getFrontendLocation()}/home/`;
+            exitCode === '404' ? await getCartFromLocal(setIsLoading) : void 0;
+            window.location.href = `${getFrontendLocation()}/${exitCode === '404' ? 'cart' : 'home'}/`;
         } else {
             showSnackBar(resJ.message, setSnackBarMessage);
         }

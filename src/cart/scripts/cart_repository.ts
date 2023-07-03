@@ -65,7 +65,7 @@ export async function deleteFromCart(id: number, setIsLoading: React.Dispatch<Re
 
 }
 
-export async function addToCart(auth: string, cart: Map<string, number>, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>>, strictMode: boolean, originalCartArray: Array<any> | undefined,  setNoOfItems: React.Dispatch<React.SetStateAction<any>> | undefined = undefined,  updateOriginalCartArray: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) {
+export async function addToCart(auth: string, cart: Map<string, number>, setIsLoading: React.Dispatch<React.SetStateAction<any>>, setSnackBarMessage: React.Dispatch<React.SetStateAction<any>> | undefined = undefined, strictMode: boolean, originalCartArray: Array<any> | undefined,  setNoOfItems: React.Dispatch<React.SetStateAction<any>> | undefined = undefined,  updateOriginalCartArray: React.Dispatch<React.SetStateAction<any>> | undefined = undefined) {
     //send a place order post request to backend
 
     // show loading icono
@@ -113,10 +113,10 @@ export async function addToCart(auth: string, cart: Map<string, number>, setIsLo
     })
     const resJ = await res.json();
     if(resJ.succ) {
-        showSnackBar(snaccMessage, setSnackBarMessage);
+        setSnackBarMessage ? showSnackBar(snaccMessage, setSnackBarMessage) : void 0;
         // proceed to clear the cart state in parent
     } else {
-        showSnackBar(resJ.message, setSnackBarMessage);
+        setSnackBarMessage ? showSnackBar(resJ.message, setSnackBarMessage) : void 0;
     }
 
 

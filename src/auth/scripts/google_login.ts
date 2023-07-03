@@ -1,6 +1,7 @@
 import jwt_decode from "jwt-decode";
-import { getBackendLocation, getFrontendLocation } from "../../common/scripts/urls";
+import { getBackendLocation } from "../../common/scripts/urls";
 import { createMyAccount } from "../../common/scripts/auth_repository";
+import { addToCart } from "../../cart/scripts/cart_repository";
 
 export function loginSucc(codeRes: any, setUser: any) {
     // take information from response
@@ -34,5 +35,17 @@ export async function setProfileFromUser(user: any, setProfile: any, setIsLoadin
     localStorage.setItem('jwtToken', `Bearer ${user.credential}`);
     localStorage.setItem('loggedIn', `true`);
     setProfile(breh);
-    window.location.href = `${getFrontendLocation()}/`;
+}
+
+export async function getCartFromLocal(setIsLoading: any) {
+    // cart string is stringified version of ->
+    /*
+    {
+        cartMap: [[123567, 4], [1234568, 1], [321456, 1], [8184142, 2]],
+    }
+    */
+    const cart = JSON.parse(localStorage.getItem('anonymousCart') ?? '');
+    if(JSON.stringify(cart) !== JSON.stringify({})) {
+        addToCart(localStorage.getItem('jwtToken')!, new Map(cart.cartMap), setIsLoading, undefined, true, undefined, undefined, undefined)
+    }
 }
