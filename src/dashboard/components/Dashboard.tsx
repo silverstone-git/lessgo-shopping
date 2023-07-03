@@ -33,7 +33,7 @@ function Dashboard() {
     } else {
       if(localStorage.carouselArray) {
         setNewUser(false);
-        setCarouselArray(JSON.parse(localStorage.carouselArray));
+        setCarouselArray(JSON.parse(localStorage.carouselArray ?? '[]'));
       } else {
         setNewUser(true);
         const tempHotItemsCarouselArray: Array<Array<string>> = await getHotCarouselItems();

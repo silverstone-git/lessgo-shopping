@@ -21,7 +21,7 @@ function App() {
     if(localStorage.getItem('anonymousCart') === '') {
       setShowCart(false);
     } else {
-      setCart(new Map(Object.entries(JSON.parse(localStorage.getItem('anonymousCart') ?? ''))));
+      setCart(new Map(Object.entries(JSON.parse(localStorage.getItem('anonymousCart') ?? '{}'))));
       setShowCart(true);
     }
 

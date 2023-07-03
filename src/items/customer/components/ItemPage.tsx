@@ -33,7 +33,7 @@ function ItemPage(props:any) {
             const localArrayString = localStorage.getItem('carouselArray');
             const newArr: Array<Array<string>> = [[receivedItem.image, receivedItem.itemName, receivedItem.itemId?.toString()!]];
             if(localArrayString) {
-                const localArray: Array<Array<string>> = JSON.parse(localArrayString);
+                const localArray: Array<Array<string>> = JSON.parse(localArrayString ?? '[]');
                 let found = false;
                 for(var i = 0; i < localArray.length; i ++) {
                     if(localArray[i][2] === newArr[0][2]) {
@@ -58,14 +58,14 @@ function ItemPage(props:any) {
                 const tempUserReviewsList = await getUserReviewsList(setIsLoading, receivedItem.itemId ? receivedItem.itemId : 0);
                 setUserReviewsList(tempUserReviewsList)
             } else {
-                const localCart: Object = JSON.parse(localStorage.getItem('anonymousCart') ?? '');
+                const localCart: Object = JSON.parse(localStorage.getItem('anonymousCart') ?? '{}');
                 setAlreadyAddedToCart(localCart.hasOwnProperty(passedId ?? ''));
             }
         } else {
             // the received item id doesnt exist / is deleted
             const localArrayString = localStorage.getItem('carouselArray');
             if(localArrayString) {
-                const localArray: Array<Array<string>> = JSON.parse(localArrayString);
+                const localArray: Array<Array<string>> = JSON.parse(localArrayString ?? '{}');
                 const voidPoint = localArray.findIndex((el) => {return el[2] === passedId})
                 if(voidPoint !== -1)
                     localArray.splice(voidPoint, 1);

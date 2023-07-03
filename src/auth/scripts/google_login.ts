@@ -45,7 +45,7 @@ export async function getCartFromLocal(setIsLoading: any) {
         '761273517': 1,
     }
     */
-    const cart = JSON.parse(localStorage.getItem('anonymousCart') ?? '');
+    const cart = JSON.parse(localStorage.getItem('anonymousCart') ?? '{}');
     if(JSON.stringify(cart) !== JSON.stringify({})) {
         await addToCart(localStorage.getItem('jwtToken')!, new Map(Object.entries(cart)), setIsLoading, undefined, true, undefined, undefined, undefined)
         localStorage.setItem('anonymousCart', '');

@@ -192,7 +192,7 @@ export const checkIfAlreadyCart =  async (itemId: string | undefined, setAlready
     const resJ = JSON.parse(await res.json());
     if(setAlreadyCart)
         setAlreadyCart(resJ.result);
-    return resJ.return;
+    return resJ.result;
 
 }
 

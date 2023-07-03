@@ -18,6 +18,7 @@ function Login() {
     const [isLoading, setIsLoading] = useState(false);
     let breh: any = undefined;
     const [googleUser, setGoogleUser] = useState(breh);
+    // eslint-disable-next-line
     const [googleProfile, setGoogleProfile] = useState(breh);
     let { exitCode } = useParams();
 

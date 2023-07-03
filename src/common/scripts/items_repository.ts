@@ -14,7 +14,7 @@ export const carouselItemsByCategory = async (categoryNameShort: string, jwt: st
     });
     const resJ = await res.json();
     if(resJ.succ) {
-        return JSON.parse(resJ.carouselArray);
+        return JSON.parse(resJ.carouselArray ?? '{}');
     } else {
         return [[]];
     }
@@ -28,7 +28,7 @@ export const getHotCarouselItems = async () => {
     })
     const resJ = await res.json();
     if(resJ.succ) {
-        return JSON.parse(resJ.carouselArray);
+        return JSON.parse(resJ.carouselArray ?? '{}');
     } else {
         return [[]];
     }
@@ -39,7 +39,7 @@ export const addItemToCart = async (itemId: string, auth: string, setSnackBarMes
     const cartObj = Object.fromEntries(cartMap);
 
     if(auth === '') {
-        let localCart: any = JSON.parse(localStorage.getItem('anonymousCart') ?? '');
+        let localCart: any = JSON.parse(localStorage.getItem('anonymousCart') ?? '{}');
         // parse function already handles the empty object case
         localCart = {...localCart, ...cartObj};
         localStorage.setItem('anonymousCart', JSON.stringify(localCart));
@@ -71,7 +71,7 @@ export async function getItem(passedId: string, setIsLoading: React.Dispatch<Rea
     const resJ = await res.json();
     setIsLoading(false);
     if(resJ.succ) {
-        return Item.fromMap(JSON.parse(resJ.itemObjStr));
+        return Item.fromMap(JSON.parse(resJ.itemObjStr ?? '{}'));
     } else {
         showSnackBar(resJ.message, setSnackBarMessage);
         return null
@@ -97,11 +97,7 @@ export async function getItems(jwtToken: String, page: number, category: string)
     const resJ = await res.json();
 
     let objArr: Array<any>;
-    try {
-        objArr = JSON.parse(resJ.itemList);
-    } catch(e) {
-        objArr = [];
-    }
+    objArr = JSON.parse(resJ.itemList ?? '{}');
 
     const itemsArr: Array<Item> = [];
     for(var i = 0; i < objArr.length; i ++) {

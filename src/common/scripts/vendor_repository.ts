@@ -16,7 +16,7 @@ export async function getListedItems(jwtToken: string, setIsLoading: React.Dispa
     const resJ = await res.json();
     const itemsArr: Array<Item> = [];
     if(resJ.succ) {
-      const itemsObjectList: Array<Object> = JSON.parse(resJ.itemsObjectList);
+      const itemsObjectList: Array<Object> = JSON.parse(resJ.itemsObjectList ?? '[]');
         setNoOfItems(itemsObjectList.length);
         for(var i = 0; i < itemsObjectList.length; i ++) {
             itemsArr.push(Item.fromMap(itemsObjectList[i]));
