@@ -27,7 +27,7 @@ export default function DashboardCustomer(props: any) {
             </div>
             <FontAwesomeIcon icon={icon({name: 'arrow-right', style: 'solid'})} />
           </div>
-          <CarouselDashboard {...{"listOfImages": props.carouselArray, height: 30}} />
+          <CarouselDashboard {...{"listOfImages": props.carouselArray, height: 50}} />
         </div>
         <div id="offers" className="flex-wrap flex bg-slate-100 dark:bg-slate-800 w-full font-lg font-bold pb-14">
           <div id="electronics" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">

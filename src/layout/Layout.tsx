@@ -62,7 +62,7 @@ function Layout() {
           <OrdersRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, isVendor: isVendor}} />
           <LogOutRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
         </div>
-        <div className="gap-4 flex items-center">
+        <div className="flex items-center">
           <FontAwesomeIcon className=' hidden dark:inline relative right-2 cursor-pointer' icon={icon({name: 'moon', style: 'solid'})} onClick={toggleDarkMode} />
           <FontAwesomeIcon className='inline dark:hidden relative right-2 cursor-pointer' icon={icon({name: 'sun', style: 'solid'})} onClick={toggleDarkMode} />
           {loggedIn ? <div className="hidden md:block ml-4">

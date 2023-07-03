@@ -15,7 +15,7 @@ export default function YourCartButton(props: any) {
     if(props.auth && window.location.href.search('cart') === -1 && !props.isVendor) {
         // if the user is authed up and isnt already in the cart section, show a button to take them to cart
         return (
-            <div className=' md:text-sm text-xl border border-slate-600 rounded-full text-slate-600 dark:text-slate-200 md:my-0 relative md:static bottom-6 md:bottom-0'>
+            <div className=' md:text-sm text-xl dark:border border-slate-600 rounded-full text-slate-600 dark:text-slate-200 md:my-0 relative md:static bottom-6 md:bottom-0'>
             <button onClick={() => {
                 window.location.href = `${getFrontendLocation()}/cart/`
             }
@@ -30,7 +30,7 @@ export default function YourCartButton(props: any) {
         )
     } else if(props.auth && !props.isVendor) {
         return(
-            <div className=' text-sm border border-slate-600 rounded-full text-slate-600 dark:text-slate-200 md:my-0 relative md:static bottom-6 md:bottom-0'>
+            <div className=' text-sm dark:border border-slate-600 rounded-full text-slate-600 dark:text-slate-200 md:my-0 relative md:static bottom-6 md:bottom-0'>
             <button onClick={() => {
                 window.location.href = `${getFrontendLocation()}/checkout/`
             }

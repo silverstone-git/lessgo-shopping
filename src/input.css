@@ -27,8 +27,17 @@ input:not(.dont-pad-this-input) {
 .h-\[60vh\] {
     height: 60vh;
 }
+.h-\[50vh\] {
+    height: 50vh;
+}
 .h-\[30vh\] {
     height: 30vh;
+}
+.opacity-90 {
+  opacity: 0.9;
+}
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .lds-ring {
@@ -75,4 +84,8 @@ input:not(.dont-pad-this-input) {
 
 .w-\[100vh\] {
   width: '100vh';
+}
+
+.backface-invisible {
+  backface-visibility: hidden
 }
