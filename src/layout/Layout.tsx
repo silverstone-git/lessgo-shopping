@@ -54,7 +54,7 @@ function Layout() {
 
   return (
     <div>
-      <nav className="hidden px-8 h-[10vh] md:flex top-0 left-0 justify-between bg-green-300 text-slate-800">
+      <nav className="hidden px-8 h-[10vh] md:flex top-0 left-0 justify-between dark:bg-green-300 bg-slate-200 text-slate-800">
         <div className="flex gap-8">
           <div className="text-4xl font-logo font-extrabold flex items-center cursor-pointer" onClick={() => {
             window.location.href = `${getFrontendLocation()}/`;
@@ -75,7 +75,7 @@ function Layout() {
           </div> : null}
         </div>
       </nav>
-      <div className=' absolute right-8 top-8 md:hidden flex items-center'>
+      <div className=' absolute md:right-8 right-2 top-8 md:hidden flex items-center'>
         <FontAwesomeIcon className='text-white hidden dark:inline relative right-2 cursor-pointer' icon={icon({name: 'moon', style: 'solid'})} onClick={toggleDarkMode} />
         <FontAwesomeIcon className='text-slate-800 inline dark:hidden relative right-2 cursor-pointer' icon={icon({name: 'sun', style: 'solid'})} onClick={toggleDarkMode} />
         <div className="hidden md:block ml-4">
@@ -86,7 +86,7 @@ function Layout() {
         </div>
       </div>
       <Outlet />
-      <nav className=" fixed py-4 px-8 bg-green-600 dark:bg-green-300 text-slate-100 dark:text-slate-800 bottom-0 flex justify-between w-full md:hidden list-none flex-row z-10">
+      <nav className=" fixed py-4 px-8  dark:bg-green-300 bg-slate-200 text-slate-800 bottom-0 flex justify-between w-full md:hidden list-none flex-row z-10">
             <AppRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />
             <ItemMasterRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn, "isVendor": isVendor}} />
             <LogOutRoute {...{"jwtToken": jwtToken, "loggedIn": loggedIn}} />

@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CarouselDashboard from "../../common/components/Carousel";
 import Snacc from "../../common/components/SnackBarComponent";
 import Loading from "../../common/components/Loading";
-import YourCartButton from "../../common/components/YourCartButton";
 
 export default function DashboardCustomer(props: any) {
     return (
@@ -17,8 +16,9 @@ export default function DashboardCustomer(props: any) {
           ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/1f3efd09669a5bc2.jpg?q=20", "", 3],
           ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/50a78433b9c07bdd.jpg?q=20", "", 4],
         ], height: 30}} /></div>
-        <div className="md:hidden inline mt-14">
-        < YourCartButton auth={props.jwt} isVendor={props.isVendor} />
+        <div className="md:hidden inline mt-14 pb-4">
+        {/* < YourCartButton auth={props.jwt} isVendor={props.isVendor} /> */}
+        <p className="font-logo text-4xl">Lessgo</p>
         </div>
         <div className=" bg-slate-100 dark:bg-slate-800 pb-14 w-full flex flex-col items-center justify-center">
           <div className="flex items-center mt-8 mb-16 gap-4">
