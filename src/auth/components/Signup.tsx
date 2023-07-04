@@ -41,7 +41,7 @@ function Signup() {
 
 
     return (
-        <div className='flex justify-center items-center h-[90vh] w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
+        <div className='flex justify-center items-center h-screen md:h-[90vh] w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
             <div className=' mr-24 md:flex hidden flex-col items-center'>
                 <div className='text-3xl font-bold text-green-600 dark:text-green-300'>Sign In to Create an Account</div>
                 <div className='text-slate-600 dark:text-slate-200'></div>

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CarouselDashboard from "../../common/components/Carousel";
 import Snacc from "../../common/components/SnackBarComponent";
 import Loading from "../../common/components/Loading";
+import OffersWrap from "./OffersWrap";
 
 export default function DashboardCustomer(props: any) {
     return (
@@ -17,7 +18,6 @@ export default function DashboardCustomer(props: any) {
           ["https://rukminim1.flixcart.com/fk-p-flap/1600/270/image/50a78433b9c07bdd.jpg?q=20", "", 4],
         ], height: 30}} /></div>
         <div className="md:hidden inline mt-14 pb-4">
-        {/* < YourCartButton auth={props.jwt} isVendor={props.isVendor} /> */}
         <p className="font-logo text-4xl">Lessgo</p>
         </div>
         <div className=" bg-slate-100 dark:bg-slate-800 pb-14 w-full flex flex-col items-center justify-center">
@@ -29,32 +29,14 @@ export default function DashboardCustomer(props: any) {
           </div>
           <CarouselDashboard {...{"listOfImages": props.carouselArray, height: 50}} />
         </div>
-        <div id="offers" className="flex-wrap flex bg-slate-100 dark:bg-slate-800 w-full font-lg font-bold pb-14">
-          <div id="electronics" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">
-            <div>Electronics for your home</div>
-            <CarouselDashboard {...{listOfImages: props.electronicsCarousel, height: 30}}/>
-          </div>
-          <div id="packed" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">
-            <div>Food at Lessgo</div>
-            <CarouselDashboard {...{listOfImages: props.pkdCarousel, height: 30}}/>
-          </div>
-          <div id="vehicles" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">
-            <div>Hot Wheels for long rides</div>
-            <CarouselDashboard {...{listOfImages: props.vehiclesCarousel, height: 30}}/>
-          </div>
-          <div id="material" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">
-            <div>Craft something new with Lessgo</div>
-            <CarouselDashboard {...{listOfImages: props.materialCarousel, height: 30}}/>
-          </div>
-          <div id="laptops" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">
-            <div>Laptops</div>
-            <CarouselDashboard {...{listOfImages: props.laptopCarousel, height: 30}}/>
-          </div>
-          <div id="grocery" className="flex flex-col items-center gap-4 p-4 sm:w-1/2 lg:w-1/3 w-full mt-14">
-            <div>Fresh Organic Grocery for home</div>
-            <CarouselDashboard {...{listOfImages: props.groceryCarousel, height: 30}}/>
-          </div>
-        </div>
+        <OffersWrap {...{
+          electronicsCarousel: props.electronicsCarousel,
+          pkdCarousel: props.pkdCarousel,
+          vehiclesCarousel: props.vehiclesCarousel,
+          materialCarousel: props.materialCarousel,
+          laptopCarousel: props.laptopCarousel,
+          groceryCarousel: props.groceryCarousel,
+        }} />
       </div>
 
       <Snacc {...{"message": props.snackBarMessage}} />

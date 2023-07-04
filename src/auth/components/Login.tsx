@@ -95,7 +95,7 @@ function Login() {
     }
 
     return (
-        <div className='flex justify-center items-center h-[90vh] w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
+        <div className='flex justify-center items-center h-screen md:h-[90vh] w-full text-slate-800 bg-slate-100 dark:text-slate-100 dark:bg-slate-800'>
             <div className=' mr-24 md:block hidden  text-8xl font-logo text-green-600 dark:text-green-300'>
                 {/* <div className=''> */}
                     Lessgo
