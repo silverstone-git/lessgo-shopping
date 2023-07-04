@@ -1022,6 +1022,14 @@ video {
   width: 100vw;
 }
 
+.w-32{
+  width: 8rem;
+}
+
+.w-56{
+  width: 14rem;
+}
+
 .flex-initial{
   flex: 0 1 auto;
 }
@@ -1325,6 +1333,18 @@ video {
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
 
+.from-pink-500{
+  --tw-gradient-from: #ec4899 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(236 72 153 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
+.from-green-500{
+  --tw-gradient-from: #22c55e var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(34 197 94 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+}
+
 .to-\[\#0000005d\]{
   --tw-gradient-to: #0000005d var(--tw-gradient-to-position);
 }
@@ -1335,6 +1355,14 @@ video {
 
 .to-transparent{
   --tw-gradient-to: transparent var(--tw-gradient-to-position);
+}
+
+.to-blue-600{
+  --tw-gradient-to: #2563eb var(--tw-gradient-to-position);
+}
+
+.to-green-100{
+  --tw-gradient-to: #dcfce7 var(--tw-gradient-to-position);
 }
 
 .bg-clip-padding{
@@ -1421,6 +1449,16 @@ video {
   padding-bottom: 1.5rem;
 }
 
+.py-1{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.py-28{
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
 .pb-14{
   padding-bottom: 3.5rem;
 }
@@ -1483,6 +1521,10 @@ video {
 
 .pt-14{
   padding-top: 3.5rem;
+}
+
+.pt-28{
+  padding-top: 7rem;
 }
 
 .text-center{
@@ -1602,8 +1644,21 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-slate-200{
+  --tw-text-opacity: 1;
+  color: rgb(226 232 240 / var(--tw-text-opacity));
+}
+
 .text-opacity-70{
   --tw-text-opacity: 0.7;
+}
+
+.text-opacity-0{
+  --tw-text-opacity: 0;
+}
+
+.text-opacity-100{
+  --tw-text-opacity: 1;
 }
 
 .underline{
@@ -1975,6 +2030,11 @@ input:not(.dont-pad-this-input) {
   color: rgb(30 41 59 / var(--tw-text-opacity));
 }
 
+:is(.dark .dark\:text-slate-400){
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
 :is(.dark .hover\:dark\:bg-green-100):hover{
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity));
@@ -2121,6 +2181,10 @@ input:not(.dont-pad-this-input) {
 
   .md\:pt-7{
     padding-top: 1.75rem;
+  }
+
+  .md\:pt-14{
+    padding-top: 3.5rem;
   }
 
   .md\:text-3xl{

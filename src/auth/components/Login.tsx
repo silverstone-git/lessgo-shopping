@@ -111,11 +111,10 @@ function Login() {
                     <label htmlFor="password-input">Password</label>
                     <input onChange={(e) => setPassword(e.target.value)} type="password" />
                     <SubmitButton {...{"isDark": submitButtonDark}} />
-                    {/* <button onClick={() => {}} className='p-4 dark:bg-green-300 dark:text-slate-800 bg-green-500 text-slate-100 rounded-full '>Login / Signup with google</button> */}
                     <GoogleLogin theme={localStorage.getItem('theme') === 'dark' ? 'filled_black' : 'filled_blue'} onSuccess={(val) => loginSucc(val, setGoogleUser)} onError={() => console.log("error while login")} useOneTap />
                 </form>
                 <div className=' mt-8 text-sm text-slate-500 '>New to Lessgo? <a className='text-green-600 dark:text-green-300 hover:opacity-80' href='/signup'>Create an account</a></div>
-                <div onClick={() => {showSnackBar("This feature is being worked on rn", setSnackBarMessage)}} className=' mt-8 text-sm text-green-600 dark:text-green-300 hover:opacity-80 cursor-pointer'>Forgot Password?</div>
+                <div onClick={() => {showSnackBar("This feature is being worked on rn", setSnackBarMessage)}} className=' mt-4 text-sm text-green-600 dark:text-green-300 hover:opacity-80 cursor-pointer'>Forgot Password?</div>
             </div>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />

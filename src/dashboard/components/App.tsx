@@ -49,15 +49,16 @@ function App() {
   return (
     <div id='app'>
 
-    <div className='flex flex-col items-center bg-slate-100 dark:bg-slate-800
+    <div className='flex flex-col items-center bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200
     h-screen w-full pt-14'>
       <div className="mt-14 md:mt-0 pb-4">
-        <p className="font-logo text-4xl">Lessgo</p>
+        <div className=" flex flex-col text-4xl">Shop Easy, <div className=' mt-2 text-slate-200 px-2 py-1 from-pink-500 to-blue-600 bg-gradient-to-r w-56'>Live More</div></div>
       </div>
-      <div className='md:text-md text-sm text-slate-600 dark:text-slate-200 mb-14'>
+      <div className='md:text-md text-sm  mb-14 text-slate-600 dark:text-slate-400'>
       Sign In to enjoy seamless shopping
       </div>
-      <div className=' bg-slate-100 dark:bg-slate-800 w-full flex justify-center pb-14 md:pb-0'><CarouselDashboard {...{"listOfImages": carouselArray, "height": 60}} /></div>
+      <div className=' bg-slate-100 dark:bg-slate-800 w-full flex justify-center pb-14 md:pb-0'>
+        <CarouselDashboard {...{"listOfImages": carouselArray, "height": 60}} />
       </div>
       <OffersWrap {...{
         electronicsCarousel: categoriesCarousels.elec,
@@ -67,7 +68,7 @@ function App() {
         laptopCarousel: categoriesCarousels.laptop,
         groceryCarousel: categoriesCarousels.groc,
       }} />
-    {/* <div className='flex justify-center items-center bg-slate-100 dark:bg-slate-800 h-screen w-full'><div className='font-bold text-3xl text-green-600 dark:text-green-300'>Hemlo WOrld</div></div> */}
+    </div>
       <ShoppingCart {...{
         anonymous: true,
         cart: cart,
