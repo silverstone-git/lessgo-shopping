@@ -9,6 +9,7 @@ import { getItem } from "../../../common/scripts/items_repository";
 import { showSnackBar } from "../../../common/scripts/snacc";
 import { checkIfAlreadyCart } from "../../../cart/scripts/cart_repository";
 import { getUserReviewsList } from "../scripts/reviews";
+import ShoppingCart from "../../../cart/components/ShoppingCart";
 
 function ItemPage(props:any) {
     const initItem: Item = Item.johnDoe();
@@ -22,6 +23,8 @@ function ItemPage(props:any) {
     let { passedId } = useParams();
     const [alreadyAddedToCart, setAlreadyAddedToCart] = useState(false);
     const [userReviewsList, setUserReviewsList] = useState([]);
+    const [showCart, setShowCart] = useState(false);
+    const [cart, setCart] = useState(new Map());
 
     async function setupItemPage() {
         await checkJWTFromStorage(setLoggedIn, setAuth);
@@ -58,8 +61,15 @@ function ItemPage(props:any) {
                 const tempUserReviewsList = await getUserReviewsList(setIsLoading, receivedItem.itemId ? receivedItem.itemId : 0);
                 setUserReviewsList(tempUserReviewsList)
             } else {
-                const localCart: Object = JSON.parse(localStorage.getItem('anonymousCart') ?? '{}');
+                const localCartString = localStorage.getItem('anonymousCart');
+                const localCart: Object = JSON.parse(localCartString === '' || localCartString === null ? '{}' : localCartString);
                 setAlreadyAddedToCart(localCart.hasOwnProperty(passedId ?? ''));
+                if(Object.keys(localCart).length === 0) {
+                    setShowCart(false);
+                } else {
+                    setCart(new Map(Object.entries(localCart)));
+                    setShowCart(true);
+                }
             }
         } else {
             // the received item id doesnt exist / is deleted
@@ -71,6 +81,7 @@ function ItemPage(props:any) {
                     localArray.splice(voidPoint, 1);
                 localStorage.setItem('carouselArray', JSON.stringify(localArray));
             }
+            console.log("item doesnt exist");
             showSnackBar('Item doesn\'t exist', setSnackBarMessage);
         }
     }
@@ -79,7 +90,7 @@ function ItemPage(props:any) {
     useEffect(() => {
         setupItemPage();
         // eslint-disable-next-line
-    }, [passedId,]);
+    }, [passedId, alreadyAddedToCart]);
     return(
         <div id="item" className="flex flex-col pt-24 items-center bg-slate-100 dark:bg-slate-800 h-screen w-full text-slate-800 dark:text-slate-100">
             <ItemBigCard  {...{item: item, auth: auth,
@@ -93,6 +104,11 @@ function ItemPage(props:any) {
                 }}/>
             <Snacc {...{"message": snackBarMessage}} />
             <Loading {...{"isLoading": isLoading}} />
+            <ShoppingCart {...{
+                anonymous: true,
+                cart: cart,
+                showCart: showCart,
+            }} />
         </div>
     )
 }

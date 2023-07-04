@@ -39,7 +39,8 @@ export const addItemToCart = async (itemId: string, auth: string, setSnackBarMes
     const cartObj = Object.fromEntries(cartMap);
 
     if(auth === '') {
-        let localCart: any = JSON.parse(localStorage.getItem('anonymousCart') ?? '{}');
+        const localCartString = localStorage.getItem('anonymousCart');
+        let localCart: Object = JSON.parse(localCartString === '' || localCartString === null ? '{}' : localCartString);
         // parse function already handles the empty object case
         localCart = {...localCart, ...cartObj};
         localStorage.setItem('anonymousCart', JSON.stringify(localCart));
@@ -69,9 +70,10 @@ export async function getItem(passedId: string, setIsLoading: React.Dispatch<Rea
     const fetchLocation = getBackendLocation();
     const res = await fetch(`${fetchLocation}/api/items/get-item/${passedId}/`, options);
     const resJ = await res.json();
+    const item = Item.fromMap(JSON.parse(resJ.itemObjStr ?? '{}'));
     setIsLoading(false);
-    if(resJ.succ) {
-        return Item.fromMap(JSON.parse(resJ.itemObjStr ?? '{}'));
+    if(item.itemId) {
+        return item;
     } else {
         showSnackBar(resJ.message, setSnackBarMessage);
         return null

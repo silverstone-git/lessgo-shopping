@@ -5,6 +5,17 @@ function CarouselDashboard(props: any) {
 
     // const carouselParentRef = useRef<HTMLDivElement>(null);
     const [curSlide, setCurSlide] = useState(0);
+    const [autoSlideAllow, setAutoSlideAllow] = useState(true);
+    const autoSlide = () => {
+      if(autoSlideAllow === true) {
+        setAutoSlideAllow(false);
+        setTimeout(() => {
+          slide(1);
+          setAutoSlideAllow(true);
+        }, 3000);
+      }
+    }
+    autoSlide();
 
     function slide(slideTo: number) {
         // const parent = (carouselParentRef.current as HTMLDivElement)
@@ -78,6 +89,7 @@ function CarouselDashboard(props: any) {
     type="button"
     onClick={() => {
         slide(-1);
+        // clearInterval(intervalId);
     }}
     
     >
@@ -106,6 +118,7 @@ function CarouselDashboard(props: any) {
     type="button"
     onClick={() => {
         slide(1);
+        // clearInterval(intervalId);
     }}
     >
     <span className="inline-block h-8 w-8">
