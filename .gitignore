@@ -29,3 +29,5 @@ message.txt
 .env
 tdl
 package-lock.json
+public/env.js
+env.prod.js

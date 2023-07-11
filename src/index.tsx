@@ -23,9 +23,10 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const window1 : any = { ...window };
 
 root.render(
-  <GoogleOAuthProvider clientId={process.env.REACT_APP_GOAUTH_CLID!}>
+  <GoogleOAuthProvider clientId={window1.__ENV__?.REACT_APP_GOAUTH_CLID ?? ""}>
   <React.StrictMode>
     <BrowserRouter>
     <Routes>
